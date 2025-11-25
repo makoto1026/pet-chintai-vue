@@ -11,7 +11,9 @@
 
     <!-- Phase 5: 選ばれる理由 -->
     <ReasonsSection />
+
     <!-- Phase 6: ご相談・来店 -->
+    <ConsultationSection />
     <!-- Phase 7: 物件選び放題 -->
     <!-- Phase 8: SNS紹介 -->
     <!-- Phase 9: 安心ポイント -->
@@ -31,6 +33,7 @@ import FirstViewSection from '@/components/sections/FirstViewSection.vue';
 import MediaSection from '@/components/sections/MediaSection.vue';
 import ConcernsSection from '@/components/sections/ConcernsSection.vue';
 import ReasonsSection from '@/components/sections/ReasonsSection.vue';
+import ConsultationSection from '@/components/sections/ConsultationSection.vue';
 </script>
 
 <style scoped lang="scss">
