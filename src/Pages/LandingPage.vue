@@ -5,7 +5,9 @@
 
     <!-- Phase 3: メディア掲載 -->
     <MediaSection />
+
     <!-- Phase 4: お悩み -->
+    <ConcernsSection />
     <!-- Phase 5: 選ばれる理由 -->
     <!-- Phase 6: ご相談・来店 -->
     <!-- Phase 7: 物件選び放題 -->
@@ -25,6 +27,7 @@
 <script setup lang="ts">
 import FirstViewSection from '@/components/sections/FirstViewSection.vue';
 import MediaSection from '@/components/sections/MediaSection.vue';
+import ConcernsSection from '@/components/sections/ConcernsSection.vue';
 </script>
 
 <style scoped lang="scss">
