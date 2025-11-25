@@ -26,7 +26,9 @@
 
     <!-- Phase 10: お客様の声 -->
     <TestimonialsSection />
+
     <!-- Phase 11: ご相談・来店（再利用） -->
+    <ConsultationSection />
     <!-- Phase 12: ご入居までの流れ -->
     <!-- Phase 13: スマートにお部屋探し -->
     <!-- Phase 14: よくある質問 -->
