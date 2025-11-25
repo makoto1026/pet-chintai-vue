@@ -1,4 +1,8 @@
-// colorの定義
+// ============================================
+// カラー定義
+// ============================================
+
+// 既存カラー（互換性維持）
 $primary: #F88658;
 $secondary: #876050;
 $secondaryOpacity: rgba(135, 96, 80, 0.3);
@@ -9,7 +13,34 @@ $footer: #FDFAEF;
 $text: #876050;
 $white: #ffffff;
 
-// font sizeの定義
+// テキストカラー
+$text-brown: #5C442A;           // メインテキスト
+$text-brown-light: #774B35;     // サブテキスト
+
+// アクセントカラー
+$accent-orange: #F29945;        // 強調オレンジ
+$accent-orange-light: #FF820D;  // オレンジグラデーション（明）
+$accent-orange-dark: #F25608;   // オレンジグラデーション（暗）
+$accent-pink: #FB6E71;          // ピンク（グラデーション用）
+$accent-pink-dark: #EE4548;     // ピンク濃い（グラデーション用）
+
+// 背景カラー
+$background-pink: #F7D3BC;      // セクション背景ピンクベージュ
+$background-pink-light: #FFBBC5; // SNSセクション背景ピンク
+$background-yellow-accent: #FFF291; // イエローアクセント
+
+// ボタンカラー
+$btn-orange: #FF9035;           // 来店予約ボタン
+$btn-green: #24E567;            // LINE相談ボタン
+
+// フッター
+$footer-bg: #5C442A;            // フッター背景
+
+// ============================================
+// フォントサイズ定義
+// ============================================
+
+// 既存フォントサイズ（互換性維持）
 $xs: 12px;
 $sm: 14px;
 $md: 16px;
@@ -18,9 +49,51 @@ $x: 22px;
 $xl: 24px;
 $xxl: 44px;
 
-// font familyの定義
-$font-main: 'Helvetica Neue', sans-serif;
+// 新しいフォントサイズ体系（Figmaベース）
+$font-xxs: 11px;    // フッターコピーライト
+$font-xs: 12px;     // 小テキスト、ラベル
+$font-sm: 13px;     // お客様の声本文
+$font-md: 14px;     // 本文、ボタン小テキスト
+$font-base: 15px;   // 小見出し
+$font-lg: 16px;     // 本文、カードタイトル
+$font-xl: 17px;     // ポイント強調
+$font-2xl: 18px;    // STEP番号
+$font-3xl: 20px;    // 中見出し
+$font-4xl: 22px;    // ボタンテキスト、サブ見出し
+$font-5xl: 24px;    // 見出し
+$font-6xl: 26px;    // セクションタイトル
+$font-7xl: 32px;    // 大見出し
+$font-8xl: 40px;    // セクションタイトル（大）
+$font-9xl: 52px;    // ポイント番号（01, 02...）
+$font-10xl: 56px;   // 大ポイント番号
 
-// font family
+// ============================================
+// 行高定義（Figmaベース）
+// ============================================
+$line-height-xs: 12px;
+$line-height-sm: 14px;
+$line-height-md: 18px;
+$line-height-lg: 20px;
+$line-height-xl: 22px;
+$line-height-2xl: 24px;
+$line-height-3xl: 30px;
+$line-height-4xl: 32px;
+$line-height-5xl: 40px;
+$line-height-6xl: 46px;
+$line-height-7xl: 52px;
+
+// ============================================
+// フォントファミリー定義
+// ============================================
+$font-main: 'Helvetica Neue', sans-serif;
 $font-mincho: 'Shippori Mincho', serif;
 $font-gothic: 'Zen Kaku Gothic New', sans-serif;
+$font-gothic-a1: 'Gothic A1', sans-serif;  // Figmaで使用
+
+// ============================================
+// フォントウェイト定義
+// ============================================
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
