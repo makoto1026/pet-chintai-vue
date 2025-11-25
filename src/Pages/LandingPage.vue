@@ -3,8 +3,8 @@
     <!-- Phase 2: ファーストビュー -->
     <FirstViewSection />
 
-    <!-- 以下、後続Phaseで追加予定 -->
     <!-- Phase 3: メディア掲載 -->
+    <MediaSection />
     <!-- Phase 4: お悩み -->
     <!-- Phase 5: 選ばれる理由 -->
     <!-- Phase 6: ご相談・来店 -->
@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import FirstViewSection from '@/components/sections/FirstViewSection.vue';
+import MediaSection from '@/components/sections/MediaSection.vue';
 </script>
 
 <style scoped lang="scss">
