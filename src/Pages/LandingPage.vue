@@ -14,7 +14,9 @@
 
     <!-- Phase 6: ご相談・来店 -->
     <ConsultationSection />
+
     <!-- Phase 7: 物件選び放題 -->
+    <PropertySection />
     <!-- Phase 8: SNS紹介 -->
     <!-- Phase 9: 安心ポイント -->
     <!-- Phase 10: お客様の声 -->
@@ -34,6 +36,7 @@ import MediaSection from '@/components/sections/MediaSection.vue';
 import ConcernsSection from '@/components/sections/ConcernsSection.vue';
 import ReasonsSection from '@/components/sections/ReasonsSection.vue';
 import ConsultationSection from '@/components/sections/ConsultationSection.vue';
+import PropertySection from '@/components/sections/PropertySection.vue';
 </script>
 
 <style scoped lang="scss">

@@ -247,19 +247,14 @@
   font-weight: $font-weight-semibold;
   line-height: 22px;
   text-align: center;
-  background: linear-gradient(
-    180deg,
-    rgba(94, 56, 30, 0) 37%,
-    rgb(94, 56, 30) 76%
-  ),
-  linear-gradient(90deg, #BA800F 0%, #BA800F 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0px 0px 10px rgba(255, 255, 255, 1),
-               0px 0px 4px rgba(255, 255, 255, 1);
   z-index: 5;
   margin: 0;
+  // グラデーションテキストをfilterで実現
+  color: #BA800F;
+  text-shadow:
+    0px 0px 10px $white,
+    0px 0px 4px $white,
+    0px 0px 4px $white;
 
   &__amp {
     font-size: $font-3xl;
