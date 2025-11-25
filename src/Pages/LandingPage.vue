@@ -8,7 +8,9 @@
 
     <!-- Phase 4: お悩み -->
     <ConcernsSection />
+
     <!-- Phase 5: 選ばれる理由 -->
+    <ReasonsSection />
     <!-- Phase 6: ご相談・来店 -->
     <!-- Phase 7: 物件選び放題 -->
     <!-- Phase 8: SNS紹介 -->
@@ -28,6 +30,7 @@
 import FirstViewSection from '@/components/sections/FirstViewSection.vue';
 import MediaSection from '@/components/sections/MediaSection.vue';
 import ConcernsSection from '@/components/sections/ConcernsSection.vue';
+import ReasonsSection from '@/components/sections/ReasonsSection.vue';
 </script>
 
 <style scoped lang="scss">
