@@ -7,6 +7,7 @@ pet-chintai（ペット可賃貸）のランディングページを実装する
 - Figmaデザインを参照して実装を進める
 - 各Phase完了後にユーザーへ動作確認を促す
 - 動作確認完了後にコミットを行う
+- Figma MCPを使用して画像アセットをエクスポートする（詳細はCLAUDE.md参照）
 
 ## Figmaデザイン
 - メインデザイン: https://www.figma.com/design/qbRwLPuwgiQL3RRehuz1Cw/pet-chintai?node-id=1-3140&m=dev
@@ -154,16 +155,31 @@ $font-gothic-a1: 'Gothic A1', sans-serif;
 https://www.figma.com/design/qbRwLPuwgiQL3RRehuz1Cw/pet-chintai?node-id=1-3598&m=dev
 
 ### デザイン仕様
-- 背景: 画像 + グラデーションオーバーレイ
-- ロゴ: 上部中央配置
-- キャッチコピー: 「ペット住まいラボ」＋サブテキスト
-- CTAボタン: 来店予約（オレンジ）、LINE相談（グリーン）
+- サイズ: 375px × 626px
+- 背景: 犬の画像 + テクスチャ（mix-blend-mode: soft-light） + グラデーションオーバーレイ
+- ヘッダー: 左「ペット住まいラボ」（オレンジテキスト）、右「GLH Inc.」ロゴ画像
+- メインタイトル: 「ペット住まいラボ」（48px、オレンジ、text-shadow付き）
+- サブタイトル: 「メディア掲載&有名人担当多数！」（22px、ゴールドグラデーション）
+- バッジ: 3つの円形バッジ（98px × 98px）
+  - 「安価~高級まで 幅広い」
+  - 「物件数 トップクラス」
+  - 「SNS総フォロワー 1万人」
+
+### 画像アセット（エクスポート済み）
+| ファイル名 | 用途 | 保存先 |
+|-----------|------|--------|
+| fv-dog.png | メイン犬画像 | src/assets/images/ |
+| fv-bg-texture.png | 背景テクスチャ | src/assets/images/ |
+| fv-bottom-bg.png | 下部背景装飾 | src/assets/images/ |
+| badge-bg.png | バッジ背景 | src/assets/images/ |
+| glh-logo.png | GLH Inc.ロゴ | src/assets/images/ |
 
 ### 作業内容
 1. ファーストビューセクションのコンポーネント作成
-2. ヘッダー部分の実装（ロゴ）
+2. ヘッダー部分の実装（ロゴテキスト + GLHロゴ画像）
 3. メインビジュアル・キャッチコピーの実装
-4. CTAボタンの実装（共通コンポーネント化）
+4. バッジ（3つ）の実装
+5. CTAボタンの実装（共通コンポーネント化）
 
 ### 作成予定コンポーネント
 - `src/components/sections/FirstViewSection.vue`
