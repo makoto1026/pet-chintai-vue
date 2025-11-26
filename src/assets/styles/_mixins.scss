@@ -1,3 +1,7 @@
+// ============================================
+// レスポンシブブレイクポイント
+// ============================================
+
 @mixin sp {
   @media (max-width: 767px) {
     @content;
@@ -14,4 +18,144 @@
   @media (min-width: 1024px) {
     @content;
   }
+}
+
+// ============================================
+// グラデーションミックスイン
+// ============================================
+
+// ピンク系グラデーション（見出し用）
+@mixin gradient-pink-text {
+  background: linear-gradient(180deg, #FB6E71 19.231%, #EE4548 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// オレンジ系グラデーション（見出し用）
+@mixin gradient-orange-text {
+  background: linear-gradient(180deg, #FF820D 51.22%, #F25608 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ポイント番号グラデーション
+@mixin gradient-point-number {
+  background: linear-gradient(180deg, #FB6E71 19.231%, #EE4548 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// STEPヘッダーグラデーション背景
+@mixin gradient-step-header {
+  background: linear-gradient(102.305deg, #5C442A 0%, #EE7F81 100%);
+}
+
+// 来店予約ボタングラデーション
+@mixin gradient-btn-orange {
+  background: linear-gradient(180deg, rgba(246, 95, 0, 0) 50%, rgba(246, 95, 0, 0.2) 87.805%),
+              linear-gradient(90deg, #FF9035 0%, #FF9035 100%);
+}
+
+// LINE相談ボタングラデーション
+@mixin gradient-btn-green {
+  background: linear-gradient(180deg, rgba(9, 172, 40, 0) 50%, rgba(9, 172, 40, 0.2) 87.805%),
+              linear-gradient(90deg, #24E567 0%, #24E567 100%);
+}
+
+// セクション背景グラデーション（ご相談・来店用）
+@mixin gradient-consultation-bg {
+  background: linear-gradient(180deg, #F7D3BC 0%, rgba(247, 211, 188, 0) 19.904%),
+              linear-gradient(90deg, rgba(193, 112, 60, 0.3) 0%, rgba(193, 112, 60, 0.3) 100%);
+}
+
+// SNSセクション背景グラデーション
+@mixin gradient-sns-bg {
+  background: linear-gradient(225.995deg, rgba(255, 226, 151, 0) 60.923%, #FFE297 100%),
+              linear-gradient(47.3137deg, rgba(246, 128, 216, 0) 61.226%, rgba(246, 128, 216, 0.5) 101.56%),
+              linear-gradient(90deg, #FFBBC5 0%, #FFBBC5 100%);
+}
+
+// ============================================
+// ボタンスタイルミックスイン
+// ============================================
+
+// CTAボタン共通スタイル
+@mixin cta-button-base {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 0;
+  width: 280px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px #ffffff, 0px 0px 10px 0px #ffffff;
+  overflow: hidden;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+// ============================================
+// テキストスタイルミックスイン
+// ============================================
+
+// セクションタイトル（Shippori Mincho SemiBold 26px）
+@mixin section-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 40px;
+}
+
+// 本文テキスト（Gothic A1 Medium 14px）
+@mixin body-text {
+  font-family: 'Gothic A1', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+// 本文テキスト大（Gothic A1 Medium 16px）
+@mixin body-text-lg {
+  font-family: 'Gothic A1', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+// カードタイトル（Shippori Mincho SemiBold 16px）
+@mixin card-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+// ラベルテキスト（Gothic A1 Medium 12px）
+@mixin label-text {
+  font-family: 'Gothic A1', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+// ============================================
+// カードスタイルミックスイン
+// ============================================
+
+// 白背景カード
+@mixin white-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+// シャドウ付きカード
+@mixin shadow-card {
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
 }

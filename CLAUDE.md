@@ -77,3 +77,30 @@ make all             # ビルドとデプロイを実行
 ### スタイルの共通化
 - `fontSize`やカラーなどは`_variables.scss`の変数を使用することを原則とする
 - 直接値をハードコーディングせず、共通変数を参照する
+
+### Figma画像アセットのエクスポート
+FigmaからUI実装を行う際は、以下の手順で画像アセットをエクスポートする：
+
+1. **Figma MCP連携**
+   - Figma MCPサーバーを起動: `claude mcp add --transport sse figma-mcp http://127.0.0.1:3845/sse`
+   - Figmaデスクトップアプリで対象ドキュメントを開いた状態にする
+
+2. **デザインコンテキスト取得**
+   - `get_design_context`でノードIDを指定してデザイン情報を取得
+   - 画像アセットは`http://localhost:3845/assets/...`形式のURLで取得可能
+
+3. **画像のダウンロード**
+   ```bash
+   # 例: メイン画像
+   curl -o src/assets/images/[画像名].png "http://localhost:3845/assets/[hash].png"
+   ```
+
+4. **保存先ディレクトリ**
+   - `src/assets/images/` - 画像アセット（PNG, JPG）
+   - `src/components/icons/` - SVGアイコンコンポーネント
+
+5. **命名規則**
+   - ファーストビュー: `fv-*.png`（例: `fv-dog.png`, `fv-bg-texture.png`）
+   - バッジ・装飾: `badge-*.png`（例: `badge-bg.png`）
+   - ロゴ: `*-logo.png`（例: `glh-logo.png`）
+   - セクション別: `[section名]-*.png`

@@ -1,9 +1,10 @@
 // router/index.ts
 import { createRouter, createWebHistory } from 'vue-router'
 import PrioritiesPage from '../Pages/PrioritiesPage.vue'
+import LandingPage from '../Pages/LandingPage.vue'
 
 const routes = [
-  { path: '/', redirect: '/priorities' },
+  { path: '/', component: LandingPage },
   { path: '/priorities', component: PrioritiesPage }
 ]
 
