@@ -29,8 +29,12 @@
 
     <!-- Phase 11: ご相談・来店（再利用） -->
     <ConsultationSection />
+
     <!-- Phase 12: ご入居までの流れ -->
+    <FlowSection />
+
     <!-- Phase 13: スマートにお部屋探し -->
+    <SmartSearchSection />
     <!-- Phase 14: よくある質問 -->
     <!-- Phase 15: 店舗情報 -->
     <!-- Phase 16: ご相談・来店（再利用） -->
@@ -48,6 +52,8 @@ import PropertySection from '@/components/sections/PropertySection.vue';
 import SnsSection from '@/components/sections/SnsSection.vue';
 import SafetyPointSection from '@/components/sections/SafetyPointSection.vue';
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue';
+import FlowSection from '@/components/sections/FlowSection.vue';
+import SmartSearchSection from '@/components/sections/SmartSearchSection.vue';
 </script>
 
 <style scoped lang="scss">
