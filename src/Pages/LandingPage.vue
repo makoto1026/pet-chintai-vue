@@ -35,7 +35,9 @@
 
     <!-- Phase 13: スマートにお部屋探し -->
     <SmartSearchSection />
+
     <!-- Phase 14: よくある質問 -->
+    <FaqSection />
     <!-- Phase 15: 店舗情報 -->
     <!-- Phase 16: ご相談・来店（再利用） -->
     <!-- Phase 17: フッター -->
@@ -54,6 +56,7 @@ import SafetyPointSection from '@/components/sections/SafetyPointSection.vue';
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue';
 import FlowSection from '@/components/sections/FlowSection.vue';
 import SmartSearchSection from '@/components/sections/SmartSearchSection.vue';
+import FaqSection from '@/components/sections/FaqSection.vue';
 </script>
 
 <style scoped lang="scss">
