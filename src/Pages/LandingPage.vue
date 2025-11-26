@@ -41,8 +41,12 @@
 
     <!-- Phase 15: 店舗情報 -->
     <ShopInfoSection />
+
     <!-- Phase 16: ご相談・来店（再利用） -->
+    <ConsultationSection />
+
     <!-- Phase 17: フッター -->
+    <FooterSection />
   </div>
 </template>
 
@@ -60,6 +64,7 @@ import FlowSection from '@/components/sections/FlowSection.vue';
 import SmartSearchSection from '@/components/sections/SmartSearchSection.vue';
 import FaqSection from '@/components/sections/FaqSection.vue';
 import ShopInfoSection from '@/components/sections/ShopInfoSection.vue';
+import FooterSection from '@/components/sections/FooterSection.vue';
 </script>
 
 <style scoped lang="scss">
