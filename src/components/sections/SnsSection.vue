@@ -85,9 +85,9 @@ import youtubeIcon from '@/assets/images/youtube.svg';
   position: relative;
   width: 100%;
   max-width: 375px;
-  height: 342px;
+  height: 358px;
   margin: 0 auto;
-  padding: 16px 16px 0;
+  padding: 16px;
   box-sizing: border-box;
   overflow: hidden;
   background: linear-gradient(
@@ -276,14 +276,10 @@ import youtubeIcon from '@/assets/images/youtube.svg';
     );
   }
 
-  // SNSボタン: カード下の余白の上下中央に配置
-  // カード下端: 16px + 270px = 286px, セクション高さ: 342px
-  // 余白: 342px - 286px = 56px, ボタン高さ36px
-  // 上下中央: 286px + (56px - 36px) / 2 = 296px
   &__buttons {
     position: absolute;
-    right: 16px;
-    bottom: 4px;
+    left: 216px;
+    bottom: 16px;
     display: flex;
     gap: 10px;
 
