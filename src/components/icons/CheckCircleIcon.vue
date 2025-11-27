@@ -6,17 +6,18 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <!-- 黄色い塗りつぶし円 -->
     <circle
       cx="10"
       cy="10"
-      r="9"
-      stroke="#F29945"
-      stroke-width="2"
+      r="10"
+      fill="#FFF291"
     />
+    <!-- オレンジのチェックマーク -->
     <path
-      d="M6 10L9 13L14 7"
+      d="M5.5 10L8.5 13L14.5 6.5"
       stroke="#F29945"
-      stroke-width="2"
+      stroke-width="2.5"
       stroke-linecap="round"
       stroke-linejoin="round"
     />

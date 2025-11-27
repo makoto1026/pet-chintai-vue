@@ -20,7 +20,7 @@
       <!-- ポイント一覧 -->
       <div class="safety-section__points">
         <div class="safety-section__point">
-          <CheckCircleIcon class="safety-section__check-icon" />
+          <img :src="checkIcon" alt="" class="safety-section__check-icon" />
           <p class="safety-section__point-text">
             <span class="safety-section__point-highlight">ペットにも優しいお部屋</span>
             <span class="safety-section__point-normal">が探せる</span>
@@ -29,7 +29,7 @@
         </div>
         <div class="safety-section__divider"></div>
         <div class="safety-section__point">
-          <CheckCircleIcon class="safety-section__check-icon" />
+          <img :src="checkIcon" alt="" class="safety-section__check-icon" />
           <p class="safety-section__point-text">
             <span class="safety-section__point-highlight">周辺環境</span>
             <span class="safety-section__point-normal">を整えられる</span>
@@ -57,8 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import CheckCircleIcon from '@/components/icons/CheckCircleIcon.vue';
 import backgroundImage from '@/assets/images/safety-bg.png';
+import checkIcon from '@/assets/images/check-yellow.svg';
 </script>
 
 <style scoped lang="scss">
@@ -95,7 +95,7 @@ import backgroundImage from '@/assets/images/safety-bg.png';
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 248, 220, 0.4);
   }
 
   &__card {
@@ -157,6 +157,8 @@ import backgroundImage from '@/assets/images/safety-bg.png';
   }
 
   &__check-icon {
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
     margin-top: 2px;
   }
@@ -182,23 +184,19 @@ import backgroundImage from '@/assets/images/safety-bg.png';
   &__marker {
     position: absolute;
     height: 15px;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 242, 145, 0.8) 0%,
-      rgba(255, 242, 145, 0.8) 100%
-    );
+    background: rgba(255, 242, 145, 0.6);
     mix-blend-mode: multiply;
     z-index: -1;
 
     &--1 {
       left: 30px;
-      top: 7px;
+      top: 12px;
       width: 188px;
     }
 
     &--2 {
       left: 30px;
-      top: 7px;
+      top: 12px;
       width: 70px;
     }
   }
@@ -206,11 +204,25 @@ import backgroundImage from '@/assets/images/safety-bg.png';
   &__divider {
     width: 295px;
     height: 1px;
-    background: linear-gradient(
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 3px,
+      #e0d5c9 3px,
+      #e0d5c9 8px
+    );
+    mask-image: linear-gradient(
       90deg,
       transparent 0%,
-      #e0d5c9 20%,
-      #e0d5c9 80%,
+      black 15%,
+      black 85%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 15%,
+      black 85%,
       transparent 100%
     );
   }
