@@ -96,7 +96,7 @@ const faqItems = [
   &__divider {
     width: 100%;
     height: 1px;
-    border-bottom: 1px dashed rgba(92, 68, 42, 0.3);
+    border-bottom: 1px solid rgba(92, 68, 42, 0.3);
   }
 
   &__answer {
