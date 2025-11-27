@@ -142,7 +142,7 @@ import slashRightImage from '@/assets/images/testimonial-slash-right.svg';
   width: 100%;
   max-width: 375px;
   margin: 0 auto;
-  padding: 30px 20px 40px;
+  padding: 30px 20px 0;
   box-sizing: border-box;
   background: $white;
   overflow: hidden;

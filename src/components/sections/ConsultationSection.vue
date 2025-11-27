@@ -6,7 +6,8 @@
         alt=""
         class="consultation-section__bg-image"
       />
-      <div class="consultation-section__overlay"></div>
+      <div v-if="!hideTopOverlay" class="consultation-section__overlay"></div>
+      <div v-if="hideTopOverlay" class="consultation-section__white-gradient"></div>
     </div>
     <div class="consultation-section__content">
       <CtaButton
@@ -26,8 +27,16 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue';
 import CtaButton from '@/components/common/CtaButton.vue';
 import backgroundImage from '@/assets/images/consultation-bg.png';
+
+defineProps({
+  hideTopOverlay: {
+    type: Boolean,
+    default: false
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -74,6 +83,19 @@ import backgroundImage from '@/assets/images/consultation-bg.png';
       90deg,
       rgba(193, 112, 60, 0.3) 0%,
       rgba(193, 112, 60, 0.3) 100%
+    );
+  }
+
+  &__white-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
     );
   }
 

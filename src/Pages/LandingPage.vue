@@ -28,7 +28,7 @@
     <TestimonialsSection />
 
     <!-- Phase 11: ご相談・来店（再利用） -->
-    <ConsultationSection />
+    <ConsultationSection :hide-top-overlay="true" />
 
     <!-- Phase 12: ご入居までの流れ -->
     <FlowSection />
