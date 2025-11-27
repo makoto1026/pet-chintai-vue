@@ -75,7 +75,7 @@
 
       <!-- 選ばれる理由テキスト -->
       <p class="concerns-section__reason-text">
-        <span class="concerns-section__reason-text-normal">ペット住まいラボ</span><span class="concerns-section__reason-text-small">が</span><span class="concerns-section__reason-text-normal">選ばれる</span><span class="concerns-section__reason-text-highlight">４</span><span class="concerns-section__reason-text-highlight-small">つ</span><span class="concerns-section__reason-text-normal">の理由</span>
+        <span class="concerns-section__reason-text-name">ペット住まいラボ</span><span class="concerns-section__reason-text-small">が</span><span class="concerns-section__reason-text-small">選ばれる</span><span class="concerns-section__reason-text-number">４</span><span class="concerns-section__reason-text-unit">つ</span><span class="concerns-section__reason-text-small">の理由</span>
       </p>
 
       <!-- グラデーション切り替え部分 -->
@@ -173,7 +173,7 @@ import CheckSquareIcon from '@/components/icons/CheckSquareIcon.vue';
 
   &__worry-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     padding: 10px 0;
     border-bottom: 1px solid #d9d9d9;
@@ -185,7 +185,6 @@ import CheckSquareIcon from '@/components/icons/CheckSquareIcon.vue';
 
   &__worry-icon {
     flex-shrink: 0;
-    margin-top: 2px;
   }
 
   &__worry-text {
@@ -217,7 +216,7 @@ import CheckSquareIcon from '@/components/icons/CheckSquareIcon.vue';
     left: 0;
     width: 100%;
     height: 52px;
-    background: linear-gradient(90deg, #5C442A 0%, #774B35 100%);
+    background: linear-gradient(90deg, #A87045 0%, #C4894A 100%);
 
     &::after {
       content: '';
@@ -226,7 +225,7 @@ import CheckSquareIcon from '@/components/icons/CheckSquareIcon.vue';
       left: 0;
       width: 100%;
       height: 20px;
-      background: linear-gradient(90deg, #5C442A 0%, #774B35 100%);
+      background: linear-gradient(90deg, #A87045 0%, #C4894A 100%);
       clip-path: polygon(0 0, 100% 0, 50% 100%);
     }
   }
@@ -331,22 +330,25 @@ import CheckSquareIcon from '@/components/icons/CheckSquareIcon.vue';
     z-index: 5;
   }
 
-  &__reason-text-normal {
-    font-size: $font-3xl;
+  &__reason-text-name {
+    font-size: 20px;
+    letter-spacing: -1px;
   }
 
   &__reason-text-small {
-    font-size: $font-lg;
+    font-size: 16px;
   }
 
-  &__reason-text-highlight {
-    font-size: $font-6xl;
-    @include gradient-orange-text;
+  &__reason-text-number {
+    font-size: 26px;
+    letter-spacing: -5.2px;
+    color: #E85A00;
   }
 
-  &__reason-text-highlight-small {
-    font-size: $font-lg;
-    @include gradient-orange-text;
+  &__reason-text-unit {
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+    color: #E85A00;
   }
 
   &__gradient-bottom {
