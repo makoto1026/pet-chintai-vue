@@ -114,9 +114,10 @@
 @import '@/assets/styles/mixins';
 
 .flow-section {
-  background: #F7D3BC;
+  background: #ffffff;
   padding: 0 0 60px;
   position: relative;
+  overflow: hidden;
 
   // 下部のグラデーション（白へフェード）
   &::after {
@@ -128,9 +129,13 @@
     height: 100px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
     pointer-events: none;
+    z-index: 2;
   }
 
+
   &__title-area {
+    position: relative;
+    z-index: 1;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
     padding: 30px 0 40px;
   }
@@ -149,6 +154,8 @@
   }
 
   &__steps {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -228,7 +235,7 @@
     background: #fff;
     padding: 20px;
     position: relative;
-    min-height: 106px;
+    min-height: 66px;
     display: flex;
     align-items: flex-start;
 
@@ -257,11 +264,14 @@
     transform: translateY(-50%);
     width: 70px;
     height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0.2;
 
     img {
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
     }
   }
