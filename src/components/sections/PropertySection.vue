@@ -9,6 +9,30 @@
       />
     </div>
 
+    <!-- 背景装飾 -->
+    <div class="property-section__decorations">
+      <img
+        :src="decorationImage"
+        alt=""
+        class="property-section__decoration property-section__decoration--1"
+      />
+      <img
+        :src="decorationImage"
+        alt=""
+        class="property-section__decoration property-section__decoration--2"
+      />
+      <img
+        :src="decorationImage"
+        alt=""
+        class="property-section__decoration property-section__decoration--3"
+      />
+      <img
+        :src="decorationImage"
+        alt=""
+        class="property-section__decoration property-section__decoration--4"
+      />
+    </div>
+
     <!-- 見出し -->
     <div class="property-section__header">
       <p class="property-section__subtitle">＼ 安価から高級まで ／</p>
@@ -40,6 +64,7 @@
 <script setup lang="ts">
 import PropertyCard from '@/components/common/PropertyCard.vue';
 import backgroundImage from '@/assets/images/property-bg.png';
+import decorationImage from '@/assets/images/properties-bg-decoration.png';
 import propertySampleImage from '@/assets/images/property-sample.png';
 
 const properties = [
@@ -105,6 +130,52 @@ const properties = [
     height: 100%;
     object-fit: cover;
     margin-left: -40%;
+  }
+
+  &__decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 660px;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__decoration {
+    position: absolute;
+    width: 276px;
+    height: 295px;
+    object-fit: cover;
+
+    // 左下の装飾
+    &--1 {
+      left: -109px;
+      top: 439px;
+      transform: rotate(300.6deg);
+    }
+
+    // 右上の装飾
+    &--2 {
+      left: 123px;
+      top: -147px;
+      transform: rotate(100.7deg);
+    }
+
+    // 右中央の装飾
+    &--3 {
+      left: 154px;
+      top: 222px;
+      transform: rotate(182.4deg);
+    }
+
+    // 左上の装飾
+    &--4 {
+      left: -163px;
+      top: -106px;
+      transform: rotate(18deg) scaleY(-1);
+    }
   }
 
   &__header {

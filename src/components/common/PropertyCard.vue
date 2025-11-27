@@ -94,12 +94,12 @@ defineProps({
   }
 
   &__detail {
-    font-family: $font-gothic-a1;
-    font-weight: $font-weight-medium;
+    font-family: $font-mincho;
+    font-weight: $font-weight-regular;
     font-size: $font-xs;
-    line-height: 18px;
+    line-height: 20px;
     color: $text-brown;
-    text-align: center;
+    text-align: left;
     margin: 0;
   }
 }
