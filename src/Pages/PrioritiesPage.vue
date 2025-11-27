@@ -7,7 +7,7 @@
   <!-- 優待コンテンツ -->
   <div class="content">
     <FootprintsBrownIcon class="footprints-icon" />
-    <p class="info-text">お引越しして終わりじゃない。<br>ペット賃貸は、<br>その後のペットライフまで応援します。</p>
+    <p class="info-text">お引越しして終わりじゃない。<br>ペット住まいラボは、<br>その後のペットライフまで応援します。</p>
     <div class="service-container">
       <DogBrownIcon class="dog-icon" />
       <p class="title">SERVICE</p>

@@ -27,7 +27,9 @@
     <!-- 見出し -->
     <div class="testimonials-section__header">
       <p class="testimonials-section__subtitle">
-        ＼ こんな方にご利用いただいています ／
+        <img :src="slashLeftImage" alt="" class="testimonials-section__slash testimonials-section__slash--left" />
+        <span>こんな方にご利用いただいています</span>
+        <img :src="slashRightImage" alt="" class="testimonials-section__slash testimonials-section__slash--right" />
       </p>
       <h2 class="testimonials-section__title">お客様のお声</h2>
     </div>
@@ -127,6 +129,8 @@ import voice2Image from '@/assets/images/voice2.svg';
 import voice3Image from '@/assets/images/voice3.svg';
 import voice4Image from '@/assets/images/voice4.svg';
 import redLineImage from '@/assets/images/red-line.svg';
+import slashLeftImage from '@/assets/images/testimonial-slash-left.svg';
+import slashRightImage from '@/assets/images/testimonial-slash-right.svg';
 </script>
 
 <style scoped lang="scss">
@@ -196,6 +200,10 @@ import redLineImage from '@/assets/images/red-line.svg';
   }
 
   &__subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     font-family: $font-gothic-a1;
     font-weight: $font-weight-bold;
     font-size: $font-sm;
@@ -203,6 +211,11 @@ import redLineImage from '@/assets/images/red-line.svg';
     letter-spacing: 1.4px;
     color: $text-brown;
     margin: 0 0 10px;
+  }
+
+  &__slash {
+    width: 9px;
+    height: 16px;
   }
 
   &__title {
@@ -246,7 +259,8 @@ import redLineImage from '@/assets/images/red-line.svg';
     flex-direction: column;
     gap: 8px;
     margin-bottom: 10px;
-    max-width: calc(100% - 124px);
+    position: relative;
+    z-index: 3;
   }
 
   &__voice-heading-line {
@@ -255,10 +269,11 @@ import redLineImage from '@/assets/images/red-line.svg';
     font-weight: $font-weight-semibold;
     font-size: 15px;
     line-height: 24px;
-    color: $text-brown;
-    background: rgba(255, 242, 145, 0.6);
+    color: $white;
+    background: linear-gradient(90deg, #5c442a 0%, #ee7f81 100%);
     padding: 2px 5px 4px;
     width: fit-content;
+    white-space: nowrap;
   }
 
   &__voice-right {
@@ -273,16 +288,27 @@ import redLineImage from '@/assets/images/red-line.svg';
     position: relative;
     width: 100%;
     height: 100%;
-    background: #d9d9d9;
-    overflow: hidden;
+    overflow: visible;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #d9d9d9;
+      clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
+    }
   }
 
   &__red-line {
     position: absolute;
-    top: -1px;
-    left: -1px;
-    width: 34px;
-    height: 34px;
+    top: -25px;
+    left: -5px;
+    width: 40px;
+    height: 80px;
+    z-index: 2;
   }
 
   &__voice-text {
@@ -297,11 +323,25 @@ import redLineImage from '@/assets/images/red-line.svg';
   &__divider {
     width: 335px;
     height: 1.4px;
-    background: linear-gradient(
+    background: repeating-linear-gradient(
+      90deg,
+      #d5cabe 0px,
+      #d5cabe 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    mask-image: linear-gradient(
       90deg,
       transparent 0%,
-      #e0d5c9 10%,
-      #e0d5c9 90%,
+      black 5%,
+      black 95%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 5%,
+      black 95%,
       transparent 100%
     );
     margin: 30px 0;
