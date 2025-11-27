@@ -24,7 +24,12 @@
       <img
         src="@/assets/images/fv-bg-texture.png"
         alt=""
-        class="main-visual__texture"
+        class="main-visual__texture main-visual__texture--soft-light"
+      />
+      <img
+        src="@/assets/images/fv-bg-texture.png"
+        alt=""
+        class="main-visual__texture main-visual__texture--overlay"
       />
       <div class="main-visual__overlay"></div>
     </div>
@@ -156,9 +161,17 @@
     width: 247%;
     height: 102%;
     object-fit: cover;
-    mix-blend-mode: soft-light;
-    opacity: 0.35;
     pointer-events: none;
+
+    &--soft-light {
+      mix-blend-mode: soft-light;
+      opacity: 0.35;
+    }
+
+    &--overlay {
+      mix-blend-mode: overlay;
+      opacity: 0.15;
+    }
   }
 
   &__overlay {
@@ -288,15 +301,14 @@
 
   &__content {
     position: absolute;
-    top: 50%;
+    top: 32px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     width: 90%;
-    margin-top: 8px;
   }
 
   &__label {
