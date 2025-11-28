@@ -141,7 +141,7 @@ onUnmounted(() => {
 
   &__phone-mock {
     position: absolute;
-    left: -26px;
+    left: -10px;
     top: 85px;
     width: 220px;
     height: 296px;
