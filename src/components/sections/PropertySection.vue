@@ -35,7 +35,10 @@
 
     <!-- 見出し -->
     <div class="property-section__header">
-      <p class="property-section__subtitle">＼ 安価から高級まで ／</p>
+      <p
+        ref="subtitleRef"
+        :class="['property-section__subtitle', { 'property-section__subtitle--animated': isSubtitleVisible }]"
+      >＼ 安価から高級まで ／</p>
       <p class="property-section__title-top">
         <span class="property-section__title-brand">ペット住まいラボ</span>
         <span class="property-section__title-suffix">なら</span>
@@ -62,10 +65,36 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
 import PropertyCard from '@/components/common/PropertyCard.vue';
 import backgroundImage from '@/assets/images/property-bg.png';
 import decorationImage from '@/assets/images/properties-bg-decoration.png';
 import propertySampleImage from '@/assets/images/property-sample.png';
+
+// スクロールアニメーション用
+const subtitleRef = ref<HTMLElement | null>(null);
+const isSubtitleVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isSubtitleVisible.value = entry.isIntersecting;
+      });
+    },
+    { threshold: 0.3 }
+  );
+  if (subtitleRef.value) {
+    observer.observe(subtitleRef.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 
 const properties = [
   {
@@ -193,6 +222,27 @@ const properties = [
     letter-spacing: 1.4px;
     color: $text-brown;
     margin: 0 0 6px;
+    transform: scaleX(0);
+    opacity: 0;
+
+    &--animated {
+      animation: expandFromCenter 1s ease-out forwards;
+    }
+  }
+
+  @keyframes expandFromCenter {
+    0% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scaleX(1.15);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
   }
 
   &__title-top {

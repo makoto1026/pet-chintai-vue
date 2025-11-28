@@ -1,7 +1,10 @@
 <template>
   <section class="smart-search">
     <div class="smart-search__content">
-      <div class="smart-search__subtitle">
+      <div
+        ref="subtitleRef"
+        :class="['smart-search__subtitle', { 'smart-search__subtitle--animated': isSubtitleVisible }]"
+      >
         <span class="smart-search__subtitle-line smart-search__subtitle-line--left"></span>
         <span class="smart-search__subtitle-text">センスのいい賃貸をお探しなら</span>
         <span class="smart-search__subtitle-line smart-search__subtitle-line--right"></span>
@@ -22,7 +25,32 @@
 </template>
 
 <script setup lang="ts">
-// SmartSearchSection component
+import { ref, onMounted, onUnmounted } from 'vue';
+
+// スクロールアニメーション用
+const subtitleRef = ref<HTMLElement | null>(null);
+const isSubtitleVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isSubtitleVisible.value = entry.isIntersecting;
+      });
+    },
+    { threshold: 0.3 }
+  );
+  if (subtitleRef.value) {
+    observer.observe(subtitleRef.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -46,6 +74,27 @@
     justify-content: center;
     gap: 10px;
     margin-bottom: 6px;
+    transform: scaleX(0);
+    opacity: 0;
+
+    &--animated {
+      animation: expandFromCenter 1s ease-out forwards;
+    }
+  }
+
+  @keyframes expandFromCenter {
+    0% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scaleX(1.15);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
   }
 
   &__subtitle-text {

@@ -6,7 +6,10 @@
 
     <div class="flow-section__steps">
       <!-- STEP 1 - 左寄せ -->
-      <div class="flow-section__step flow-section__step--left">
+      <div
+        ref="step1Ref"
+        :class="['flow-section__step', 'flow-section__step--left', { 'flow-section__step--visible': step1Visible }]"
+      >
         <div class="flow-section__step-header flow-section__step-header--left">
           <div class="flow-section__step-label">
             <span class="flow-section__step-text-step">STEP</span>
@@ -25,7 +28,10 @@
       </div>
 
       <!-- STEP 2 - 右寄せ -->
-      <div class="flow-section__step flow-section__step--right">
+      <div
+        ref="step2Ref"
+        :class="['flow-section__step', 'flow-section__step--right', { 'flow-section__step--visible': step2Visible }]"
+      >
         <div class="flow-section__step-header flow-section__step-header--right">
           <div class="flow-section__step-label">
             <span class="flow-section__step-text-step">STEP</span>
@@ -36,7 +42,8 @@
         <div class="flow-section__step-content flow-section__step-content--right">
           <p class="flow-section__step-description">
             ペットと安心して暮らせるお部屋をご案内。<br />
-            当日の内見も可能です。
+            オフィスはドッグラン併用！<br />
+            ペットとオフィス来店、内見🉑！
           </p>
           <div class="flow-section__step-icon">
             <img src="@/assets/images/flow-icon-2.png" alt="" />
@@ -45,7 +52,10 @@
       </div>
 
       <!-- STEP 3 - 左寄せ -->
-      <div class="flow-section__step flow-section__step--left">
+      <div
+        ref="step3Ref"
+        :class="['flow-section__step', 'flow-section__step--left', { 'flow-section__step--visible': step3Visible }]"
+      >
         <div class="flow-section__step-header flow-section__step-header--left">
           <div class="flow-section__step-label">
             <span class="flow-section__step-text-step">STEP</span>
@@ -65,7 +75,10 @@
       </div>
 
       <!-- STEP 4 - 右寄せ -->
-      <div class="flow-section__step flow-section__step--right">
+      <div
+        ref="step4Ref"
+        :class="['flow-section__step', 'flow-section__step--right', { 'flow-section__step--visible': step4Visible }]"
+      >
         <div class="flow-section__step-header flow-section__step-header--right">
           <div class="flow-section__step-label">
             <span class="flow-section__step-text-step">STEP</span>
@@ -84,7 +97,10 @@
       </div>
 
       <!-- STEP 5 - 左寄せ -->
-      <div class="flow-section__step flow-section__step--left">
+      <div
+        ref="step5Ref"
+        :class="['flow-section__step', 'flow-section__step--left', { 'flow-section__step--visible': step5Visible }]"
+      >
         <div class="flow-section__step-header flow-section__step-header--left">
           <div class="flow-section__step-label">
             <span class="flow-section__step-text-step">STEP</span>
@@ -106,7 +122,48 @@
 </template>
 
 <script setup lang="ts">
-// FlowSection component
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const step1Ref = ref<HTMLElement | null>(null);
+const step2Ref = ref<HTMLElement | null>(null);
+const step3Ref = ref<HTMLElement | null>(null);
+const step4Ref = ref<HTMLElement | null>(null);
+const step5Ref = ref<HTMLElement | null>(null);
+
+const step1Visible = ref(false);
+const step2Visible = ref(false);
+const step3Visible = ref(false);
+const step4Visible = ref(false);
+const step5Visible = ref(false);
+
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === step1Ref.value) step1Visible.value = entry.isIntersecting;
+        if (entry.target === step2Ref.value) step2Visible.value = entry.isIntersecting;
+        if (entry.target === step3Ref.value) step3Visible.value = entry.isIntersecting;
+        if (entry.target === step4Ref.value) step4Visible.value = entry.isIntersecting;
+        if (entry.target === step5Ref.value) step5Visible.value = entry.isIntersecting;
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  [step1Ref, step2Ref, step3Ref, step4Ref, step5Ref].forEach((stepRef) => {
+    if (stepRef.value) {
+      observer?.observe(stepRef.value);
+    }
+  });
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -166,15 +223,30 @@
     display: flex;
     flex-direction: column;
     width: 355px;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 
     &--left {
       margin-left: 0;
       margin-right: auto;
+      opacity: 0;
+      transform: translateX(-50px);
+
+      &.flow-section__step--visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     &--right {
       margin-left: auto;
       margin-right: 0;
+      opacity: 0;
+      transform: translateX(50px);
+
+      &.flow-section__step--visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
   }
 

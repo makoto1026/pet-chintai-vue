@@ -59,8 +59,8 @@
     </p>
 
     <!-- バッジエリア -->
-    <div class="badges">
-      <div class="badge">
+    <div ref="badgesRef" class="badges">
+      <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
         <img
           src="@/assets/images/badge-bg.png"
           alt=""
@@ -71,7 +71,7 @@
           <span class="badge__value">幅広い</span>
         </div>
       </div>
-      <div class="badge">
+      <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
         <img
           src="@/assets/images/badge-bg.png"
           alt=""
@@ -82,7 +82,7 @@
           <span class="badge__value badge__value--small">トップクラス</span>
         </div>
       </div>
-      <div class="badge">
+      <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
         <img
           src="@/assets/images/badge-bg.png"
           alt=""
@@ -98,7 +98,31 @@
 </template>
 
 <script setup lang="ts">
-// ファーストビューセクション
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const badgesRef = ref<HTMLElement | null>(null);
+const isBadgesVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isBadgesVisible.value = entry.isIntersecting;
+      });
+    },
+    { threshold: 0.3 }
+  );
+  if (badgesRef.value) {
+    observer.observe(badgesRef.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -285,10 +309,27 @@
   z-index: 5;
 }
 
+// バッジアニメーション
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .badge {
   position: relative;
   width: 98px;
   height: 98px;
+
+  &--animate {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.2s forwards;
+  }
 
   &__bg {
     position: absolute;

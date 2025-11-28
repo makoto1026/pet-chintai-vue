@@ -37,7 +37,17 @@ defineProps({
 @import '@/assets/styles/_variables.scss';
 @import '@/assets/styles/_mixins.scss';
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.93);
+  }
+}
+
 .cta-button {
+  animation: pulse 1.2s ease-in-out infinite;
   display: flex;
   flex-direction: column;
   align-items: center;

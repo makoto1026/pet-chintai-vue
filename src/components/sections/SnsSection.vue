@@ -1,9 +1,11 @@
 <template>
-  <section class="sns-section">
+  <section ref="sectionRef" class="sns-section">
     <!-- 背景白部分 -->
     <div class="sns-section__card">
       <!-- スマホモック（2つ重なっている） -->
-      <div class="sns-section__phone-mock">
+      <div
+        :class="['sns-section__phone-mock', { 'sns-section__phone-mock--animated': isPhoneVisible }]"
+      >
         <div class="sns-section__phone-back">
           <img
             :src="phoneMockImage"
@@ -55,26 +57,52 @@
 
     <!-- SNSボタン -->
     <div class="sns-section__buttons">
-      <a href="https://www.instagram.com/petestate.jp/" target="_blank" rel="noopener noreferrer">
-        <img :src="instaIcon" alt="Instagram" class="sns-section__sns-icon" />
+      <a href="https://www.instagram.com/petestate.jp/" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link">
+        <img :src="instaIcon" alt="Instagram" class="sns-section__sns-icon sns-section__sns-icon--pulse" />
       </a>
-      <a href="https://www.tiktok.com/@petestate.jp" target="_blank" rel="noopener noreferrer">
-        <img :src="tiktokIcon" alt="TikTok" class="sns-section__sns-icon" />
+      <a href="https://www.tiktok.com/@petestate.jp" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link">
+        <img :src="tiktokIcon" alt="TikTok" class="sns-section__sns-icon sns-section__sns-icon--pulse" />
       </a>
-      <a href="https://www.youtube.com/@petestate" target="_blank" rel="noopener noreferrer">
-        <img :src="youtubeIcon" alt="YouTube" class="sns-section__sns-icon" />
+      <a href="https://www.youtube.com/@petestate" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link">
+        <img :src="youtubeIcon" alt="YouTube" class="sns-section__sns-icon sns-section__sns-icon--pulse" />
       </a>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
 import phoneMockImage from '@/assets/images/sns-phone-mock.png';
 import instagramLogoImage from '@/assets/images/sns-instagram-logo.png';
 import followerDecorationImage from '@/assets/images/sns-follower-decoration.png';
 import instaIcon from '@/assets/images/insta.svg';
 import tiktokIcon from '@/assets/images/tiktok.svg';
 import youtubeIcon from '@/assets/images/youtube.svg';
+
+// スクロールアニメーション用
+const sectionRef = ref<HTMLElement | null>(null);
+const isPhoneVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isPhoneVisible.value = entry.isIntersecting;
+      });
+    },
+    { threshold: 0.2 }
+  );
+  if (sectionRef.value) {
+    observer.observe(sectionRef.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -118,6 +146,23 @@ import youtubeIcon from '@/assets/images/youtube.svg';
     width: 220px;
     height: 296px;
     z-index: 2;
+    transform: translate(-100%, 100%);
+    opacity: 0;
+
+    &--animated {
+      animation: slideInFromBottomLeft 0.8s ease-out forwards;
+    }
+  }
+
+  @keyframes slideInFromBottomLeft {
+    0% {
+      transform: translate(-100%, 100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
   }
 
   // 後ろのスマホ（外枠）
@@ -282,17 +327,30 @@ import youtubeIcon from '@/assets/images/youtube.svg';
     bottom: 16px;
     display: flex;
     gap: 10px;
+  }
 
-    a {
-      display: block;
-      text-decoration: none;
-    }
+  &__sns-link {
+    display: block;
+    text-decoration: none;
   }
 
   &__sns-icon {
     width: 36px;
     height: 36px;
     filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+
+    &--pulse {
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.93);
+    }
   }
 }
 </style>

@@ -26,10 +26,13 @@
 
     <!-- 見出し -->
     <div class="testimonials-section__header">
-      <p class="testimonials-section__subtitle">
-        <img :src="slashLeftImage" alt="" class="testimonials-section__slash testimonials-section__slash--left" />
+      <p
+        ref="subtitleRef"
+        :class="['testimonials-section__subtitle', { 'testimonials-section__subtitle--animated': isSubtitleVisible }]"
+      >
+        <img :src="slashRightImage" alt="" class="testimonials-section__slash testimonials-section__slash--left" />
         <span>こんな方にご利用いただいています</span>
-        <img :src="slashRightImage" alt="" class="testimonials-section__slash testimonials-section__slash--right" />
+        <img :src="slashLeftImage" alt="" class="testimonials-section__slash testimonials-section__slash--right" />
       </p>
       <h2 class="testimonials-section__title">お客様のお声</h2>
     </div>
@@ -123,6 +126,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
 import bgImage from '@/assets/images/testimonial-bg.png';
 import voice1Image from '@/assets/images/voice1.svg';
 import voice2Image from '@/assets/images/voice2.svg';
@@ -131,6 +135,31 @@ import voice4Image from '@/assets/images/voice4.svg';
 import redLineImage from '@/assets/images/red-line.svg';
 import slashLeftImage from '@/assets/images/testimonial-slash-left.svg';
 import slashRightImage from '@/assets/images/testimonial-slash-right.svg';
+
+// スクロールアニメーション用
+const subtitleRef = ref<HTMLElement | null>(null);
+const isSubtitleVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isSubtitleVisible.value = entry.isIntersecting;
+      });
+    },
+    { threshold: 0.3 }
+  );
+  if (subtitleRef.value) {
+    observer.observe(subtitleRef.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -211,6 +240,27 @@ import slashRightImage from '@/assets/images/testimonial-slash-right.svg';
     letter-spacing: 1.4px;
     color: $text-brown;
     margin: 0 0 10px;
+    transform: scaleX(0);
+    opacity: 0;
+
+    &--animated {
+      animation: expandFromCenter 1s ease-out forwards;
+    }
+  }
+
+  @keyframes expandFromCenter {
+    0% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scaleX(1.15);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
   }
 
   &__slash {
