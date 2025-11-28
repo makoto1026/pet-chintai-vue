@@ -74,7 +74,7 @@ const reasons = [
 .reasons-section {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   margin: 0 auto;
   padding: 8px 0 30px;
   background: $background-pink;

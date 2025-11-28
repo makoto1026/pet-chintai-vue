@@ -72,7 +72,7 @@ import FooterSection from '@/components/sections/FooterSection.vue';
 
 .landing-page {
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   margin: 0 auto;
   background: $white;
   min-height: 100vh;

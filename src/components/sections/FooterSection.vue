@@ -14,6 +14,8 @@
 @import '@/assets/styles/mixins';
 
 .footer-section {
+  max-width: $max-container-width;
+  margin: 0 auto;
   background: $text-brown;
   padding: 20px 10px 40px;
   display: flex;

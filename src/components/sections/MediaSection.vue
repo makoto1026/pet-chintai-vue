@@ -82,7 +82,7 @@
 .media-section {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   height: 194px;
   margin: 0 auto;
   display: flex;
@@ -167,7 +167,7 @@
 
     &--right {
       top: 129px;
-      left: 306px;
+      right: 20px;
       width: 48px;
       height: 48px;
       transform: rotate(117.064deg);

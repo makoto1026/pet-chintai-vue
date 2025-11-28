@@ -112,7 +112,7 @@ onUnmounted(() => {
 .sns-section {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   height: 358px;
   margin: 0 auto;
   padding: 16px;
@@ -132,8 +132,9 @@ onUnmounted(() => {
 
   &__card {
     position: relative;
-    width: 343px;
+    width: 100%;
     height: 270px;
+    margin: 0 auto;
     background: $white;
     border-radius: 20px;
     overflow: visible;
@@ -309,7 +310,8 @@ onUnmounted(() => {
   &__title-line {
     position: absolute;
     top: 75px;
-    left: 57px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 260px;
     height: 1px;
     background: linear-gradient(
@@ -323,7 +325,7 @@ onUnmounted(() => {
 
   &__buttons {
     position: absolute;
-    left: 216px;
+    right: 5%;
     bottom: 16px;
     display: flex;
     gap: 10px;

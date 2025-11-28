@@ -139,7 +139,7 @@ const properties = [
 .property-section {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   margin: 0 auto;
   padding: 30px 0 50px;
   overflow: hidden;

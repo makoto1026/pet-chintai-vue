@@ -58,6 +58,8 @@ onUnmounted(() => {
 @import '@/assets/styles/mixins';
 
 .smart-search {
+  max-width: $max-container-width;
+  margin: 0 auto;
   background: #fff;
   position: relative;
   padding-top: 30px;

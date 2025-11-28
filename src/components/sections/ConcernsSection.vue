@@ -95,7 +95,7 @@ import CheckSquareIcon from '@/components/icons/CheckSquareIcon.vue';
 .concerns-section {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   height: 658px;
   margin: 0 auto;
   background: $white;
@@ -167,7 +167,8 @@ import CheckSquareIcon from '@/components/icons/CheckSquareIcon.vue';
     position: relative;
     z-index: 5;
     list-style: none;
-    margin: 30px 38px 0;
+    max-width: 299px;
+    margin: 30px auto 0;
     padding: 0;
   }
 

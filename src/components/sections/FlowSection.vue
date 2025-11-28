@@ -171,6 +171,8 @@ onUnmounted(() => {
 @import '@/assets/styles/mixins';
 
 .flow-section {
+  max-width: $max-container-width;
+  margin: 0 auto;
   background: #ffffff;
   padding: 0 0 60px;
   position: relative;
@@ -222,7 +224,8 @@ onUnmounted(() => {
   &__step {
     display: flex;
     flex-direction: column;
-    width: 355px;
+    width: calc(100% - 20px);
+    max-width: 460px;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 
     &--left {

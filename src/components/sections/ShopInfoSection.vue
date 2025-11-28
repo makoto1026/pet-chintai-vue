@@ -72,8 +72,11 @@
 @import '@/assets/styles/mixins';
 
 .shop-info {
+  max-width: $max-container-width;
+  margin: 0 auto;
   background: #F7D3BC;
   padding: 30px 20px;
+  box-sizing: border-box;
 
   &__title {
     font-family: $font-mincho;

@@ -132,7 +132,7 @@ onUnmounted(() => {
 .first-view {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   height: 626px;
   margin: 0 auto;
   overflow: hidden;
@@ -223,7 +223,7 @@ onUnmounted(() => {
   position: absolute;
   top: 490px;
   left: 0;
-  width: 375px;
+  width: 100%;
   height: 153px;
   transform: scaleY(-1);
   overflow: hidden;
@@ -261,8 +261,8 @@ onUnmounted(() => {
 .main-title {
   position: absolute;
   top: 419px;
-  left: 5.33%;
-  right: 5.33%;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 5;
   text-align: center;
 
@@ -302,8 +302,9 @@ onUnmounted(() => {
 .badges {
   position: absolute;
   top: 508px;
-  left: 28px;
-  right: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 319px;
   display: flex;
   justify-content: space-between;
   z-index: 5;

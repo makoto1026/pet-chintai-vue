@@ -68,7 +68,7 @@ import checkIcon from '@/assets/images/check-yellow.svg';
 .safety-section {
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: $max-container-width;
   height: 396px;
   margin: 0 auto;
   overflow: hidden;
