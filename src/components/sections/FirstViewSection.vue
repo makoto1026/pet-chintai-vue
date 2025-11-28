@@ -278,7 +278,7 @@ onUnmounted(() => {
   top: 470px;
   left: 50%;
   transform: translateX(-50%);
-  width: 327px;
+  width: 100%;
   font-family: $font-mincho;
   font-size: $font-4xl;
   font-weight: $font-weight-semibold;
