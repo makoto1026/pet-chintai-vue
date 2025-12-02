@@ -70,6 +70,10 @@ import PropertyCard from '@/components/common/PropertyCard.vue';
 import backgroundImage from '@/assets/images/property-bg.png';
 import decorationImage from '@/assets/images/properties-bg-decoration.png';
 import propertySampleImage from '@/assets/images/property-sample.png';
+import yoyogiImage from '@/assets/images/properties/yoyogi.jpg';
+import kasaiImage from '@/assets/images/properties/kasai.jpg';
+import shinNakanoImage from '@/assets/images/properties/shin-nakano.jpg';
+import shibuyaImage from '@/assets/images/properties/shibuya.jpg';
 
 // スクロールアニメーション用
 const subtitleRef = ref<HTMLElement | null>(null);
@@ -99,35 +103,35 @@ onUnmounted(() => {
 const properties = [
   {
     id: 1,
-    image: propertySampleImage,
-    area: '港区',
-    price: '174,000',
-    layout: '1R',
-    size: '33.2㎡'
+    image: yoyogiImage,
+    area: '渋谷区',
+    price: '210,000',
+    layout: '1DK',
+    size: '33㎡'
   },
   {
     id: 2,
-    image: propertySampleImage,
-    area: '港区',
-    price: '174,000',
-    layout: '1R',
-    size: '33.2㎡'
+    image: kasaiImage,
+    area: '江戸川区',
+    price: '136,000',
+    layout: '1DK',
+    size: '41㎡'
   },
   {
     id: 3,
-    image: propertySampleImage,
-    area: '港区',
-    price: '174,000',
-    layout: '1R',
-    size: '33.2㎡'
+    image: shibuyaImage,
+    area: '渋谷区',
+    price: '未公開',
+    layout: '2LDK',
+    size: '91㎡'
   },
   {
     id: 4,
-    image: propertySampleImage,
-    area: '港区',
-    price: '174,000',
-    layout: '1R',
-    size: '33.2㎡'
+    image: shinNakanoImage,
+    area: '中野区',
+    price: '120,000',
+    layout: '2DK',
+    size: '41㎡'
   }
 ];
 </script>

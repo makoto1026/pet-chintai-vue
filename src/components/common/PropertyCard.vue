@@ -54,7 +54,7 @@ defineProps({
 
   &__image {
     width: 100%;
-    height: 120px;
+    height: 212px;
     overflow: hidden;
 
     img {

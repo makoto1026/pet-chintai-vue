@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-section">
-    <a href="#" class="footer-section__privacy-link">プライバシーポリシー</a>
+    <a href="https://petchintai.com/privacy.html" class="footer-section__privacy-link">プライバシーポリシー</a>
     <p class="footer-section__copyright">© 2025 ペット住まいラボ</p>
   </footer>
 </template>

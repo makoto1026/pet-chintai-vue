@@ -12,15 +12,15 @@
     <div class="consultation-section__content">
       <CtaButton
         variant="orange"
-        sub-text="WEBでカンタン！"
-        main-text="来店予約はこちら"
-        href="#"
+        sub-text="さまざまな特典つき"
+        main-text="各種優待はこちら"
+        href="https://pet-chintai-vue.web.app/priorities"
       />
       <CtaButton
         variant="green"
         sub-text="迷ってる方はこちら"
         main-text="LINEで相談する"
-        href="#"
+        href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
       />
     </div>
   </section>

@@ -40,7 +40,7 @@
     <!-- Voice 1 -->
     <div class="testimonials-section__voice">
       <div class="testimonials-section__voice-left">
-        <img :src="voice1Image" alt="Voice 1" class="testimonials-section__voice-label" />
+        <img :src="voice1Icon" alt="Voice 1" class="testimonials-section__voice-label" />
         <p class="testimonials-section__voice-customer">30代女性 R様</p>
         <div class="testimonials-section__voice-heading">
           <span class="testimonials-section__voice-heading-line">多頭飼と暮らせる</span>
@@ -48,7 +48,8 @@
         </div>
       </div>
       <div class="testimonials-section__voice-right">
-        <div class="testimonials-section__voice-image-placeholder">
+        <div class="testimonials-section__voice-image-container">
+          <img :src="voice1Image" alt="Voice 1のお客様" class="testimonials-section__voice-image" />
           <img :src="redLineImage" alt="" class="testimonials-section__red-line" />
         </div>
       </div>
@@ -61,7 +62,7 @@
     <!-- Voice 2 -->
     <div class="testimonials-section__voice">
       <div class="testimonials-section__voice-left">
-        <img :src="voice2Image" alt="Voice 2" class="testimonials-section__voice-label" />
+        <img :src="voice2Icon" alt="Voice 2" class="testimonials-section__voice-label" />
         <p class="testimonials-section__voice-customer">20代男性 T様</p>
         <div class="testimonials-section__voice-heading">
           <span class="testimonials-section__voice-heading-line">マイホームを購入したいけど</span>
@@ -69,7 +70,8 @@
         </div>
       </div>
       <div class="testimonials-section__voice-right">
-        <div class="testimonials-section__voice-image-placeholder">
+        <div class="testimonials-section__voice-image-container">
+          <img :src="voice2Image" alt="Voice 2のお客様" class="testimonials-section__voice-image" />
           <img :src="redLineImage" alt="" class="testimonials-section__red-line" />
         </div>
       </div>
@@ -83,7 +85,7 @@
     <!-- Voice 3 -->
     <div class="testimonials-section__voice">
       <div class="testimonials-section__voice-left">
-        <img :src="voice3Image" alt="Voice 3" class="testimonials-section__voice-label" />
+        <img :src="voice3Icon" alt="Voice 3" class="testimonials-section__voice-label" />
         <p class="testimonials-section__voice-customer">20代女性 S様</p>
         <div class="testimonials-section__voice-heading">
           <span class="testimonials-section__voice-heading-line">ペットと暮らすなら</span>
@@ -91,7 +93,8 @@
         </div>
       </div>
       <div class="testimonials-section__voice-right">
-        <div class="testimonials-section__voice-image-placeholder">
+        <div class="testimonials-section__voice-image-container">
+          <img :src="voice3Image" alt="Voice 3のお客様" class="testimonials-section__voice-image" />
           <img :src="redLineImage" alt="" class="testimonials-section__red-line" />
         </div>
       </div>
@@ -105,7 +108,7 @@
     <!-- Voice 4 -->
     <div class="testimonials-section__voice">
       <div class="testimonials-section__voice-left">
-        <img :src="voice4Image" alt="Voice 4" class="testimonials-section__voice-label" />
+        <img :src="voice4Icon" alt="Voice 4" class="testimonials-section__voice-label" />
         <p class="testimonials-section__voice-customer">40代男性 K様</p>
         <div class="testimonials-section__voice-heading">
           <span class="testimonials-section__voice-heading-line">大型犬や爬虫類・鳥類・小動物等</span>
@@ -113,7 +116,8 @@
         </div>
       </div>
       <div class="testimonials-section__voice-right">
-        <div class="testimonials-section__voice-image-placeholder">
+        <div class="testimonials-section__voice-image-container">
+          <img :src="voice4Image" alt="Voice 4のお客様" class="testimonials-section__voice-image" />
           <img :src="redLineImage" alt="" class="testimonials-section__red-line" />
         </div>
       </div>
@@ -128,13 +132,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import bgImage from '@/assets/images/testimonial-bg.png';
-import voice1Image from '@/assets/images/voice1.svg';
-import voice2Image from '@/assets/images/voice2.svg';
-import voice3Image from '@/assets/images/voice3.svg';
-import voice4Image from '@/assets/images/voice4.svg';
+import voice1Icon from '@/assets/images/voice1.svg';
+import voice2Icon from '@/assets/images/voice2.svg';
+import voice3Icon from '@/assets/images/voice3.svg';
+import voice4Icon from '@/assets/images/voice4.svg';
 import redLineImage from '@/assets/images/red-line.svg';
 import slashLeftImage from '@/assets/images/testimonial-slash-left.svg';
 import slashRightImage from '@/assets/images/testimonial-slash-right.svg';
+import voice1Image from '@/assets/images/voicease/voice1.jpg';
+import voice2Image from '@/assets/images/voicease/voice2.jpg';
+import voice3Image from '@/assets/images/voicease/voice3.jpg';
+import voice4Image from '@/assets/images/voicease/voice4.jpg';
 
 // スクロールアニメーション用
 const subtitleRef = ref<HTMLElement | null>(null);
@@ -350,6 +358,20 @@ onUnmounted(() => {
       background: #d9d9d9;
       clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
     }
+  }
+
+  &__voice-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  &__voice-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 30px);
   }
 
   &__red-line {
