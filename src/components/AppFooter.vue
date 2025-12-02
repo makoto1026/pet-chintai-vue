@@ -2,8 +2,8 @@
   <div class="footer">
     <div class="footer-link-container">
       <div class="footer-link">
-        <a href="https://petchintai.com/">ペット賃貸</a>
-        <a href="https://petchintai.com/privacy.html">プライバシーポリシー</a>
+        <router-link to="/" class="footer-section__privacy-link">ペット賃貸ラボ</router-link>
+        <router-link to="/privacy-policy" class="footer-section__privacy-link">プライバシーポリシー</router-link>
       </div>
       <p class="copyright">© 2025 ペット賃貸</p>
     </div>
