@@ -132,7 +132,7 @@ onUnmounted(() => {
 
   &__card {
     position: relative;
-    width: 84%;
+    width: 100%;
     height: 270px;
     margin: 0 auto;
     background: $white;

@@ -111,19 +111,19 @@ const properties = [
   },
   {
     id: 2,
-    image: kasaiImage,
-    area: '江戸川区',
-    price: '136,000',
-    layout: '1DK',
-    size: '41㎡'
-  },
-  {
-    id: 3,
     image: shibuyaImage,
     area: '渋谷区',
     price: '未公開',
     layout: '2LDK',
     size: '91㎡'
+  },
+  {
+    id: 3,
+    image: kasaiImage,
+    area: '江戸川区',
+    price: '136,000',
+    layout: '1DK',
+    size: '41㎡'
   },
   {
     id: 4,
