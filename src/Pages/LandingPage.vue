@@ -123,11 +123,21 @@ onUnmounted(() => {
   display: block;
   max-width: 320px;
   width: calc(100% - 40px);
+  animation: bounce 1s ease-in-out infinite;
 
   img {
     width: 100%;
     height: auto;
     display: block;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-8px);
   }
 }
 
