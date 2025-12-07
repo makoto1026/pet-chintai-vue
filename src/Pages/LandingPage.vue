@@ -14,7 +14,7 @@
     </Transition>
 
     <!-- Phase 2: ファーストビュー -->
-    <FirstViewSection />
+    <FirstViewSection ref="firstViewRef" />
 
     <!-- Phase 3: メディア掲載 -->
     <MediaSection />
@@ -81,25 +81,48 @@ import FaqSection from '@/components/sections/FaqSection.vue';
 import ShopInfoSection from '@/components/sections/ShopInfoSection.vue';
 import FooterSection from '@/components/sections/FooterSection.vue';
 
-const showLineButton = ref(true);
+const showLineButton = ref(false);
+const firstViewRef = ref<InstanceType<typeof FirstViewSection> | null>(null);
+const isFirstViewVisible = ref(true);
+let observer: IntersectionObserver | null = null;
 
-const handleScroll = () => {
+const updateButtonVisibility = () => {
   const scrollTop = window.scrollY;
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
 
   // フッターに近づいたら非表示（下から100px）
   const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
-  showLineButton.value = distanceFromBottom > 100;
+  const isNearFooter = distanceFromBottom <= 100;
+
+  // ファーストビューが画面外かつフッター付近でない場合に表示
+  showLineButton.value = !isFirstViewVisible.value && !isNearFooter;
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  handleScroll();
+  // ファーストビューの監視
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        isFirstViewVisible.value = entry.isIntersecting;
+        updateButtonVisibility();
+      });
+    },
+    { threshold: 0 }
+  );
+
+  if (firstViewRef.value?.$el) {
+    observer.observe(firstViewRef.value.$el);
+  }
+
+  window.addEventListener('scroll', updateButtonVisibility);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+  if (observer) {
+    observer.disconnect();
+  }
+  window.removeEventListener('scroll', updateButtonVisibility);
 });
 </script>
 
