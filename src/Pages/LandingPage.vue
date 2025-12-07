@@ -14,10 +14,10 @@
     </Transition>
 
     <!-- Phase 2: ファーストビュー -->
-    <FirstViewSection ref="firstViewRef" />
+    <FirstViewSection />
 
     <!-- Phase 3: メディア掲載 -->
-    <MediaSection />
+    <MediaSection ref="mediaSectionRef" />
 
     <!-- Phase 4: お悩み -->
     <ConcernsSection />
@@ -82,46 +82,39 @@ import ShopInfoSection from '@/components/sections/ShopInfoSection.vue';
 import FooterSection from '@/components/sections/FooterSection.vue';
 
 const showLineButton = ref(false);
-const firstViewRef = ref<InstanceType<typeof FirstViewSection> | null>(null);
-const isFirstViewVisible = ref(true);
-let observer: IntersectionObserver | null = null;
+const mediaSectionRef = ref<InstanceType<typeof MediaSection> | null>(null);
 
 const updateButtonVisibility = () => {
   const scrollTop = window.scrollY;
   const windowHeight = window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
 
+  // ボタンの中央位置（画面下端から46px上）
+  const buttonCenterFromBottom = 46;
+  const buttonCenterY = windowHeight - buttonCenterFromBottom;
+
+  // MediaSectionの下端位置を取得
+  const mediaElement = mediaSectionRef.value?.$el as HTMLElement | undefined;
+  const mediaBottom = mediaElement ? mediaElement.offsetTop + mediaElement.offsetHeight : 0;
+
+  // MediaSectionの下端がボタンの中央より上にスクロールされたら表示
+  const mediaBottomRelativeToViewport = mediaBottom - scrollTop;
+  const isMediaPastButtonCenter = mediaBottomRelativeToViewport < buttonCenterY;
+
   // フッターに近づいたら非表示（下から100px）
   const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
   const isNearFooter = distanceFromBottom <= 100;
 
-  // ファーストビューが画面外かつフッター付近でない場合に表示
-  showLineButton.value = !isFirstViewVisible.value && !isNearFooter;
+  // MediaSectionがボタン中央より上かつフッター付近でない場合に表示
+  showLineButton.value = isMediaPastButtonCenter && !isNearFooter;
 };
 
 onMounted(() => {
-  // ファーストビューの監視
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        isFirstViewVisible.value = entry.isIntersecting;
-        updateButtonVisibility();
-      });
-    },
-    { threshold: 0 }
-  );
-
-  if (firstViewRef.value?.$el) {
-    observer.observe(firstViewRef.value.$el);
-  }
-
   window.addEventListener('scroll', updateButtonVisibility);
+  updateButtonVisibility();
 });
 
 onUnmounted(() => {
-  if (observer) {
-    observer.disconnect();
-  }
   window.removeEventListener('scroll', updateButtonVisibility);
 });
 </script>
