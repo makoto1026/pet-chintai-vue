@@ -16,11 +16,15 @@
 
     <!-- メイン画像エリア -->
     <div class="main-visual">
-      <img
-        src="@/assets/images/fv-dog.png"
-        alt="犬の画像"
-        class="main-visual__image"
-      />
+      <picture>
+        <source srcset="@/assets/images/fv-dog.webp" type="image/webp" />
+        <img
+          src="@/assets/images/fv-dog.png"
+          alt="犬の画像"
+          class="main-visual__image"
+          loading="eager"
+        />
+      </picture>
       <img
         src="@/assets/images/fv-bg-texture.png"
         alt=""
@@ -61,33 +65,30 @@
     <!-- バッジエリア -->
     <div ref="badgesRef" class="badges">
       <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
-        <img
-          src="@/assets/images/badge-bg.png"
-          alt=""
-          class="badge__bg"
-        />
+        <picture>
+          <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
+          <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
+        </picture>
         <div class="badge__content">
           <span class="badge__label">安価~高級<span class="badge__label-small">まで</span></span>
           <span class="badge__value">幅広い</span>
         </div>
       </div>
       <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
-        <img
-          src="@/assets/images/badge-bg.png"
-          alt=""
-          class="badge__bg"
-        />
+        <picture>
+          <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
+          <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
+        </picture>
         <div class="badge__content">
           <span class="badge__label">物件数</span>
           <span class="badge__value badge__value--small">トップクラス</span>
         </div>
       </div>
       <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
-        <img
-          src="@/assets/images/badge-bg.png"
-          alt=""
-          class="badge__bg"
-        />
+        <picture>
+          <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
+          <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
+        </picture>
         <div class="badge__content">
           <span class="badge__label badge__label--small">SNS総フォロワー</span>
           <span class="badge__value badge__value--large"><span class="badge__value-number">1</span>万人</span>
