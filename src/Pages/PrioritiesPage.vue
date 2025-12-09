@@ -44,7 +44,7 @@
   </div>
   <!-- お問い合わせ -->
   <div class="contact">
-    <p class="contact-info">luxury優待は、ペット賃貸でご契約くださった<br>お客様のみの特典となります。<br>担当者にご連絡いただければご紹介します。</p>
+    <p class="contact-info">luxury優待は、ペット住まいラボでご契約くださった<br>お客様のみの特典となります。<br>担当者にご連絡いただければご紹介します。</p>
     <AppButton @click="openContact()" class="contact-button">
       <EmailWhiteIcon class="email-white-icon" />
       <p class="button-text">お問い合わせ</p>
