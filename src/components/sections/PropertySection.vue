@@ -67,9 +67,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import PropertyCard from '@/components/common/PropertyCard.vue';
-import backgroundImage from '@/assets/images/property-bg.png';
+import backgroundImageWebp from '@/assets/images/property-bg.webp';
+import backgroundImagePng from '@/assets/images/property-bg.png';
 import decorationImage from '@/assets/images/properties-bg-decoration.png';
 import propertySampleImage from '@/assets/images/property-sample.png';
+
+// WebP対応チェック
+const supportsWebP = () => {
+  const canvas = document.createElement('canvas');
+  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+};
+const backgroundImage = supportsWebP() ? backgroundImageWebp : backgroundImagePng;
 import yoyogiImage from '@/assets/images/properties/yoyogi.jpg';
 import kasaiImage from '@/assets/images/properties/kasai.jpg';
 import shinNakanoImage from '@/assets/images/properties/shin-nakano.jpg';

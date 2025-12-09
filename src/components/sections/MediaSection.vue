@@ -29,18 +29,26 @@
     </div>
 
     <!-- キラキラ左 -->
-    <img
-      src="@/assets/images/media-sparkle.png"
-      alt=""
-      class="media-section__sparkle media-section__sparkle--left"
-    />
+    <picture>
+      <source srcset="@/assets/images/media-sparkle.webp" type="image/webp" />
+      <img
+        src="@/assets/images/media-sparkle.png"
+        alt=""
+        class="media-section__sparkle media-section__sparkle--left"
+        loading="lazy"
+      />
+    </picture>
 
     <!-- キラキラ右 -->
-    <img
-      src="@/assets/images/media-sparkle.png"
-      alt=""
-      class="media-section__sparkle media-section__sparkle--right"
-    />
+    <picture>
+      <source srcset="@/assets/images/media-sparkle.webp" type="image/webp" />
+      <img
+        src="@/assets/images/media-sparkle.png"
+        alt=""
+        class="media-section__sparkle media-section__sparkle--right"
+        loading="lazy"
+      />
+    </picture>
 
     <!-- 葉っぱ装飾 左 -->
     <img

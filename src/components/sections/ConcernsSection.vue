@@ -5,11 +5,15 @@
       <!-- 背景 -->
       <div class="concerns-section__worry-bg">
         <div class="concerns-section__worry-bg-color"></div>
-        <img
-          src="@/assets/images/concerns-worry-bg.png"
-          alt=""
-          class="concerns-section__worry-bg-image"
-        />
+        <picture>
+          <source srcset="@/assets/images/concerns-worry-bg.webp" type="image/webp" />
+          <img
+            src="@/assets/images/concerns-worry-bg.png"
+            alt=""
+            class="concerns-section__worry-bg-image"
+            loading="lazy"
+          />
+        </picture>
         <div class="concerns-section__worry-bg-overlay"></div>
       </div>
 
@@ -57,11 +61,15 @@
     <div class="concerns-section__solution">
       <!-- 背景 -->
       <div class="concerns-section__solution-bg">
-        <img
-          src="@/assets/images/concerns-solution-bg.png"
-          alt=""
-          class="concerns-section__solution-bg-image"
-        />
+        <picture>
+          <source srcset="@/assets/images/concerns-solution-bg.webp" type="image/webp" />
+          <img
+            src="@/assets/images/concerns-solution-bg.png"
+            alt=""
+            class="concerns-section__solution-bg-image"
+            loading="lazy"
+          />
+        </picture>
         <div class="concerns-section__solution-glow"></div>
       </div>
 

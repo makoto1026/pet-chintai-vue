@@ -29,7 +29,15 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import CtaButton from '@/components/common/CtaButton.vue';
-import backgroundImage from '@/assets/images/consultation-bg.png';
+import backgroundImageWebp from '@/assets/images/consultation-bg.webp';
+import backgroundImagePng from '@/assets/images/consultation-bg.png';
+
+// WebP対応チェック
+const supportsWebP = () => {
+  const canvas = document.createElement('canvas');
+  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+};
+const backgroundImage = supportsWebP() ? backgroundImageWebp : backgroundImagePng;
 
 defineProps({
   hideTopOverlay: {
