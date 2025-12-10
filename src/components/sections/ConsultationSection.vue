@@ -14,7 +14,7 @@
         variant="orange"
         sub-text="WEBでカンタン！"
         main-text="来店予約はこちら"
-        href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+        href="https://liff.line.me/2002059008-9pWGGjdz?calendar_salon_id=20940&ts=1765344685"
       />
       <CtaButton
         variant="green"
