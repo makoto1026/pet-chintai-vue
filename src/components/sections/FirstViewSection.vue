@@ -1,5 +1,10 @@
 <template>
-  <section class="first-view">
+  <section :class="['first-view', { 'first-view--loaded': isLoaded }]">
+    <!-- ローディングオーバーレイ -->
+    <div v-if="!isLoaded" class="loading-overlay">
+      <div class="loading-spinner"></div>
+    </div>
+
     <!-- ヘッダー -->
     <header class="header">
       <img
@@ -19,10 +24,12 @@
       <picture>
         <source srcset="@/assets/images/fv-room.webp" type="image/webp" />
         <img
+          ref="roomImageRef"
           src="@/assets/images/fv-room.png"
           alt="ペット可賃貸の部屋"
           class="main-visual__image"
           loading="eager"
+          @load="onImageLoad"
         />
       </picture>
       <img
@@ -55,10 +62,12 @@
         <picture>
           <source srcset="@/assets/images/fv-logo.webp" type="image/webp" />
           <img
+            ref="logoImageRef"
             src="@/assets/images/fv-logo.png"
             alt="ペット住まいラボ"
             class="main-visual__title-logo"
             loading="eager"
+            @load="onImageLoad"
           />
         </picture>
       </div>
@@ -70,10 +79,12 @@
         <picture>
           <source srcset="@/assets/images/dogs.webp" type="image/webp" />
           <img
+            ref="dogsImageRef"
             src="@/assets/images/dogs.png"
             alt="犬と猫"
             class="main-visual__dogs-img"
             loading="eager"
+            @load="onImageLoad"
           />
         </picture>
       </div>
@@ -162,7 +173,35 @@
 </template>
 
 <script setup lang="ts">
-// バッジアニメーションはCSSで制御（dogs画像の後にゆっくり表示）
+import { ref, onMounted } from 'vue';
+
+// 画像読み込み状態
+const isLoaded = ref(false);
+const loadedCount = ref(0);
+const totalImages = 3; // fv-room, fv-logo, dogs
+
+// 画像要素のref
+const roomImageRef = ref<HTMLImageElement | null>(null);
+const logoImageRef = ref<HTMLImageElement | null>(null);
+const dogsImageRef = ref<HTMLImageElement | null>(null);
+
+// 画像読み込み完了時のハンドラ
+const onImageLoad = () => {
+  loadedCount.value++;
+  if (loadedCount.value >= totalImages) {
+    isLoaded.value = true;
+  }
+};
+
+// マウント時に既にキャッシュされている画像をチェック
+onMounted(() => {
+  const images = [roomImageRef.value, logoImageRef.value, dogsImageRef.value];
+  images.forEach((img) => {
+    if (img?.complete) {
+      onImageLoad();
+    }
+  });
+});
 </script>
 
 <style scoped lang="scss">
@@ -178,6 +217,35 @@
   margin: 0 auto;
   overflow: hidden;
   background: $white;
+}
+
+// ローディングオーバーレイ
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba($primary, 0.2);
+  border-top-color: $primary;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // ヘッダー
@@ -287,8 +355,12 @@
     opacity: 0;
     display: inline-block;
     transform: scale(0);
-    animation: charZoomIn 0.3s ease-out forwards;
-    animation-delay: calc(var(--char-index) * 0.08s);
+
+    // 読み込み完了後にアニメーション開始
+    .first-view--loaded & {
+      animation: charZoomIn 0.3s ease-out forwards;
+      animation-delay: calc(var(--char-index) * 0.08s);
+    }
   }
 
   // メインタイトル（ペット住まいラボロゴ）
@@ -303,7 +375,11 @@
 
     &--animate {
       opacity: 0;
-      animation: fadeIn 0.6s ease-out 1s forwards;
+
+      // 読み込み完了後にアニメーション開始
+      .first-view--loaded & {
+        animation: fadeIn 0.6s ease-out 1s forwards;
+      }
     }
   }
 
@@ -324,7 +400,11 @@
     &--animate {
       opacity: 0;
       transform: translateX(-50%) scale(0.5);
-      animation: zoomIn 0.6s ease-out 1.6s forwards;
+
+      // 読み込み完了後にアニメーション開始
+      .first-view--loaded & {
+        animation: zoomIn 0.6s ease-out 1.6s forwards;
+      }
     }
   }
 
@@ -473,10 +553,13 @@
 
   &--animate {
     opacity: 0;
+
+    // 読み込み完了後にアニメーション開始
     // 犬猫画像(2.2s終了)の後、2.4sから順次表示
-    // 各バッジ0.2s間隔でゆっくり(1s)フェードイン
-    animation: fadeInUp 1s ease-out forwards;
-    animation-delay: calc(2.4s + var(--badge-index) * 0.2s);
+    .first-view--loaded & {
+      animation: fadeInUp 1s ease-out forwards;
+      animation-delay: calc(2.4s + var(--badge-index) * 0.2s);
+    }
   }
 
   &__bg {
