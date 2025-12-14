@@ -109,8 +109,8 @@
     </p>
 
     <!-- バッジエリア -->
-    <div ref="badgesRef" class="badges">
-      <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
+    <div class="badges">
+      <div class="badge badge--animate" style="--badge-index: 0">
         <picture>
           <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
           <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
@@ -120,7 +120,7 @@
           <span class="badge__value">幅広い</span>
         </div>
       </div>
-      <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
+      <div class="badge badge--animate" style="--badge-index: 1">
         <picture>
           <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
           <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
@@ -130,7 +130,7 @@
           <span class="badge__value badge__value--small">トップクラス</span>
         </div>
       </div>
-      <div :class="['badge', { 'badge--animate': isBadgesVisible }]">
+      <div class="badge badge--animate" style="--badge-index: 2">
         <picture>
           <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
           <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
@@ -162,31 +162,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-
-const badgesRef = ref<HTMLElement | null>(null);
-const isBadgesVisible = ref(false);
-let observer: IntersectionObserver | null = null;
-
-onMounted(() => {
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        isBadgesVisible.value = entry.isIntersecting;
-      });
-    },
-    { threshold: 0.3 }
-  );
-  if (badgesRef.value) {
-    observer.observe(badgesRef.value);
-  }
-});
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect();
-  }
-});
+// バッジアニメーションはCSSで制御（dogs画像の後にゆっくり表示）
 </script>
 
 <style scoped lang="scss">
@@ -432,7 +408,7 @@ onUnmounted(() => {
 // サブタイトル
 .sub-title {
   position: absolute;
-  top: 62%; // 444 / 700
+  top: 64%; // 444 / 700
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -497,7 +473,10 @@ onUnmounted(() => {
 
   &--animate {
     opacity: 0;
-    animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    // 犬猫画像(2.2s終了)の後、2.4sから順次表示
+    // 各バッジ0.2s間隔でゆっくり(1s)フェードイン
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: calc(2.4s + var(--badge-index) * 0.2s);
   }
 
   &__bg {
