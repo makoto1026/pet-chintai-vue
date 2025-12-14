@@ -52,23 +52,31 @@
 
       <!-- メインタイトル（ペット住まいラボ） -->
       <div class="main-visual__title main-visual__title--animate">
-        <img
-          src="@/assets/images/fv-logo.png"
-          alt="ペット住まいラボ"
-          class="main-visual__title-logo"
-        />
+        <picture>
+          <source srcset="@/assets/images/fv-logo.webp" type="image/webp" />
+          <img
+            src="@/assets/images/fv-logo.png"
+            alt="ペット住まいラボ"
+            class="main-visual__title-logo"
+            loading="eager"
+          />
+        </picture>
       </div>
 
       <!-- 犬と猫の画像 -->
       <div
         class="main-visual__dogs main-visual__dogs--animate"
       >
-        <img
-          src="@/assets/images/dogs.png"
-          alt="犬と猫"
-          class="main-visual__dogs-img"
-        />
-    </div>
+        <picture>
+          <source srcset="@/assets/images/dogs.webp" type="image/webp" />
+          <img
+            src="@/assets/images/dogs.png"
+            alt="犬と猫"
+            class="main-visual__dogs-img"
+            loading="eager"
+          />
+        </picture>
+      </div>
     </div>
 
     <!-- 背景素材（下部） -->
@@ -135,16 +143,20 @@
     </div>
 
     <!-- CTAボタン -->
-    <a 
+    <a
       href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
       target="_blank"
       class="cta-button"
     >
-      <img
-        src="@/assets/images/fv-button.png"
-        alt="繁忙期前にお得に物件CHECKする!"
-        class="cta-button__img"
-      />
+      <picture>
+        <source srcset="@/assets/images/fv-button.webp" type="image/webp" />
+        <img
+          src="@/assets/images/fv-button.png"
+          alt="繁忙期前にお得に物件CHECKする!"
+          class="cta-button__img"
+          loading="eager"
+        />
+      </picture>
     </a>
   </section>
 </template>
