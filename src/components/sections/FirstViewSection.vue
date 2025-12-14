@@ -8,7 +8,7 @@
         class="header__logo"
       />
       <img
-        src="@/assets/images/glh-logo.svg"
+        src="@/assets/images/glh-logo.png"
         alt="GLH Inc."
         class="header__glh-logo"
       />
@@ -17,10 +17,10 @@
     <!-- メイン画像エリア -->
     <div class="main-visual">
       <picture>
-        <source srcset="@/assets/images/fv-dog.webp" type="image/webp" />
+        <source srcset="@/assets/images/fv-room.webp" type="image/webp" />
         <img
-          src="@/assets/images/fv-dog.png"
-          alt="犬の画像"
+          src="@/assets/images/fv-room.png"
+          alt="ペット可賃貸の部屋"
           class="main-visual__image"
           loading="eager"
         />
@@ -36,6 +36,39 @@
         class="main-visual__texture main-visual__texture--overlay"
       />
       <div class="main-visual__overlay"></div>
+
+      <!-- ペットとお部屋探し -->
+      <p class="main-visual__catch-copy">
+        <span class="main-visual__catch-char" style="--char-index: 0">ペ</span>
+        <span class="main-visual__catch-char" style="--char-index: 1">ッ</span>
+        <span class="main-visual__catch-char" style="--char-index: 2">ト</span>
+        <span class="main-visual__catch-char" style="--char-index: 3">と</span>
+        <span class="main-visual__catch-char" style="--char-index: 4">お</span>
+        <span class="main-visual__catch-char" style="--char-index: 5">部</span>
+        <span class="main-visual__catch-char" style="--char-index: 6">屋</span>
+        <span class="main-visual__catch-char" style="--char-index: 7">探</span>
+        <span class="main-visual__catch-char" style="--char-index: 8">し</span>
+      </p>
+
+      <!-- メインタイトル（ペット住まいラボ） -->
+      <div class="main-visual__title main-visual__title--animate">
+        <img
+          src="@/assets/images/fv-logo.png"
+          alt="ペット住まいラボ"
+          class="main-visual__title-logo"
+        />
+      </div>
+
+      <!-- 犬と猫の画像 -->
+      <div
+        class="main-visual__dogs main-visual__dogs--animate"
+      >
+        <img
+          src="@/assets/images/dogs.png"
+          alt="犬と猫"
+          class="main-visual__dogs-img"
+        />
+    </div>
     </div>
 
     <!-- 背景素材（下部） -->
@@ -48,18 +81,23 @@
       <div class="bottom-bg__overlay"></div>
     </div>
 
-    <!-- メインタイトル -->
-    <div class="main-title">
-      <img
-        src="@/assets/images/fv-logo.svg"
-        alt="ペット住まいラボ"
-        class="main-title__logo"
-      />
-    </div>
-
     <!-- サブタイトル -->
     <p class="sub-title">
-      メディア掲載<span class="sub-title__amp">&amp;</span>有名人担当多数！
+      <span class="sub-title__char">メ</span>
+      <span class="sub-title__char">デ</span>
+      <span class="sub-title__char">ィ</span>
+      <span class="sub-title__char">ア</span>
+      <span class="sub-title__char">掲</span>
+      <span class="sub-title__char">載</span>
+      <span class="sub-title__char sub-title__amp">&amp;</span>
+      <span class="sub-title__char">有</span>
+      <span class="sub-title__char">名</span>
+      <span class="sub-title__char">人</span>
+      <span class="sub-title__char">担</span>
+      <span class="sub-title__char">当</span>
+      <span class="sub-title__char">多</span>
+      <span class="sub-title__char">数</span>
+      <span class="sub-title__char">！</span>
     </p>
 
     <!-- バッジエリア -->
@@ -95,6 +133,19 @@
         </div>
       </div>
     </div>
+
+    <!-- CTAボタン -->
+    <a 
+      href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+      target="_blank"
+      class="cta-button"
+    >
+      <img
+        src="@/assets/images/fv-button.png"
+        alt="繁忙期前にお得に物件CHECKする!"
+        class="cta-button__img"
+      />
+    </a>
   </section>
 </template>
 
@@ -134,7 +185,8 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   max-width: $max-container-width;
-  height: 626px;
+  // アスペクト比で高さを決定（375:700）
+  aspect-ratio: 375 / 700;
   margin: 0 auto;
   overflow: hidden;
   background: $white;
@@ -167,16 +219,17 @@ onUnmounted(() => {
   top: 0;
   left: 0;
   width: 100%;
-  height: 512px;
-  overflow: hidden;
+  height: 68%; // 478 / 700
+  overflow: visible; // 犬猫画像がはみ出すことを許可
 
   &__image {
     position: absolute;
-    top: -22%;
-    left: -116%;
-    width: 246%;
-    height: 120%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
   }
 
   &__texture {
@@ -213,19 +266,125 @@ onUnmounted(() => {
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 79.79%,
-      rgba(255, 255, 255, 1) 95.14%
+      rgba(255, 255, 255, 1) 93.95%
     );
     pointer-events: none;
+  }
+
+  // ペットとお部屋探し
+  &__catch-copy {
+    position: absolute;
+    top: 23%; // 85px / 478px
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: $font-mincho;
+    font-size: clamp(20px, 5vw, 24px);
+    font-weight: $font-weight-semibold;
+    line-height: 1;
+    color: $white;
+    text-shadow:
+      0px 0px 8px #db6e23,
+      0px 0px 4px #db6e23,
+      0px 0px 12px #db6e23,
+      0px 0px 12px #db6e23,
+      0px 0px 4px #fd6903;
+    white-space: nowrap;
+    z-index: 5;
+    margin: 0;
+    padding: 4%;
+    display: flex;
+  }
+
+  &__catch-char {
+    opacity: 0;
+    display: inline-block;
+    transform: scale(0);
+    animation: charZoomIn 0.3s ease-out forwards;
+    animation-delay: calc(var(--char-index) * 0.08s);
+  }
+
+  // メインタイトル（ペット住まいラボロゴ）
+  &__title {
+    position: absolute;
+    top: 29%; // 123px / 478px
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    width: 97%;
+
+    &--animate {
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out 1s forwards;
+    }
+  }
+
+  &__title-logo {
+    width: 100%;
+    height: auto;
+  }
+
+  // 犬と猫の画像
+  &__dogs {
+    position: absolute;
+    top: 29%;
+    left: 49%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 4;
+
+    &--animate {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.5);
+      animation: zoomIn 0.6s ease-out 1.6s forwards;
+    }
+  }
+
+  &__dogs-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+// FVアニメーション用キーフレーム
+@keyframes charZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
   }
 }
 
 // 背景素材（下部）
 .bottom-bg {
   position: absolute;
-  top: 490px;
+  top: 66%; // 460 / 700
   left: 0;
   width: 100%;
-  height: 153px;
+  height: 22%; // 153 / 700
   transform: scaleY(-1);
   overflow: hidden;
 
@@ -258,41 +417,36 @@ onUnmounted(() => {
   }
 }
 
-// メインタイトル
-.main-title {
-  position: absolute;
-  top: 419px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  text-align: center;
-
-  &__logo {
-    width: 335px;
-    height: 41px;
-  }
-}
-
 // サブタイトル
 .sub-title {
   position: absolute;
-  top: 470px;
+  top: 62%; // 444 / 700
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   font-family: $font-mincho;
-  font-size: $font-4xl;
+  font-size: clamp(18px, 5vw, $font-4xl);
   font-weight: $font-weight-semibold;
   line-height: 22px;
   text-align: center;
   z-index: 5;
   margin: 0;
-  // グラデーションテキストをfilterで実現
-  color: #BA800F;
-  text-shadow:
-    0px 0px 10px $white,
-    0px 0px 4px $white,
-    0px 0px 4px $white;
+  display: flex;
+  justify-content: center;
+
+  &__char {
+    position: relative;
+    display: inline-block;
+    // グラデーションテキスト
+    background: linear-gradient(180deg, #BA800F 0%, #5E381E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    // 白いBlur効果
+    filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 1))
+            drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.8))
+            drop-shadow(0px 0px 4px rgba(255, 255, 255, 1));
+  }
 
   &__amp {
     font-size: $font-3xl;
@@ -302,10 +456,11 @@ onUnmounted(() => {
 // バッジ
 .badges {
   position: absolute;
-  top: 508px;
+  top: 68%; // 478 / 700
   left: 50%;
   transform: translateX(-50%);
-  width: 319px;
+  width: 85%;
+  max-width: 319px;
   display: flex;
   justify-content: space-between;
   z-index: 5;
@@ -402,6 +557,24 @@ onUnmounted(() => {
     &-number {
       letter-spacing: 2.16px;
     }
+  }
+}
+
+// CTAボタン
+.cta-button {
+  position: absolute;
+  top: 85%; // 596 / 700
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: block;
+  width: 82%;
+  max-width: 310px;
+
+  &__img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 }
 </style>
