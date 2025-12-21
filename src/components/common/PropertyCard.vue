@@ -1,15 +1,15 @@
 <template>
-  <div class="property-card" @click="openUrl">
-    <div class="property-card__image">
+  <div class="property-card-container" @click="openUrl">
+    <div class="property-card-container__image">
       <img :src="image" :alt="area" />
     </div>
-    <div class="property-card__info">
-      <p class="property-card__area">{{ area }}</p>
-      <p class="property-card__price">
-        <span class="property-card__price-value">{{ price }}</span>
-        <span class="property-card__price-unit">円</span>
+    <div class="property-card-container__info">
+      <p class="property-card-container__area">{{ area }}</p>
+      <p class="property-card-container__price">
+        <span class="property-card-container__price-value">{{ price }}</span>
+        <span class="property-card-container__price-unit">円</span>
       </p>
-      <p class="property-card__detail">（{{ layout }}・{{ size }}）</p>
+      <p class="property-card-container__detail">（{{ layout }}・{{ size }}）</p>
     </div>
   </div>
 </template>
@@ -65,7 +65,7 @@ const openUrl = () => {
 @import '@/assets/styles/_variables.scss';
 @import '@/assets/styles/_mixins.scss';
 
-.property-card {
+.property-card-container {
   width: 170px;
   background: $white;
   border-radius: 10px;

@@ -47,7 +47,7 @@
     </div>
 
     <!-- 物件カード -->
-    <div class="property-section__grid">
+    <div class="property-section__grid_cards">
       <PropertyCard
         v-for="property in properties"
         :key="property.id"
@@ -57,7 +57,7 @@
         :layout="property.layout"
         :size="property.size"
         :url="property.url"
-        :event-name="`${property.eventName}_${position}`"
+        :event-name="`${property.eventName}`"
       />
     </div>
 
@@ -69,17 +69,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, defineProps } from 'vue';
 import PropertyCard from '@/components/common/PropertyCard.vue';
-
-defineProps({
-  position: {
-    type: String as () => 'FV直下' | 'ページ中央',
-    default: 'FV直下'
-  }
-});
 import backgroundImageWebp from '@/assets/images/property-bg.webp';
 import backgroundImagePng from '@/assets/images/property-bg.png';
 import decorationImage from '@/assets/images/properties-bg-decoration.png';
-import propertySampleImage from '@/assets/images/property-sample.png';
 
 // WebP対応チェック
 const supportsWebP = () => {
@@ -318,7 +310,7 @@ const properties = [
     }
   }
 
-  &__grid {
+  &__grid_cards {
     position: relative;
     z-index: 1;
     display: flex;

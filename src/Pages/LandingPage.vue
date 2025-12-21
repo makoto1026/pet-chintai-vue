@@ -17,7 +17,7 @@
     <!-- Phase 2: ファーストビュー -->
     <FirstViewSection />
 
-    <PropertySection position="FV直下" />
+    <PropertySection />
 
     <!-- Phase 3: メディア掲載 -->
     <MediaSection ref="mediaSectionRef" />
@@ -32,7 +32,7 @@
     <ConsultationSection position="上部" />
 
     <!-- Phase 7: 物件選び放題 -->
-    <PropertySection position="ページ中央" />
+    <PropertySection />
 
     <!-- Phase 8: SNS紹介 -->
     <SnsSection />
