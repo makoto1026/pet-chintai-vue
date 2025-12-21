@@ -15,12 +15,14 @@
         sub-text="WEBでカンタン！"
         main-text="来店予約はこちら"
         href="https://liff.line.me/2002059008-9pWGGjdz?calendar_salon_id=20940&ts=1765344685"
+        :event-name="`来店予約ボタン_${position}`"
       />
       <CtaButton
         variant="green"
         sub-text="迷ってる方はこちら"
         main-text="LINEで相談する"
         href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+        :event-name="`LINE相談ボタン_${position}`"
       />
     </div>
   </section>
@@ -43,6 +45,10 @@ defineProps({
   hideTopOverlay: {
     type: Boolean,
     default: false
+  },
+  position: {
+    type: String as () => '上部' | '中部' | '下部',
+    default: '上部'
   }
 });
 </script>

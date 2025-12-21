@@ -1,5 +1,5 @@
 <template>
-  <div class="property-card">
+  <div class="property-card" @click="openUrl">
     <div class="property-card__image">
       <img :src="image" :alt="area" />
     </div>
@@ -17,7 +17,13 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 
-defineProps({
+// PTエンジンのイベントトラッキング
+declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+const trackEvent = (eventName: string) => {
+  _pt_sp_2?.push('setCustomEvent', { eventName });
+};
+
+const props = defineProps({
   image: {
     type: String,
     required: true
@@ -37,8 +43,22 @@ defineProps({
   size: {
     type: String,
     required: true
+  },
+  url: {
+    type: String,
+    required: true
+  },
+  eventName: {
+    type: String,
+    required: true
   }
 });
+
+// urlを開けるようにする
+const openUrl = () => {
+  trackEvent(props.eventName);
+  window.open(props.url, '_blank');
+};
 </script>
 
 <style scoped lang="scss">
@@ -51,6 +71,7 @@ defineProps({
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 
   &__image {
     width: 100%;

@@ -57,13 +57,13 @@
 
     <!-- SNSボタン -->
     <div class="sns-section__buttons">
-      <a href="https://www.instagram.com/petestate.jp/" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link">
+      <a href="https://www.instagram.com/petestate.jp/" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link" @click="trackEvent('SNS_Instagram')">
         <img :src="instaIcon" alt="Instagram" class="sns-section__sns-icon sns-section__sns-icon--pulse" />
       </a>
-      <a href="https://www.tiktok.com/@petestate.jp" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link">
+      <a href="https://www.tiktok.com/@petestate.jp" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link" @click="trackEvent('SNS_TikTok')">
         <img :src="tiktokIcon" alt="TikTok" class="sns-section__sns-icon sns-section__sns-icon--pulse" />
       </a>
-      <a href="https://www.youtube.com/@petestate" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link">
+      <a href="https://www.youtube.com/@petestate" target="_blank" rel="noopener noreferrer" class="sns-section__sns-link" @click="trackEvent('SNS_YouTube')">
         <img :src="youtubeIcon" alt="YouTube" class="sns-section__sns-icon sns-section__sns-icon--pulse" />
       </a>
     </div>
@@ -72,6 +72,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+
+// PTエンジンのイベントトラッキング
+declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+const trackEvent = (eventName: string) => {
+  _pt_sp_2?.push('setCustomEvent', { eventName });
+};
 import phoneMockImageWebp from '@/assets/images/sns-phone-mock.webp';
 import phoneMockImagePng from '@/assets/images/sns-phone-mock.png';
 import instagramLogoImage from '@/assets/images/sns-instagram-logo.png';

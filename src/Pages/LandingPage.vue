@@ -8,6 +8,7 @@
         class="fixed-line-button"
         target="_blank"
         rel="noopener noreferrer"
+        @click="trackEvent('固定LINEボタン')"
       >
         <img :src="lineButtonImage" alt="LINEで気軽に相談する" />
       </a>
@@ -15,6 +16,8 @@
 
     <!-- Phase 2: ファーストビュー -->
     <FirstViewSection />
+
+    <PropertySection position="FV直下" />
 
     <!-- Phase 3: メディア掲載 -->
     <MediaSection ref="mediaSectionRef" />
@@ -26,10 +29,10 @@
     <ReasonsSection />
 
     <!-- Phase 6: ご相談・来店 -->
-    <ConsultationSection />
+    <ConsultationSection position="上部" />
 
     <!-- Phase 7: 物件選び放題 -->
-    <PropertySection />
+    <PropertySection position="ページ中央" />
 
     <!-- Phase 8: SNS紹介 -->
     <SnsSection />
@@ -41,7 +44,7 @@
     <TestimonialsSection />
 
     <!-- Phase 11: ご相談・来店（再利用） -->
-    <ConsultationSection :hide-top-overlay="true" />
+    <ConsultationSection :hide-top-overlay="true" position="中部" />
 
     <!-- Phase 12: ご入居までの流れ -->
     <FlowSection />
@@ -56,7 +59,7 @@
     <ShopInfoSection />
 
     <!-- Phase 16: ご相談・来店（再利用） -->
-    <ConsultationSection />
+    <ConsultationSection position="下部" />
 
     <!-- Phase 17: フッター -->
     <FooterSection />
@@ -83,6 +86,12 @@ import FooterSection from '@/components/sections/FooterSection.vue';
 
 const showLineButton = ref(false);
 const mediaSectionRef = ref<InstanceType<typeof MediaSection> | null>(null);
+
+// PTエンジンのイベントトラッキング
+declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+const trackEvent = (eventName: string) => {
+  _pt_sp_2?.push('setCustomEvent', { eventName });
+};
 
 const updateButtonVisibility = () => {
   const scrollTop = window.scrollY;

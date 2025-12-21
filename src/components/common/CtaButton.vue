@@ -4,6 +4,7 @@
     :class="['cta-button', `cta-button--${variant}`]"
     target="_blank"
     rel="noopener noreferrer"
+    @click="trackEvent(eventName)"
   >
     <span class="cta-button__sub">{{ subText }}</span>
     <span class="cta-button__main">{{ mainText }}</span>
@@ -12,6 +13,12 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
+
+// PTエンジンのイベントトラッキング
+declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+const trackEvent = (eventName: string) => {
+  _pt_sp_2?.push('setCustomEvent', { eventName });
+};
 
 defineProps({
   variant: {
@@ -27,6 +34,10 @@ defineProps({
     required: true
   },
   href: {
+    type: String,
+    required: true
+  },
+  eventName: {
     type: String,
     required: true
   }

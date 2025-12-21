@@ -56,6 +56,8 @@
         :price="property.price"
         :layout="property.layout"
         :size="property.size"
+        :url="property.url"
+        :event-name="`${property.eventName}_${position}`"
       />
     </div>
 
@@ -65,8 +67,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, defineProps } from 'vue';
 import PropertyCard from '@/components/common/PropertyCard.vue';
+
+defineProps({
+  position: {
+    type: String as () => 'FV直下' | 'ページ中央',
+    default: 'FV直下'
+  }
+});
 import backgroundImageWebp from '@/assets/images/property-bg.webp';
 import backgroundImagePng from '@/assets/images/property-bg.png';
 import decorationImage from '@/assets/images/properties-bg-decoration.png';
@@ -115,7 +124,9 @@ const properties = [
     area: '渋谷区',
     price: '210,000',
     layout: '1DK',
-    size: '33㎡'
+    size: '33㎡',
+    url: "https://www.instagram.com/p/DNaiDoLpkVY/?igsh=MWg1Z2szcmt3dm1qeQ==",
+    eventName: '物件カード_代々木公園駅'
   },
   {
     id: 2,
@@ -123,7 +134,9 @@ const properties = [
     area: '渋谷区',
     price: '未公開',
     layout: '2LDK',
-    size: '91㎡'
+    size: '91㎡',
+    url: "https://www.instagram.com/p/DNDb9xrJ-so/?igsh=MWY0ZzI4ZXd5cThvOQ==",
+    eventName: '物件カード_渋谷駅'
   },
   {
     id: 3,
@@ -131,7 +144,9 @@ const properties = [
     area: '江戸川区',
     price: '136,000',
     layout: '1DK',
-    size: '41㎡'
+    size: '41㎡',
+    url: "https://www.instagram.com/p/DPYxmlHEuMY/?igsh=cmgyZXVydThjaHZr",
+    eventName: '物件カード_葛西駅'
   },
   {
     id: 4,
@@ -139,7 +154,9 @@ const properties = [
     area: '中野区',
     price: '120,000',
     layout: '2DK',
-    size: '41㎡'
+    size: '41㎡',
+    url: "https://www.instagram.com/p/DON_nZIEp1q/?igsh=MW0yYXV2MDA0eTR4aA==",
+    eventName: '物件カード_新中野駅'
   }
 ];
 </script>

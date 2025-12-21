@@ -158,6 +158,7 @@
       href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
       target="_blank"
       class="cta-button"
+      @click="trackEvent('FV_CTAボタン')"
     >
       <picture>
         <source srcset="@/assets/images/fv-button.webp" type="image/webp" />
@@ -174,6 +175,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+
+// PTエンジンのイベントトラッキング
+declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+const trackEvent = (eventName: string) => {
+  _pt_sp_2?.push('setCustomEvent', { eventName });
+};
 
 // 画像読み込み状態
 const isLoaded = ref(false);
@@ -488,7 +495,7 @@ onMounted(() => {
 // サブタイトル
 .sub-title {
   position: absolute;
-  top: 64%; // 444 / 700
+  top: 64.5%; // 444 / 700
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -528,7 +535,7 @@ onMounted(() => {
   left: 50%;
   transform: translateX(-50%);
   width: 85%;
-  max-width: 319px;
+  max-width: 339px;
   display: flex;
   justify-content: space-between;
   z-index: 5;
@@ -548,8 +555,8 @@ onMounted(() => {
 
 .badge {
   position: relative;
-  width: 98px;
-  height: 98px;
+  width: 108px;
+  height: 108px;
 
   &--animate {
     opacity: 0;
@@ -573,7 +580,7 @@ onMounted(() => {
 
   &__content {
     position: absolute;
-    top: 32px;
+    top: 37px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
