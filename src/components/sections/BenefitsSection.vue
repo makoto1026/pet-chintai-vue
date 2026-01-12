@@ -18,12 +18,15 @@
       <div class="benefits-box">
         <div class="benefits-box-border"></div>
         <div class="benefits-box-content">
-          <div class="benefits-title">
-            <span class="title-main">特別優待</span>
-            <span class="title-sub">つき</span>
+          <div class="benefits-title-wrapper">
+            <div class="benefits-title">
+              <span class="title-main">特別優待</span>
+              <span class="title-sub">つき</span>
+            </div>
+            <DogStamp class="dog-stamp" />
           </div>
           <a
-            href="https://www.instagram.com/glh_petsumailab/"
+            href="/priorities"
             target="_blank"
             rel="noopener noreferrer"
             class="check-button"
@@ -36,13 +39,13 @@
         <!-- 装飾 -->
         <img :src="decoration" alt="" class="box-decoration" />
       </div>
-    </div>
 
-    <!-- 区切り線 -->
-    <div class="divider">
-      <img :src="dividerLine" alt="" class="divider-line" />
-      <div class="divider-center">
-        <GoldPlus />
+      <!-- 区切り線 -->
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-center">
+          <GoldPlus />
+        </div>
       </div>
     </div>
 
@@ -85,7 +88,7 @@
 
       <!-- 詳細ボタン -->
       <a
-        href="https://www.instagram.com/glh_petsumailab/"
+        href="/priorities"
         target="_blank"
         rel="noopener noreferrer"
         class="detail-button"
@@ -103,6 +106,7 @@
 <script setup lang="ts">
 // コンポーネントインポート
 import GoldPlus from '@/components/icons/gold-plus.vue';
+import DogStamp from '@/components/icons/DogStamp.vue';
 
 // 画像インポート
 import bgTexture from '@/assets/images/benefits/bg-texture.png';
@@ -113,7 +117,6 @@ import pawRight from '@/assets/images/benefits/paw-right.png';
 import badgeBg from '@/assets/images/benefits/badge-bg.png';
 import decoration from '@/assets/images/benefits/decoration.png';
 import labelBg from '@/assets/images/benefits/label-bg.png';
-import dividerLine from '@/assets/images/benefits/divider-line.svg';
 
 // PTエンジンのイベントトラッキング
 declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
@@ -175,7 +178,7 @@ const benefits = [
 // 優待セクション（上部）
 .benefits-upper {
   position: relative;
-  padding: 30px 16px 0;
+  padding: 30px 16px 23px;
 }
 
 .label-container {
@@ -230,6 +233,22 @@ const benefits = [
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+.benefits-title-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .dog-stamp {
+    position: absolute;
+    right: -90px;
+    top: 90%;
+    transform: translateY(-50%);
+    width: 120px;
+    height: auto;
+  }
 }
 
 .benefits-title {
@@ -303,21 +322,23 @@ const benefits = [
 
 // 区切り線
 .divider {
-  position: relative;
-  height: 42px;
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  height: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -4px;
-
-  img {
-    height: 12px;
-  }
+  z-index: 2;
 
   .divider-line {
     position: absolute;
     width: 100%;
+    height: 4px;
     left: 0;
+    top: -2px;
+    background: linear-gradient(90deg, #E5C168 0%, #FDFACC 53%, #D1A348 100%);
   }
 
   .divider-center {
@@ -327,6 +348,7 @@ const benefits = [
     :deep(svg) {
       width: 46px;
       height: 46px;
+      display: block;
     }
   }
 }
@@ -367,8 +389,8 @@ const benefits = [
   position: absolute;
   width: 166px;
   height: auto;
-  top: -20px;
-  left: -134px;
+  top: -4px;
+  left: -100px;
   transform: rotate(-24deg);
 }
 
@@ -389,7 +411,7 @@ const benefits = [
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding-right: 16px;
+    padding-right: 0px;
     margin-bottom: 12px;
   }
 
@@ -403,7 +425,8 @@ const benefits = [
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-right: 0;
+    margin-right: 0px;
+    filter: drop-shadow(0 0 2px $white) drop-shadow(0 0 2px $white);
   }
 
   .title-number {
@@ -415,7 +438,13 @@ const benefits = [
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-right: 0;
+    margin-right: 0px;
+    filter: drop-shadow(0 0 2px $white) drop-shadow(0 0 2px $white);
+  }
+
+  .title-gouka,
+  .title-number {
+    margin-right: 4px;;
   }
 
   .title-present {
@@ -428,6 +457,7 @@ const benefits = [
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-top: -10px;
+    filter: drop-shadow(0 0 2px $white) drop-shadow(0 0 2px $white);
   }
 }
 
@@ -515,6 +545,8 @@ const benefits = [
 
 // 詳細ボタン
 .detail-button {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -543,9 +575,8 @@ const benefits = [
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
-  background: linear-gradient(180deg, rgba(253, 246, 229, 0) 0%, #FDF6E5 82.569%);
-  transform: rotate(180deg);
+  height: 80px;
+  background: linear-gradient(180deg, transparent 0%, #FDF6E5 100%);
   pointer-events: none;
 }
 </style>

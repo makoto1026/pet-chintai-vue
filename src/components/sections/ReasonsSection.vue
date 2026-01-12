@@ -1,5 +1,11 @@
 <template>
   <section class="reasons-section">
+    <div class="reasons-section__header">
+      <p class="reasons-section__title">
+        ペット住まいラボが選ばれる<span class="highlight">4</span>つの理由
+      </p>
+    </div>
+    <div class="reasons-section__gradient"></div>
     <div class="reasons-section__list">
       <ReasonCard
         v-for="reason in reasons"
@@ -76,8 +82,35 @@ const reasons = [
   width: 100%;
   max-width: $max-container-width;
   margin: 0 auto;
-  padding: 8px 0 30px;
+  padding: 0 0 30px;
   background: $background-pink;
+
+  &__header {
+    padding: 30px 20px 16px;
+    text-align: center;
+    background: #FDF6E5;
+  }
+
+  &__gradient {
+    height: 40px;
+    background: linear-gradient(180deg, #FDF6E5 0%, $background-pink 100%);
+  }
+
+  &__title {
+    font-family: $font-mincho;
+    font-weight: $font-weight-semibold;
+    font-size: $font-3xl;
+    line-height: 30px;
+    color: $text-brown;
+
+    .highlight {
+      font-size: 28px;
+      background: linear-gradient(180deg, $accent-pink 19.231%, $accent-pink-dark 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
 
   &__list {
     display: flex;
