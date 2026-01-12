@@ -42,8 +42,7 @@
     <div class="divider">
       <img :src="dividerLine" alt="" class="divider-line" />
       <div class="divider-center">
-        <img :src="badgeBg" alt="" class="badge-bg" />
-        <img :src="plusIcon" alt="" class="plus-icon" />
+        <GoldPlus />
       </div>
     </div>
 
@@ -102,6 +101,9 @@
 </template>
 
 <script setup lang="ts">
+// コンポーネントインポート
+import GoldPlus from '@/components/icons/gold-plus.vue';
+
 // 画像インポート
 import bgTexture from '@/assets/images/benefits/bg-texture.png';
 import bgOverlay from '@/assets/images/benefits/bg-overlay.png';
@@ -112,7 +114,6 @@ import badgeBg from '@/assets/images/benefits/badge-bg.png';
 import decoration from '@/assets/images/benefits/decoration.png';
 import labelBg from '@/assets/images/benefits/label-bg.png';
 import dividerLine from '@/assets/images/benefits/divider-line.svg';
-import plusIcon from '@/assets/images/benefits/plus-icon.svg';
 
 // PTエンジンのイベントトラッキング
 declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
@@ -216,10 +217,10 @@ const benefits = [
 
 .benefits-box-border {
   position: absolute;
-  top: 4px;
-  left: 4px;
-  right: 4px;
-  bottom: 4px;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
   border: 1px solid $white;
   pointer-events: none;
 }
@@ -321,24 +322,11 @@ const benefits = [
 
   .divider-center {
     position: relative;
-    width: 38px;
-    height: 38px;
     z-index: 1;
 
-    .badge-bg {
-      width: 100%;
-      height: 100%;
-      border-radius: 100px;
-      object-fit: cover;
-    }
-
-    .plus-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
+    :deep(svg) {
+      width: 46px;
+      height: 46px;
     }
   }
 }
