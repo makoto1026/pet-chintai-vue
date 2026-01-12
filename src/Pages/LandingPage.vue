@@ -4,7 +4,7 @@
     <Transition name="fade">
       <a
         v-show="showLineButton"
-        href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+        href="https://l-tra.com/ad/LTR4g1wXn5"
         class="fixed-line-button"
         target="_blank"
         rel="noopener noreferrer"

@@ -21,7 +21,7 @@
         variant="green"
         sub-text="迷ってる方はこちら"
         main-text="LINEで相談する"
-        href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+        href="https://l-tra.com/ad/LTR4g1wXn5"
         :event-name="`LINE相談ボタン_${position}`"
       />
     </div>

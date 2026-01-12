@@ -155,7 +155,7 @@
 
     <!-- CTAボタン -->
     <a
-      href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+      href="https://l-tra.com/ad/LTR4g1wXn5"
       target="_blank"
       class="cta-button"
       @click="trackEvent('FV_CTAボタン')"
