@@ -56,8 +56,8 @@ const props = defineProps({
 
 // urlを開けるようにする
 const openUrl = () => {
-  trackEvent(props.eventName);
-  window.open(props.url, '_blank');
+  // trackEvent(props.eventName);
+  // window.open(props.url, '_blank');
 };
 </script>
 
