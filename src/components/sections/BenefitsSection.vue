@@ -18,10 +18,15 @@
       <div class="benefits-box">
         <div class="benefits-box-border"></div>
         <div class="benefits-box-content">
-          <div class="benefits-title-wrapper">
-            <div class="benefits-title">
-              <span class="title-main">特別優待</span>
-              <span class="title-sub">つき</span>
+          <div class="benefits-title-container">
+            <div
+              ref="titleRef"
+              :class="['benefits-title-wrapper', { 'benefits-title-wrapper--animated': isTitleVisible }]"
+            >
+              <div class="benefits-title">
+                <span class="title-main">特別優待</span>
+                <span class="title-sub">つき</span>
+              </div>
             </div>
             <DogStamp class="dog-stamp" />
           </div>
@@ -61,7 +66,10 @@
       <img :src="pawRight" alt="" class="paw-right" />
 
       <!-- タイトル -->
-      <div class="presents-title">
+      <div
+        ref="presentsTitleRef"
+        :class="['presents-title', { 'presents-title--animated': isPresentsTitleVisible }]"
+      >
         <div class="title-row">
           <span class="title-gouka">豪華</span>
           <span class="title-number">4</span>
@@ -104,6 +112,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+
 // コンポーネントインポート
 import GoldPlus from '@/components/icons/gold-plus.vue';
 import DogStamp from '@/components/icons/DogStamp.vue';
@@ -123,6 +133,43 @@ declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) =>
 const trackEvent = (eventName: string) => {
   _pt_sp_2?.push('setCustomEvent', { eventName });
 };
+
+// アニメーション用
+const titleRef = ref<HTMLElement | null>(null);
+const presentsTitleRef = ref<HTMLElement | null>(null);
+const isTitleVisible = ref(false);
+const isPresentsTitleVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (entry.target === titleRef.value && !isTitleVisible.value) {
+            isTitleVisible.value = true;
+          }
+          if (entry.target === presentsTitleRef.value && !isPresentsTitleVisible.value) {
+            isPresentsTitleVisible.value = true;
+          }
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+  if (titleRef.value) {
+    observer.observe(titleRef.value);
+  }
+  if (presentsTitleRef.value) {
+    observer.observe(presentsTitleRef.value);
+  }
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 
 const benefits = [
   {
@@ -235,7 +282,7 @@ const benefits = [
   gap: 20px;
 }
 
-.benefits-title-wrapper {
+.benefits-title-container {
   position: relative;
   display: flex;
   align-items: center;
@@ -243,11 +290,38 @@ const benefits = [
 
   .dog-stamp {
     position: absolute;
-    right: -90px;
-    top: 90%;
-    transform: translateY(-50%);
-    width: 120px;
+    right: -80px;
+    top: 20%;
+    transform: translateY(-20%);
+    width: 100px;
     height: auto;
+  }
+}
+
+.benefits-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scaleX(0);
+  opacity: 0;
+
+  &--animated {
+    animation: expandFromCenter 1s ease-out forwards;
+  }
+}
+
+@keyframes expandFromCenter {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleX(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
   }
 }
 
@@ -291,6 +365,7 @@ const benefits = [
   box-shadow: 0 0 10px $white, 0 0 10px $white;
   text-decoration: none;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  animation: pulse 1.2s ease-in-out infinite;
 
   .btn-highlight {
     font-family: $font-mincho;
@@ -406,6 +481,11 @@ const benefits = [
   position: relative;
   text-align: center;
   margin-bottom: 30px;
+  opacity: 0;
+
+  &--animated {
+    animation: revealFromBottom 0.8s ease-out forwards;
+  }
 
   .title-row {
     display: flex;
@@ -567,6 +647,30 @@ const benefits = [
   color: $white;
   text-decoration: none;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.93);
+  }
+}
+
+@keyframes revealFromBottom {
+  0% {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 // 下部グラデーション
