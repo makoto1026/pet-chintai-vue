@@ -66,9 +66,12 @@
 
 <script setup lang="ts">
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 </script>
 

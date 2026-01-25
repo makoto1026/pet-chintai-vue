@@ -129,9 +129,12 @@ import decoration from '@/assets/images/benefits/decoration.png';
 import labelBg from '@/assets/images/benefits/label-bg.png';
 
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 
 // アニメーション用
@@ -398,7 +401,7 @@ const benefits = [
 // 区切り線
 .divider {
   position: absolute;
-  bottom: 12px;
+  bottom: -2px;
   left: 0;
   right: 0;
   height: 4px;
@@ -433,6 +436,7 @@ const benefits = [
   position: relative;
   padding: 20px 20px 50px;
   min-height: 716px;
+  overflow: hidden;
 }
 
 .presents-bg {

@@ -10,7 +10,7 @@
             :href="lineUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="popup-link"
+            class="popup-link lme_qr_add_friend"
             @click="handleLineClick"
           >
             <img :src="popupImage" alt="LINEで無料相談する" class="popup-image" />
@@ -59,14 +59,13 @@ const handleLineClick = () => {
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  padding: 20px;
   box-sizing: border-box;
 }
 
 .leave-popup {
   position: relative;
   max-width: 400px;
-  width: 100%;
+  width: 80%;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);

@@ -74,9 +74,12 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 import phoneMockImageWebp from '@/assets/images/sns-phone-mock.webp';
 import phoneMockImagePng from '@/assets/images/sns-phone-mock.png';

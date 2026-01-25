@@ -67,19 +67,18 @@
     <!-- Phase 17: フッター -->
     <FooterSection />
 
-    <!-- 離脱防止ポップアップ -->
+    <!-- 離脱防止ポップアップ（一時的に無効化）
     <LeavePopup
       :visible="showLeavePopup"
       @close="handleLeavePopupClose"
       @line-click="handleLeavePopupLineClick"
     />
+    -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { leavePopupState } from '@/router';
 import lineButtonImage from '@/assets/images/line-button.svg';
 import FirstViewSection from '@/components/sections/FirstViewSection.vue';
 import MediaSection from '@/components/sections/MediaSection.vue';
@@ -204,9 +203,12 @@ const showLeavePopup = ref(false);
 const hasShownLeavePopup = ref(false);
 
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 
 const updateButtonVisibility = () => {
@@ -235,20 +237,8 @@ const updateButtonVisibility = () => {
 };
 
 // 離脱防止ポップアップのハンドラー
-const router = useRouter();
-
-const showPopup = () => {
-  showLeavePopup.value = true;
-  hasShownLeavePopup.value = true;
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  trackEvent('離脱防止ポップアップ表示');
-};
-
 const handleLeavePopupClose = () => {
   showLeavePopup.value = false;
-  // 実際にブラウザバックを実行
-  leavePopupState.enabled.value = false;
-  history.back();
 };
 
 const handleLeavePopupLineClick = () => {
@@ -256,33 +246,31 @@ const handleLeavePopupLineClick = () => {
   showLeavePopup.value = false;
 };
 
-// スクロール時にハッシュを追加（一度だけ）
-const handleScrollForPopup = () => {
-  if (!leavePopupState.enabled.value) {
-    router.push({ hash: '#stay' });
-    leavePopupState.enabled.value = true;
-    leavePopupState.shown.value = false;
-    console.log('hash #stay added');
+// 70%スクロールでポップアップを表示
+const checkScrollForPopup = () => {
+  if (hasShownLeavePopup.value) return;
+
+  const scrollTop = window.scrollY;
+  const documentHeight = document.documentElement.scrollHeight;
+  const windowHeight = window.innerHeight;
+  const scrollPercent = scrollTop / (documentHeight - windowHeight);
+
+  if (scrollPercent >= 0.7) {
+    showLeavePopup.value = true;
+    hasShownLeavePopup.value = true;
+    trackEvent('離脱防止ポップアップ表示');
   }
 };
 
 onMounted(() => {
   window.addEventListener('scroll', updateButtonVisibility);
+  window.addEventListener('scroll', checkScrollForPopup);
   updateButtonVisibility();
-
-  // グローバル状態にshowPopup関数を登録
-  leavePopupState.showPopup = showPopup;
-  leavePopupState.enabled.value = false;
-  leavePopupState.shown.value = false;
-
-  // スクロール時にルート遷移
-  window.addEventListener('scroll', handleScrollForPopup, { once: true });
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', updateButtonVisibility);
-  window.removeEventListener('scroll', handleScrollForPopup);
-  leavePopupState.showPopup = null;
+  window.removeEventListener('scroll', checkScrollForPopup);
 });
 </script>
 
