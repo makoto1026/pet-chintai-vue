@@ -8,8 +8,9 @@
     <div class="reasons-section__gradient"></div>
     <div class="reasons-section__list">
       <ReasonCard
-        v-for="reason in reasons"
+        v-for="(reason, index) in reasons"
         :key="reason.number"
+        :ref="(el) => setCardRef(el, index)"
         :number="reason.number"
         :point-image="reason.pointImage"
         :image="reason.image"
@@ -17,12 +18,15 @@
         :title-highlight="reason.titleHighlight"
         :title-normal="reason.titleNormal"
         :description="reason.description"
+        :direction="index % 2 === 0 ? 'left' : 'right'"
+        :visible="cardVisibility[index]"
       />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted, type ComponentPublicInstance } from 'vue';
 import ReasonCard from '@/components/common/ReasonCard.vue';
 import reason01Image from '@/assets/images/reason-01.png';
 import reason02Image from '@/assets/images/reason-02.png';
@@ -32,6 +36,42 @@ import point1Image from '@/assets/images/point-1.svg';
 import point2Image from '@/assets/images/point-2.svg';
 import point3Image from '@/assets/images/point-3.svg';
 import point4Image from '@/assets/images/point-4.svg';
+
+// カードの参照を保持
+const cardRefs = ref<(ComponentPublicInstance | null)[]>([]);
+const cardVisibility = ref<boolean[]>([false, false, false, false]);
+
+let observer: IntersectionObserver | null = null;
+
+const setCardRef = (el: ComponentPublicInstance | null, index: number) => {
+  cardRefs.value[index] = el;
+};
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const index = cardRefs.value.findIndex((ref) => ref?.$el === entry.target);
+        if (index !== -1) {
+          cardVisibility.value[index] = entry.isIntersecting;
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  cardRefs.value.forEach((cardRef) => {
+    if (cardRef?.$el) {
+      observer?.observe(cardRef.$el);
+    }
+  });
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 
 const reasons = [
   {

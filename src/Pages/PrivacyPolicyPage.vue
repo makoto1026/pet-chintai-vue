@@ -86,9 +86,9 @@
         <div class="privacy-policy-page__contact">
           <p class="privacy-policy-page__contact-company">株式会社GLH</p>
           <p class="privacy-policy-page__contact-address">
-            〒150-0002<br />
-            東京都渋谷区渋谷一丁目１番３号<br />
-            アミーホール4階
+            〒150-0001<br />
+            東京都渋谷区神宮前２丁目３−１４<br />
+            サンフェル神宮前 208
           </p>
           <p class="privacy-policy-page__contact-tel">TEL 090-8143-2183</p>
         </div>

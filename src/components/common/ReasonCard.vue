@@ -1,5 +1,11 @@
 <template>
-  <div class="reason-card">
+  <div
+    :class="[
+      'reason-card',
+      `reason-card--${direction}`,
+      { 'reason-card--visible': visible }
+    ]"
+  >
     <!-- ポイント番号（SVG画像） -->
     <img
       :src="pointImage"
@@ -62,6 +68,14 @@ defineProps({
   description: {
     type: String,
     required: true
+  },
+  direction: {
+    type: String as () => 'left' | 'right',
+    default: 'left'
+  },
+  visible: {
+    type: Boolean,
+    default: false
   }
 });
 </script>
@@ -70,11 +84,49 @@ defineProps({
 @import '@/assets/styles/_variables.scss';
 @import '@/assets/styles/_mixins.scss';
 
+@keyframes expandFromCenter {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleX(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
 .reason-card {
   position: relative;
   width: 335px;
   margin: 0 auto;
   padding-top: 32px;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+
+  // 左からスライドイン
+  &--left {
+    opacity: 0;
+    transform: translateX(-50px);
+
+    &.reason-card--visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  // 右からスライドイン
+  &--right {
+    opacity: 0;
+    transform: translateX(50px);
+
+    &.reason-card--visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
   &__point {
     position: absolute;
@@ -135,6 +187,14 @@ defineProps({
   &__title-highlight {
     font-size: $font-6xl;
     @include gradient-orange-text;
+    display: inline-block;
+    opacity: 0;
+    transform: scaleX(0);
+
+    // スライドアニメーション完了後（0.5秒後）にexpandFromCenterを開始
+    .reason-card--visible & {
+      animation: expandFromCenter 1s ease-out 0.5s forwards;
+    }
   }
 
   &__title-normal {

@@ -4,8 +4,8 @@
     <Transition name="fade">
       <a
         v-show="showLineButton"
-        href="https://l-tra.com/ad/LTR4g1wXn5"
-        class="fixed-line-button"
+        href="https://s.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=zI2YQN"
+        class="fixed-line-button lme_qr_add_friend"
         target="_blank"
         rel="noopener noreferrer"
         @click="trackEvent('固定LINEボタン')"
@@ -66,11 +66,20 @@
 
     <!-- Phase 17: フッター -->
     <FooterSection />
+
+    <!-- 離脱防止ポップアップ -->
+    <LeavePopup
+      :visible="showLeavePopup"
+      @close="handleLeavePopupClose"
+      @line-click="handleLeavePopupLineClick"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { leavePopupState } from '@/router';
 import lineButtonImage from '@/assets/images/line-button.svg';
 import FirstViewSection from '@/components/sections/FirstViewSection.vue';
 import MediaSection from '@/components/sections/MediaSection.vue';
@@ -87,6 +96,7 @@ import SmartSearchSection from '@/components/sections/SmartSearchSection.vue';
 import FaqSection from '@/components/sections/FaqSection.vue';
 import ShopInfoSection from '@/components/sections/ShopInfoSection.vue';
 import FooterSection from '@/components/sections/FooterSection.vue';
+import LeavePopup from '@/components/common/LeavePopup.vue';
 
 // 物件画像のインポート（FV直下用）
 import yoyogiImage from '@/assets/images/properties/yoyogi.jpg';
@@ -190,6 +200,8 @@ const propertiesBottom = [
 
 const showLineButton = ref(false);
 const mediaSectionRef = ref<InstanceType<typeof MediaSection> | null>(null);
+const showLeavePopup = ref(false);
+const hasShownLeavePopup = ref(false);
 
 // PTエンジンのイベントトラッキング
 declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
@@ -222,13 +234,55 @@ const updateButtonVisibility = () => {
   showLineButton.value = isMediaPastButtonCenter && !isNearFooter;
 };
 
+// 離脱防止ポップアップのハンドラー
+const router = useRouter();
+
+const showPopup = () => {
+  showLeavePopup.value = true;
+  hasShownLeavePopup.value = true;
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  trackEvent('離脱防止ポップアップ表示');
+};
+
+const handleLeavePopupClose = () => {
+  showLeavePopup.value = false;
+  // 実際にブラウザバックを実行
+  leavePopupState.enabled.value = false;
+  history.back();
+};
+
+const handleLeavePopupLineClick = () => {
+  trackEvent('離脱防止ポップアップ_LINE');
+  showLeavePopup.value = false;
+};
+
+// スクロール時にハッシュを追加（一度だけ）
+const handleScrollForPopup = () => {
+  if (!leavePopupState.enabled.value) {
+    router.push({ hash: '#stay' });
+    leavePopupState.enabled.value = true;
+    leavePopupState.shown.value = false;
+    console.log('hash #stay added');
+  }
+};
+
 onMounted(() => {
   window.addEventListener('scroll', updateButtonVisibility);
   updateButtonVisibility();
+
+  // グローバル状態にshowPopup関数を登録
+  leavePopupState.showPopup = showPopup;
+  leavePopupState.enabled.value = false;
+  leavePopupState.shown.value = false;
+
+  // スクロール時にルート遷移
+  window.addEventListener('scroll', handleScrollForPopup, { once: true });
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', updateButtonVisibility);
+  window.removeEventListener('scroll', handleScrollForPopup);
+  leavePopupState.showPopup = null;
 });
 </script>
 

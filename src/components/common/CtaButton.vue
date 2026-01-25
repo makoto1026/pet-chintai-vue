@@ -1,7 +1,7 @@
 <template>
   <a
     :href="href"
-    :class="['cta-button', `cta-button--${variant}`]"
+    :class="['cta-button', `cta-button--${variant}`, className]"
     target="_blank"
     rel="noopener noreferrer"
     @click="trackEvent(eventName)"
@@ -42,6 +42,10 @@ defineProps({
   eventName: {
     type: String,
     required: true
+  },
+  className: {
+    type: String,
+    default: ''
   }
 });
 </script>

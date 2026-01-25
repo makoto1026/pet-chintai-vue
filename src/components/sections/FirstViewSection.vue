@@ -155,9 +155,9 @@
 
     <!-- CTAボタン -->
     <a
-      href="https://l-tra.com/ad/LTR4g1wXn5"
+      href="https://s.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=zI2YQN"
       target="_blank"
-      class="cta-button"
+      class="cta-button lme_qr_add_friend"
       @click="trackEvent('FV_CTAボタン')"
     >
       <picture>
