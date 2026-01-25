@@ -155,9 +155,9 @@
 
     <!-- CTAボタン -->
     <a
-      href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+      href="https://s.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=zI2YQN"
       target="_blank"
-      class="cta-button"
+      class="cta-button lme_qr_add_friend"
       @click="trackEvent('FV_CTAボタン')"
     >
       <picture>
@@ -177,9 +177,12 @@
 import { ref, onMounted } from 'vue';
 
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 
 // 画像読み込み状態

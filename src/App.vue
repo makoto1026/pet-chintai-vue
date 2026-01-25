@@ -4,7 +4,6 @@
 
 <style lang="scss">
 #app {
-  max-width: 480px;
   margin: 0 auto;
 }
 </style>

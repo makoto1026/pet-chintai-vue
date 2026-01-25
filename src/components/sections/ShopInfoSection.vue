@@ -14,8 +14,8 @@
         <div class="shop-info__item">
           <span class="shop-info__label">所在地</span>
           <div class="shop-info__value">
-            <p>〒150-0002</p>
-            <p>東京都渋谷区渋谷１丁目１−３ アミーホール THE HUB 青山WEST  403</p>
+            <p>〒150-0001</p>
+            <p>東京都渋谷区神宮前２丁目３−１４ サンフェル神宮前 208</p>
             <a href="https://www.google.co.jp/maps?q=35.6614533,139.7073725" target="_blank" class="shop-info__map-link" @click="trackEvent('店舗情報_GoogleMap')">
               <span class="shop-info__map-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,9 +66,12 @@
 
 <script setup lang="ts">
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 </script>
 
