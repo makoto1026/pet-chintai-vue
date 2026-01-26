@@ -67,13 +67,12 @@
     <!-- Phase 17: フッター -->
     <FooterSection />
 
-    <!-- 離脱防止ポップアップ（一時的に無効化）
+    <!-- 離脱防止ポップアップ -->
     <LeavePopup
       :visible="showLeavePopup"
       @close="handleLeavePopupClose"
       @line-click="handleLeavePopupLineClick"
     />
-    -->
   </div>
 </template>
 
@@ -271,30 +270,19 @@ const checkScrollBelowFV = () => {
   const fvElement = firstViewRef.value?.$el as HTMLElement | undefined;
   const fvBottom = fvElement ? fvElement.offsetTop + fvElement.offsetHeight : 0;
   const scrollTop = window.scrollY;
-  const wasBelowFV = isBelowFV.value;
   isBelowFV.value = scrollTop > fvBottom;
-
-  // 状態が変わったときだけログを出力
-  if (isBelowFV.value !== wasBelowFV) {
-    if (isBelowFV.value) {
-      console.log('FVより下にスクロールしました');
-    } else {
-      console.log('FV内に戻りました');
-    }
-  }
 };
 
 // ブラウザバック検知用のハンドラー
 const handlePopState = () => {
-  console.log('popstateイベント発火, isBelowFV:', isBelowFV.value);
-
   // FVより下にスクロールされている場合
   if (isBelowFV.value) {
-    console.log('ブラウザバック検知（FVより下）→ 上部にスクロール');
     // 履歴を追加して戻るのを防ぐ
     history.pushState(null, '', null);
     // ページ最上部にスクロール
     window.scrollTo(0, 0);
+    // 離脱防止ポップアップを表示
+    showLeavePopup.value = true;
   }
 };
 
