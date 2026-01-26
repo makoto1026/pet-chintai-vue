@@ -261,7 +261,6 @@ const checkScrollBelowFV = () => {
 
   // FVより下に初めてスクロールした時にダミー履歴を追加
   if (isBelowFV.value && !wasBelowFV && !hasAddedBackHistory.value) {
-    console.log('[DEBUG] FVより下にスクロール、pushState実行');
     history.pushState(null, '', null);
     hasAddedBackHistory.value = true;
   }
@@ -269,10 +268,8 @@ const checkScrollBelowFV = () => {
 
 // ブラウザバック検知用のハンドラー
 const handlePopState = () => {
-  console.log('[DEBUG] popstate発火, isBelowFV:', isBelowFV.value, 'hasShownLeavePopup:', hasShownLeavePopup.value);
   // FVより下にスクロールされている場合、かつポップアップ未表示の場合
   if (isBelowFV.value && !hasShownLeavePopup.value) {
-    console.log('[DEBUG] ポップアップ表示');
     // 離脱防止ポップアップを表示
     showLeavePopup.value = true;
     hasShownLeavePopup.value = true;
