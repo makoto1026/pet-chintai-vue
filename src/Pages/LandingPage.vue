@@ -246,61 +246,55 @@ const handleLeavePopupLineClick = () => {
   showLeavePopup.value = false;
 };
 
-// 70%スクロールでポップアップを表示
-const checkScrollForPopup = () => {
-  if (hasShownLeavePopup.value) return;
-
-  const scrollTop = window.scrollY;
-  const documentHeight = document.documentElement.scrollHeight;
-  const windowHeight = window.innerHeight;
-  const scrollPercent = scrollTop / (documentHeight - windowHeight);
-
-  if (scrollPercent >= 0.7) {
-    showLeavePopup.value = true;
-    hasShownLeavePopup.value = true;
-    trackEvent('離脱防止ポップアップ表示');
-  }
-};
-
 // FVより下にスクロールしたかどうかの状態
 const isBelowFV = ref(false);
+// ブラウザバック検知用の履歴が追加済みかどうか
+const hasAddedBackHistory = ref(false);
 
 // スクロール時にFVより下かどうかをチェック
 const checkScrollBelowFV = () => {
   const fvElement = firstViewRef.value?.$el as HTMLElement | undefined;
   const fvBottom = fvElement ? fvElement.offsetTop + fvElement.offsetHeight : 0;
   const scrollTop = window.scrollY;
+  const wasBelowFV = isBelowFV.value;
   isBelowFV.value = scrollTop > fvBottom;
+
+  // FVより下に初めてスクロールした時にダミー履歴を追加
+  if (isBelowFV.value && !wasBelowFV && !hasAddedBackHistory.value) {
+    console.log('[DEBUG] FVより下にスクロール、pushState実行');
+    history.pushState(null, '', null);
+    hasAddedBackHistory.value = true;
+  }
 };
 
 // ブラウザバック検知用のハンドラー
 const handlePopState = () => {
-  // FVより下にスクロールされている場合
-  if (isBelowFV.value) {
-    // 履歴を追加して戻るのを防ぐ
-    history.pushState(null, '', null);
-    // ページ最上部にスクロール
-    window.scrollTo(0, 0);
+  console.log('[DEBUG] popstate発火, isBelowFV:', isBelowFV.value, 'hasShownLeavePopup:', hasShownLeavePopup.value);
+  // FVより下にスクロールされている場合、かつポップアップ未表示の場合
+  if (isBelowFV.value && !hasShownLeavePopup.value) {
+    console.log('[DEBUG] ポップアップ表示');
     // 離脱防止ポップアップを表示
     showLeavePopup.value = true;
+    hasShownLeavePopup.value = true;
   }
 };
 
 onMounted(() => {
   window.addEventListener('scroll', updateButtonVisibility);
-  window.addEventListener('scroll', checkScrollForPopup);
   window.addEventListener('scroll', checkScrollBelowFV);
   updateButtonVisibility();
 
-  // ブラウザバック検知の設定
-  history.pushState(null, '', null);
-  // キャプチャフェーズで登録してVue Routerより先に処理
+  // ブラウザのスクロール復元を無効化
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // ブラウザバック検知の設定（キャプチャフェーズで登録してVue Routerより先に処理）
   window.addEventListener('popstate', handlePopState, true);
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', updateButtonVisibility);
-  window.removeEventListener('scroll', checkScrollForPopup);
   window.removeEventListener('scroll', checkScrollBelowFV);
   window.removeEventListener('popstate', handlePopState, true);
 });
