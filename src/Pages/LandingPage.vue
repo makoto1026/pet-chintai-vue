@@ -15,7 +15,7 @@
     </Transition>
 
     <!-- Phase 2: ファーストビュー -->
-    <FirstViewSection />
+    <FirstViewSection ref="firstViewRef" />
 
     <PropertySection :properties="propertiesTop" />
 
@@ -199,6 +199,7 @@ const propertiesBottom = [
 
 const showLineButton = ref(false);
 const mediaSectionRef = ref<InstanceType<typeof MediaSection> | null>(null);
+const firstViewRef = ref<InstanceType<typeof FirstViewSection> | null>(null);
 const showLeavePopup = ref(false);
 const hasShownLeavePopup = ref(false);
 
@@ -262,15 +263,58 @@ const checkScrollForPopup = () => {
   }
 };
 
+// FVより下にスクロールしたかどうかの状態
+const isBelowFV = ref(false);
+
+// スクロール時にFVより下かどうかをチェック
+const checkScrollBelowFV = () => {
+  const fvElement = firstViewRef.value?.$el as HTMLElement | undefined;
+  const fvBottom = fvElement ? fvElement.offsetTop + fvElement.offsetHeight : 0;
+  const scrollTop = window.scrollY;
+  const wasBelowFV = isBelowFV.value;
+  isBelowFV.value = scrollTop > fvBottom;
+
+  // 状態が変わったときだけログを出力
+  if (isBelowFV.value !== wasBelowFV) {
+    if (isBelowFV.value) {
+      console.log('FVより下にスクロールしました');
+    } else {
+      console.log('FV内に戻りました');
+    }
+  }
+};
+
+// ブラウザバック検知用のハンドラー
+const handlePopState = () => {
+  console.log('popstateイベント発火, isBelowFV:', isBelowFV.value);
+
+  // FVより下にスクロールされている場合
+  if (isBelowFV.value) {
+    console.log('ブラウザバック検知（FVより下）→ 上部にスクロール');
+    // 履歴を追加して戻るのを防ぐ
+    history.pushState(null, '', null);
+    // ページ最上部にスクロール
+    window.scrollTo(0, 0);
+  }
+};
+
 onMounted(() => {
   window.addEventListener('scroll', updateButtonVisibility);
   window.addEventListener('scroll', checkScrollForPopup);
+  window.addEventListener('scroll', checkScrollBelowFV);
   updateButtonVisibility();
+
+  // ブラウザバック検知の設定
+  history.pushState(null, '', null);
+  // キャプチャフェーズで登録してVue Routerより先に処理
+  window.addEventListener('popstate', handlePopState, true);
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', updateButtonVisibility);
   window.removeEventListener('scroll', checkScrollForPopup);
+  window.removeEventListener('scroll', checkScrollBelowFV);
+  window.removeEventListener('popstate', handlePopState, true);
 });
 </script>
 
