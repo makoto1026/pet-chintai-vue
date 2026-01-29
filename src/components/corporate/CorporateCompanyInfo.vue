@@ -1,70 +1,201 @@
 <template>
-  <section class="company-section">
-    <h2 class="company-title">Company</h2>
-    <ul>
-      <li>
-        <p class="left">代表者名</p>
-        <p>印貢 幸実</p>
-      </li>
-      <li>
-        <p class="left">会社所在地</p>
-        <p>東京都渋谷区渋谷３丁目１５−５ パールビル 4F</p>
-      </li>
-      <li>
-        <p class="left">メールアドレス</p>
-        <a href="mailto:lif.oshizumi@gmail.com?subject=お問い合わせ&body=こちらに詳細を記入してください。">lif.oshizumi@gmail.com</a>
-      </li>
-    </ul>
+  <section id="company" class="company-section">
+    <div class="section-bg-top"></div>
+
+    <div class="company-content">
+      <div class="section-header">
+        <h2 class="section-title">Company</h2>
+        <p class="section-subtitle">会社概要</p>
+      </div>
+
+      <div class="company-image">
+        <img src="@/assets/images/corporate/company-image.png" alt="会社イメージ" />
+      </div>
+
+      <div class="company-info">
+        <div class="info-row">
+          <span class="info-label">社名</span>
+          <span class="info-value">株式会社GLH</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">所在地</span>
+          <span class="info-value">
+            〒150-0001<br />
+            東京都渋谷区神宮前２丁目３−１４<br />
+            サンフェル神宮前 208
+          </span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">電話番号</span>
+          <span class="info-value">03-6455-0296</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">E-mail</span>
+          <span class="info-value">lif.oshizumi@gmail.com</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">設立</span>
+          <span class="info-value">~~~~年~月~日</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">資本金</span>
+          <span class="info-value">~~~万円</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">代表</span>
+          <span class="info-value">印貢 幸実</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">事業内容</span>
+          <span class="info-value">不動産の取得・賃貸・売買事業</span>
+        </div>
+        <div class="info-row last">
+          <span class="info-label">免許・登録</span>
+          <span class="info-value">
+            宅地建物取引業者：国土交通大臣（~~）第~~~~号<br />
+            賃貸住宅管理業者：国土交通大臣（~~）第~~~~~~号<br />
+            有料職業紹介事業許可番号：<br />
+            XX-ユ-XXXXXX
+          </span>
+        </div>
+      </div>
+
+      <div class="company-map">
+        <iframe
+          src="https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B8%8B%E8%B0%B7%E5%8C%BA%E7%A5%9E%E5%AE%AE%E5%89%8D2%E4%B8%81%E7%9B%AE3-14&t=&z=17&ie=UTF8&iwloc=&output=embed"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
   </section>
 </template>
 
+<script setup lang="ts">
+</script>
+
 <style scoped lang="scss">
+@import '@/assets/styles/_variables.scss';
+
 .company-section {
-  width: 80%;
-  padding: 60px 0;
-  text-align: center;
-  margin: 0 auto;
+  background: $corp-base-white;
+  position: relative;
 
-  @media screen and (max-width: 500px) {
-    width: 90%;
-    padding: 20px 0;
+  .section-bg-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 83px;
+    background: $corp-base-cream;
   }
 
-  .company-title {
-    font-size: 2.5rem;
-    color: #343a40;
-    margin-bottom: 40px;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(255, 246, 235, 0), $corp-base-cream);
+    pointer-events: none;
+  }
+}
+
+.company-content {
+  position: relative;
+  padding: 60px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section-header {
+  width: 100%;
+  text-align: left;
+
+  .section-title {
+    font-family: $font-maru-gothic;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 36px;
+    color: $corp-text;
+    margin: 0 0 10px;
   }
 
-  ul {
-    text-decoration: none;
-    list-style: none;
-    padding: 0;
+  .section-subtitle {
+    font-family: $font-maru-gothic;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 1.2px;
+    color: $corp-main-orange;
     margin: 0;
+  }
+}
 
-    li {
-      margin: 0 20px;
-      padding: 10px;
-      border-bottom: 1px solid #6c757d;
-      text-align: center;
-      font-size: 12px;
-      color: #6c757d;
-      display: flex;
-      gap: 40px;
+.company-image {
+  width: 100%;
+  height: 260px;
+  border-radius: 10px;
+  overflow: hidden;
 
-      @media screen and (max-width: 500px) {
-        margin: 0 10px;
-        padding: 10px;
-      }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 
-      .left {
-        width: 100px;
-      }
+.company-info {
+  width: 100%;
 
-      p {
-        margin: 0;
-      }
+  .info-row {
+    display: flex;
+    gap: 10px;
+    padding: 20px 0;
+    border-top: 1px solid $corp-text-light;
+
+    &.last {
+      border-bottom: 1px solid $corp-text-light;
     }
+
+    .info-label {
+      font-family: $font-maru-gothic;
+      font-weight: 700;
+      font-size: 13.5px;
+      line-height: 26px;
+      color: $corp-text;
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    .info-value {
+      font-family: $font-maru-gothic;
+      font-weight: 500;
+      font-size: 13.5px;
+      line-height: 26px;
+      color: $corp-text;
+      flex: 1;
+    }
+  }
+}
+
+.company-map {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
   }
 }
 </style>

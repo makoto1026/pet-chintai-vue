@@ -102,3 +102,17 @@ $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
+
+// ============================================
+// コーポレートページ専用カラー
+// ============================================
+$corp-text: #5C442A;              // メインテキスト
+$corp-text-light: rgba(92, 68, 42, 0.3); // ボーダー用
+$corp-base-white: #FFFFFF;        // ベース白
+$corp-base-cream: #FFF6EB;        // ベースクリーム
+$corp-main-orange: #DA964D;       // メインオレンジ
+$corp-main-brown: #7A5A3A;        // メインブラウン
+$corp-line-green: #06C755;        // LINEグリーン
+
+// コーポレートページ専用フォント
+$font-maru-gothic: 'Zen Maru Gothic', sans-serif;
