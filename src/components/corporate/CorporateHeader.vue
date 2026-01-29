@@ -17,15 +17,30 @@
       </div>
     </div>
 
-    <!-- ドロワーメニュー -->
-    <div v-if="isMenuOpen" class="drawer-overlay" @click="closeMenu">
-      <div class="drawer" @click.stop>
-        <nav>
+    <!-- フルスクリーンメニュー -->
+    <div v-if="isMenuOpen" class="fullscreen-menu">
+      <div class="menu-header">
+        <div class="menu-logo">
+          <img src="@/assets/images/corporate/logo.svg" alt="GLH Inc." />
+        </div>
+        <button class="close-btn" @click="closeMenu">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 7L7 21M7 7L21 21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="menu-content">
+        <nav class="menu-nav">
           <a href="#fv" @click="closeMenu">ホーム</a>
-          <a href="#recruit" @click="closeMenu">採用情報</a>
+          <a href="#recruit" @click="closeMenu">採用</a>
           <a href="#company" @click="closeMenu">会社概要</a>
-          <a href="#contact" @click="closeMenu">お問い合わせ</a>
         </nav>
+
+        <a href="mailto:lif.oshizumi@gmail.com" class="menu-contact-btn" @click="closeMenu">
+          <img src="@/assets/images/corporate/email-white.svg" alt="" />
+          <span>お問い合わせ</span>
+        </a>
       </div>
     </div>
   </header>
@@ -102,43 +117,109 @@ const closeMenu = () => {
   }
 }
 
-.drawer-overlay {
+.fullscreen-menu {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: $corp-main-brown;
   z-index: 1100;
 
-  .drawer {
-    position: fixed;
+  &::before {
+    content: '';
+    position: absolute;
     top: 0;
+    left: 0;
     right: 0;
-    width: 250px;
-    height: 100%;
-    background: white;
-    padding: 60px 20px 20px;
+    bottom: 0;
+    background: radial-gradient(ellipse at bottom right, rgba(255, 231, 145, 0.5) 0%, rgba(255, 231, 145, 0) 50%);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
 
-    nav {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5px 5px 15px;
+    height: 50px;
+  }
 
-      a {
-        font-family: $font-maru-gothic;
-        font-weight: 700;
-        font-size: 16px;
-        color: $corp-text;
-        text-decoration: none;
-        padding: 10px;
-        border-radius: 8px;
-        transition: background 0.3s;
+  .menu-logo {
+    img {
+      height: 24px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+  }
 
-        &:hover {
-          background: $corp-base-cream;
-        }
-      }
+  .close-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: $corp-main-brown;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .menu-content {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .menu-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+
+    a {
+      font-family: $font-maru-gothic;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 30px;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+    }
+  }
+
+  .menu-contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 240px;
+    height: 64px;
+    border: 1.5px solid white;
+    border-radius: 100px;
+    text-decoration: none;
+    padding-right: 6px;
+
+    img {
+      width: 32px;
+      height: 32px;
+      filter: brightness(0) invert(1);
+    }
+
+    span {
+      font-family: $font-maru-gothic;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      color: white;
     }
   }
 }
