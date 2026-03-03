@@ -5,10 +5,10 @@
         <img src="@/assets/images/corporate/logo.svg" alt="GLH Inc." />
       </div>
       <div class="header-buttons">
-        <a href="tel:03-6455-0296" class="btn-circle btn-orange">
+        <a href="tel:03-5324-2316" class="btn-circle btn-orange">
           <img src="@/assets/images/corporate/phone-icon.svg" alt="電話" />
         </a>
-        <a href="mailto:lif.oshizumi@gmail.com" class="btn-circle btn-orange">
+        <a href="mailto:info@glh613.com" class="btn-circle btn-orange">
           <img src="@/assets/images/corporate/email-icon.svg" alt="メール" />
         </a>
         <button class="btn-circle btn-brown" @click="toggleMenu">
@@ -37,7 +37,7 @@
           <a href="#company" @click="closeMenu">会社概要</a>
         </nav>
 
-        <a href="mailto:lif.oshizumi@gmail.com" class="menu-contact-btn" @click="closeMenu">
+        <a href="mailto:info@glh613.com" class="menu-contact-btn" @click="closeMenu">
           <img src="@/assets/images/corporate/email-white.svg" alt="" />
           <span>お問い合わせ</span>
         </a>

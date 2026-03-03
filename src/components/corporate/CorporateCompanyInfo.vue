@@ -27,19 +27,15 @@
         </div>
         <div class="info-row">
           <span class="info-label">電話番号</span>
-          <span class="info-value">03-6455-0296</span>
+          <span class="info-value">03-5324-2316</span>
         </div>
         <div class="info-row">
           <span class="info-label">E-mail</span>
-          <span class="info-value">lif.oshizumi@gmail.com</span>
+          <span class="info-value">info@glh613.com</span>
         </div>
         <div class="info-row">
           <span class="info-label">設立</span>
-          <span class="info-value">~~~~年~月~日</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">資本金</span>
-          <span class="info-value">~~~万円</span>
+          <span class="info-value">2025年6月13日</span>
         </div>
         <div class="info-row">
           <span class="info-label">代表</span>
@@ -50,12 +46,9 @@
           <span class="info-value">不動産の取得・賃貸・売買事業</span>
         </div>
         <div class="info-row last">
-          <span class="info-label">免許・登録</span>
+          <span class="info-label">免許番号</span>
           <span class="info-value">
-            宅地建物取引業者：国土交通大臣（~~）第~~~~号<br />
-            賃貸住宅管理業者：国土交通大臣（~~）第~~~~~~号<br />
-            有料職業紹介事業許可番号：<br />
-            XX-ユ-XXXXXX
+            東京都知事（1）第112969号<br />
           </span>
         </div>
       </div>

@@ -20,18 +20,36 @@
       </div>
 
       <div class="recruit-btn">
-        <a href="#" class="recruit-button">
+        <button type="button" class="recruit-button" @click="showDialog = true">
           <span>採用情報を見る</span>
           <span class="arrow-circle">
             <img src="@/assets/images/corporate/vector.svg" alt="" />
           </span>
-        </a>
+        </button>
+      </div>
+    </div>
+
+    <!-- 工事中ダイアログ -->
+    <div v-if="showDialog" class="dialog-overlay" @click.self="showDialog = false">
+      <div class="dialog-content">
+        <div class="dialog-icon">🚧</div>
+        <h3 class="dialog-title">準備中</h3>
+        <p class="dialog-text">
+          採用情報ページは現在準備中です。<br />
+          もうしばらくお待ちください。
+        </p>
+        <button type="button" class="dialog-close-btn" @click="showDialog = false">
+          閉じる
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
+const showDialog = ref(false);
 </script>
 
 <style scoped lang="scss">
@@ -134,6 +152,7 @@
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 60px;
     text-decoration: none;
+    cursor: pointer;
 
     span {
       font-family: $font-maru-gothic;
@@ -157,6 +176,75 @@
         height: 13px;
       }
     }
+  }
+}
+
+// 工事中ダイアログ
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(92, 68, 42, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.dialog-content {
+  background: $corp-base-cream;
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 320px;
+  width: 60%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(92, 68, 42, 0.3);
+}
+
+.dialog-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.dialog-title {
+  font-family: $font-maru-gothic;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: $corp-text;
+  margin: 0 0 16px;
+}
+
+.dialog-text {
+  font-family: $font-maru-gothic;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: $corp-text;
+  margin: 0 0 24px;
+}
+
+.dialog-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 48px;
+  background: $corp-main-orange;
+  background: linear-gradient(135deg, lighten($corp-main-orange, 5%) 0%, $corp-main-orange 100%);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 60px;
+  font-family: $font-maru-gothic;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
   }
 }
 </style>

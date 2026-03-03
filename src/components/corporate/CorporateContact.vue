@@ -19,15 +19,15 @@
           <p class="method-title">お電話でのお問い合わせ</p>
           <div class="phone-row">
             <img src="@/assets/images/corporate/phone.svg" alt="" class="phone-icon" />
-            <a href="tel:03-6455-0296" class="phone-number">03-6455-0296</a>
+            <a href="tel:03-5324-2316" class="phone-number">03-5324-2316</a>
           </div>
-          <p class="phone-note">受付時間： 平日XX:00〜XX:00</p>
+          <p class="phone-note">受付時間： 平日10:00〜20:00</p>
         </div>
 
         <!-- LINE -->
         <div class="contact-method">
           <p class="method-title">LINEでのお問い合わせ</p>
-          <a href="#" class="line-button">
+          <a href="https://lin.ee/tkn7BgL" class="line-button">
             <span class="line-icon-wrap">
               <img src="@/assets/images/corporate/line-icon.svg" alt="" />
             </span>
@@ -38,7 +38,7 @@
         <!-- メール -->
         <div class="contact-method">
           <p class="method-title">メールでのお問い合わせ</p>
-          <a href="mailto:lif.oshizumi@gmail.com" class="mail-button">
+          <a href="mailto:info@glh613.com" class="mail-button">
             <img src="@/assets/images/corporate/inquiry-button.png" alt="お問い合わせ" />
           </a>
         </div>

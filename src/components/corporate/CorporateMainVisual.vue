@@ -12,13 +12,13 @@
 
       <!-- CTAボタン -->
       <div class="fv-cta">
-        <a href="#" class="cta-button">
+        <a href="https://liff.line.me/2002059008-9pWGGjdz?unique_key=6JG99T&ts=1770185262" class="cta-button">
           <span>お部屋を借りる</span>
           <span class="arrow-circle">
             <img src="@/assets/images/corporate/vector.svg" alt="" />
           </span>
         </a>
-        <a href="#" class="cta-button">
+        <a href="https://liff.line.me/2002059008-9pWGGjdz?unique_key=F9R5AT&ts=1770185262" class="cta-button">
           <span>住まいを購入する</span>
           <span class="arrow-circle">
             <img src="@/assets/images/corporate/vector.svg" alt="" />
@@ -137,7 +137,7 @@
     justify-content: center;
     margin: 0 auto;
     gap: 10px;
-    width: 73%;
+    width: 80%;
     padding: 24px;
     background: $corp-main-orange;
     background: linear-gradient(135deg, lighten($corp-main-orange, 5%) 0%, $corp-main-orange 100%);

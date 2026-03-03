@@ -9,20 +9,19 @@
         <div class="footer-company">
           <p class="company-name">株式会社GLH</p>
           <p class="company-license">
-            土交通大臣（~~）第~~~~号<br />
-            XX-ユ-XXXXXX
+            東京都知事（1）第112969号<br />
           </p>
         </div>
 
         <div class="footer-info">
           <p>〒150-0001</p>
           <p>東京都渋谷区神宮前２丁目３−１４ サンフェル神宮前 208</p>
-          <p>Tel : 03-6455-0296</p>
-          <p>E-Mail : lif.oshizumi@gmail.com</p>
+          <p>Tel : 03-5324-2316</p>
+          <p>E-Mail : info@glh613.com</p>
         </div>
 
         <div class="footer-cta">
-          <a href="mailto:lif.oshizumi@gmail.com" class="footer-btn">
+          <a href="mailto:info@glh613.com" class="footer-btn">
             <span class="icon-wrap">
               <img src="@/assets/images/corporate/email-white.svg" alt="" />
             </span>
