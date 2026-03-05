@@ -32,9 +32,17 @@
 
       <div class="menu-content">
         <nav class="menu-nav">
-          <a href="#fv" @click="closeMenu">ホーム</a>
-          <a href="#recruit" @click="closeMenu">採用</a>
-          <a href="#company" @click="closeMenu">会社概要</a>
+          <router-link to="/corporate" @click="closeMenu">ホーム</router-link>
+          <div class="menu-nav__group">
+            <span class="menu-nav__label">やっていること</span>
+            <div class="menu-nav__sub">
+              <router-link to="/review/rental" @click="closeMenu">賃貸</router-link>
+              <span class="menu-nav__separator">/</span>
+              <router-link to="/review/sales" @click="closeMenu">売買</router-link>
+            </div>
+          </div>
+          <router-link to="/corporate#recruit" @click="navigateToHash('recruit')">採用</router-link>
+          <router-link to="/corporate#company" @click="navigateToHash('company')">会社概要</router-link>
         </nav>
 
         <a href="mailto:info@glh613.com" class="menu-contact-btn" @click="closeMenu">
@@ -48,7 +56,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
+const router = useRouter();
+const route = useRoute();
 const isMenuOpen = ref(false);
 
 const toggleMenu = () => {
@@ -57,6 +68,18 @@ const toggleMenu = () => {
 
 const closeMenu = () => {
   isMenuOpen.value = false;
+};
+
+const navigateToHash = (hash: string) => {
+  closeMenu();
+  if (route.path === '/corporate') {
+    const el = document.getElementById(hash);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  } else {
+    router.push(`/corporate#${hash}`);
+  }
 };
 </script>
 
@@ -185,7 +208,7 @@ const closeMenu = () => {
     gap: 24px;
     width: 100%;
 
-    a {
+    > a {
       font-family: $font-maru-gothic;
       font-weight: 500;
       font-size: 18px;
@@ -193,6 +216,45 @@ const closeMenu = () => {
       color: white;
       text-decoration: none;
       text-align: center;
+    }
+
+    &__group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &__label {
+      font-family: $font-maru-gothic;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 30px;
+      color: white;
+      text-align: center;
+    }
+
+    &__sub {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      a {
+        font-family: $font-maru-gothic;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: white;
+        text-decoration: none;
+      }
+    }
+
+    &__separator {
+      font-family: $font-maru-gothic;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: white;
     }
   }
 

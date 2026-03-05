@@ -43,8 +43,8 @@
         <img :src="voice1Icon" alt="Voice 1" class="testimonials-section__voice-label" />
         <p class="testimonials-section__voice-customer">30代女性 R様</p>
         <div class="testimonials-section__voice-heading">
-          <span class="testimonials-section__voice-heading-line">多頭飼と暮らせる</span>
-          <span class="testimonials-section__voice-heading-line">マイホームが欲しい！</span>
+          <span class="testimonials-section__voice-heading-line">保護猫と暮らせる</span>
+          <span class="testimonials-section__voice-heading-line">理想の家！</span>
         </div>
       </div>
       <div class="testimonials-section__voice-right">
@@ -54,7 +54,7 @@
         </div>
       </div>
       <p class="testimonials-section__voice-text">
-        ペットの種類・体高や体重等全てを把握させていただき、マンションやペット規約を確認してからしっかりご提案させていただきます！また、しっかりと交渉もさせていただきます♪
+        保護猫をお迎えしたくて、ペット住まいラボに相談しました！<br />保護団体ともたくさんコネクションを持っていて、<br />猫ちゃんの紹介までありがとうございました♡<br />素敵なお部屋で楽しく暮らせています。
       </p>
     </div>
     <div class="testimonials-section__divider"></div>
@@ -65,8 +65,8 @@
         <img :src="voice2Icon" alt="Voice 2" class="testimonials-section__voice-label" />
         <p class="testimonials-section__voice-customer">20代男性 T様</p>
         <div class="testimonials-section__voice-heading">
-          <span class="testimonials-section__voice-heading-line">マイホームを購入したいけど</span>
-          <span class="testimonials-section__voice-heading-line">ペットにも優しいお部屋がいい！</span>
+          <span class="testimonials-section__voice-heading-line">上京のタイミングで、</span>
+          <span class="testimonials-section__voice-heading-line">見つけて本当によかった！</span>
         </div>
       </div>
       <div class="testimonials-section__voice-right">
@@ -76,8 +76,7 @@
         </div>
       </div>
       <p class="testimonials-section__voice-text">
-        弊社専任のペット共生マンションや未公開物件もございます。<br />
-        ペットも家族の一員です。一生のことだから、ペット専門家にお任せください。
+        立地や路線がわからない僕にも、<br />女性の担当者が親身になってご紹介してくれました！<br />24時間対応してくださり、しかも女性の方ばかりで優しくてとても安心しました。
       </p>
     </div>
     <div class="testimonials-section__divider"></div>
@@ -88,8 +87,8 @@
         <img :src="voice3Icon" alt="Voice 3" class="testimonials-section__voice-label" />
         <p class="testimonials-section__voice-customer">20代女性 S様</p>
         <div class="testimonials-section__voice-heading">
-          <span class="testimonials-section__voice-heading-line">ペットと暮らすなら</span>
-          <span class="testimonials-section__voice-heading-line">周辺環境も整えたい！</span>
+          <span class="testimonials-section__voice-heading-line">多頭飼いでも</span>
+          <span class="testimonials-section__voice-heading-line">どんとこい！</span>
         </div>
       </div>
       <div class="testimonials-section__voice-right">
@@ -99,8 +98,7 @@
         </div>
       </div>
       <p class="testimonials-section__voice-text">
-        公園やドッグランが周辺にある物件や、動物病院・ペットホテル・トリミングサロンが徒歩圏内の物件など、あなたのペット仕様にカスタマイズ✨<br />
-        希望の住環境からお部屋を探させていただきます。
+        公園やドッグランが周辺にある物件や、動物病院・ペットホテル・トリミングサロンが徒歩圏内の物件など、ペット仕様にカスタマイズしてくれました✨<br />ペットの交渉までありがとうございました！
       </p>
     </div>
     <div class="testimonials-section__divider"></div>
@@ -122,8 +120,7 @@
         </div>
       </div>
       <p class="testimonials-section__voice-text">
-        ワンちゃんや猫ちゃんはもちろんのこと、爬虫類や鳥類、小動物等のペットと暮らせる物件探しも可能です！<br />
-        大型犬や多頭飼いをされている方へもご紹介可能な物件を取り扱っております。
+        ワンちゃんや猫ちゃんはもちろんのこと、爬虫類や鳥類、小動物等のペットと暮らせる物件探しもしてくれました！<br />契約時に、ペットへのプレゼントも付いてきました！🎁<br />至れり尽くせりです！笑
       </p>
     </div>
   </section>
