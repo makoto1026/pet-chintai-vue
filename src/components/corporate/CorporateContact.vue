@@ -19,7 +19,7 @@
           <p class="method-title">お電話でのお問い合わせ</p>
           <div class="phone-row">
             <img src="@/assets/images/corporate/phone.svg" alt="" class="phone-icon" />
-            <a href="tel:03-5324-2316" class="phone-number">03-5324-2316</a>
+            <a href="tel:03-5962-5376" class="phone-number">03-5962-5376</a>
           </div>
           <p class="phone-note">受付時間： 平日10:00〜20:00</p>
         </div>
