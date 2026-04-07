@@ -41,7 +41,7 @@
         <div class="shop-info__item">
           <span class="shop-info__label">TEL</span>
           <div class="shop-info__value">
-            <p>0353242316</p>
+            <p>03-5962-5376</p>
           </div>
         </div>
         <div class="shop-info__divider"></div>

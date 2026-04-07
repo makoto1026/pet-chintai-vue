@@ -1,5 +1,8 @@
 <template>
   <div class="landing-page">
+    <!-- スプラッシュスクリーン -->
+    <SplashScreen v-if="!splashComplete" :content-ready="fvImagesReady" @complete="onSplashComplete" />
+
     <!-- 固定LINEボタン -->
     <Transition name="fade">
       <a
@@ -15,7 +18,7 @@
     </Transition>
 
     <!-- Phase 2: ファーストビュー -->
-    <FirstViewSection ref="firstViewRef" />
+    <FirstViewSection ref="firstViewRef" :can-animate="splashComplete" @images-ready="fvImagesReady = true" />
 
     <PropertySection :properties="propertiesTop" />
 
@@ -79,6 +82,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import lineButtonImage from '@/assets/images/line-button.svg';
+import SplashScreen from '@/components/common/SplashScreen.vue';
 import FirstViewSection from '@/components/sections/FirstViewSection.vue';
 import MediaSection from '@/components/sections/MediaSection.vue';
 import BenefitsSection from '@/components/sections/BenefitsSection.vue';
@@ -196,6 +200,13 @@ const propertiesBottom = [
   }
 ];
 
+const splashComplete = ref(false);
+const fvImagesReady = ref(false);
+const onSplashComplete = () => {
+  splashComplete.value = true;
+  document.body.style.overflow = '';
+};
+
 const showLineButton = ref(false);
 const mediaSectionRef = ref<InstanceType<typeof MediaSection> | null>(null);
 const firstViewRef = ref<InstanceType<typeof FirstViewSection> | null>(null);
@@ -277,6 +288,9 @@ const handlePopState = () => {
 };
 
 onMounted(() => {
+  // スプラッシュ中はスクロール無効化
+  document.body.style.overflow = 'hidden';
+
   window.addEventListener('scroll', updateButtonVisibility);
   window.addEventListener('scroll', checkScrollBelowFV);
   updateButtonVisibility();
@@ -294,6 +308,7 @@ onUnmounted(() => {
   window.removeEventListener('scroll', updateButtonVisibility);
   window.removeEventListener('scroll', checkScrollBelowFV);
   window.removeEventListener('popstate', handlePopState, true);
+  document.body.style.overflow = '';
 });
 </script>
 
