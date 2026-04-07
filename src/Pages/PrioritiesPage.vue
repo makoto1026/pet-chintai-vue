@@ -1,4 +1,5 @@
 <template>
+  <div class="priorities-page">
   <!-- ヘッダー＆KV -->
   <div class="head">
     <AppHeader class="header" />
@@ -52,6 +53,7 @@
   </div>
   <!-- フッター -->
   <AppFooter />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -105,6 +107,11 @@ function openContact() {
 </script>
 
 <style scoped lang="scss">
+.priorities-page {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
 .head {
   position: relative;
   height: 657px;

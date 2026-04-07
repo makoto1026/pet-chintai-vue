@@ -73,16 +73,29 @@ import backgroundImageWebp from '@/assets/images/property-bg.webp';
 import backgroundImagePng from '@/assets/images/property-bg.png';
 import decorationImage from '@/assets/images/properties-bg-decoration.png';
 
+// 物件データの型定義
+export interface PropertyData {
+  id: number;
+  image: string;
+  area: string;
+  price: string;
+  layout: string;
+  size: string;
+  url: string;
+  eventName: string;
+}
+
+// Props定義
+defineProps<{
+  properties: PropertyData[];
+}>();
+
 // WebP対応チェック
 const supportsWebP = () => {
   const canvas = document.createElement('canvas');
   return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
 };
 const backgroundImage = supportsWebP() ? backgroundImageWebp : backgroundImagePng;
-import yoyogiImage from '@/assets/images/properties/yoyogi.jpg';
-import kasaiImage from '@/assets/images/properties/kasai.jpg';
-import shinNakanoImage from '@/assets/images/properties/shin-nakano.jpg';
-import shibuyaImage from '@/assets/images/properties/shibuya.jpg';
 
 // スクロールアニメーション用
 const subtitleRef = ref<HTMLElement | null>(null);
@@ -108,49 +121,6 @@ onUnmounted(() => {
     observer.disconnect();
   }
 });
-
-const properties = [
-  {
-    id: 1,
-    image: yoyogiImage,
-    area: '渋谷区',
-    price: '210,000',
-    layout: '1DK',
-    size: '33㎡',
-    url: "https://www.instagram.com/p/DNaiDoLpkVY/?igsh=MWg1Z2szcmt3dm1qeQ==",
-    eventName: '物件カード_代々木公園駅'
-  },
-  {
-    id: 2,
-    image: shibuyaImage,
-    area: '渋谷区',
-    price: '未公開',
-    layout: '2LDK',
-    size: '91㎡',
-    url: "https://www.instagram.com/p/DNDb9xrJ-so/?igsh=MWY0ZzI4ZXd5cThvOQ==",
-    eventName: '物件カード_渋谷駅'
-  },
-  {
-    id: 3,
-    image: kasaiImage,
-    area: '江戸川区',
-    price: '136,000',
-    layout: '1DK',
-    size: '41㎡',
-    url: "https://www.instagram.com/p/DPYxmlHEuMY/?igsh=cmgyZXVydThjaHZr",
-    eventName: '物件カード_葛西駅'
-  },
-  {
-    id: 4,
-    image: shinNakanoImage,
-    area: '中野区',
-    price: '120,000',
-    layout: '2DK',
-    size: '41㎡',
-    url: "https://www.instagram.com/p/DON_nZIEp1q/?igsh=MW0yYXV2MDA0eTR4aA==",
-    eventName: '物件カード_新中野駅'
-  }
-];
 </script>
 
 <style scoped lang="scss">

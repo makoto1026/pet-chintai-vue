@@ -14,9 +14,9 @@
         <div class="shop-info__item">
           <span class="shop-info__label">所在地</span>
           <div class="shop-info__value">
-            <p>〒150-0002</p>
-            <p>東京都渋谷区渋谷１丁目１−３ アミーホール THE HUB 青山WEST  403</p>
-            <a href="https://www.google.co.jp/maps?q=35.6614533,139.7073725" target="_blank" class="shop-info__map-link" @click="trackEvent('店舗情報_GoogleMap')">
+            <p>〒150-0001</p>
+            <p>東京都渋谷区神宮前２丁目３−１４ サンフェル神宮前 208</p>
+            <a href="https://www.google.co.jp/maps?q=東京都渋谷区神宮前２丁目３−１４+サンフェル神宮前" target="_blank" class="shop-info__map-link" @click="trackEvent('店舗情報_GoogleMap')">
               <span class="shop-info__map-icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10 1.66666C6.77504 1.66666 4.16671 4.27499 4.16671 7.49999C4.16671 11.875 10 18.3333 10 18.3333C10 18.3333 15.8334 11.875 15.8334 7.49999C15.8334 4.27499 13.225 1.66666 10 1.66666ZM10 9.58332C8.85004 9.58332 7.91671 8.64999 7.91671 7.49999C7.91671 6.34999 8.85004 5.41666 10 5.41666C11.15 5.41666 12.0834 6.34999 12.0834 7.49999C12.0834 8.64999 11.15 9.58332 10 9.58332Z" fill="#5C442A"/>
@@ -31,8 +31,9 @@
         <div class="shop-info__item">
           <span class="shop-info__label">アクセス</span>
           <div class="shop-info__value">
-            <p>JR「渋谷」（宮益坂方面出口）徒歩6分</p>
-            <p>東京メトロ「表参道」（B2出口）徒歩6分</p>
+            <p>東京メトロ銀座線 外苑前駅 徒歩８分</p>
+            <p>東京メトロ副都心線 北参道駅 徒歩13分</p>
+            <p>都営大江戸線 国立競技場駅 徒歩13分</p>
           </div>
         </div>
         <div class="shop-info__divider"></div>
@@ -40,7 +41,7 @@
         <div class="shop-info__item">
           <span class="shop-info__label">TEL</span>
           <div class="shop-info__value">
-            <p>0353242316</p>
+            <p>03-5962-5376</p>
           </div>
         </div>
         <div class="shop-info__divider"></div>
@@ -66,9 +67,12 @@
 
 <script setup lang="ts">
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 </script>
 

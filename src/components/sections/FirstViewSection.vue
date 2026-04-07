@@ -155,9 +155,9 @@
 
     <!-- CTAボタン -->
     <a
-      href="https://form.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=Ae55n6"
+      href="https://s.lmes.jp/landing-qr/2002059008-M8KDDdoP?uLand=zI2YQN"
       target="_blank"
-      class="cta-button"
+      class="cta-button lme_qr_add_friend"
       @click="trackEvent('FV_CTAボタン')"
     >
       <picture>
@@ -174,16 +174,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch, defineProps, defineEmits, withDefaults } from 'vue';
+
+const props = withDefaults(defineProps<{
+  /** trueになるまでアニメーションを開始しない */
+  canAnimate?: boolean;
+}>(), {
+  canAnimate: true,
+});
+
+const emit = defineEmits<{
+  (e: 'images-ready'): void;
+}>();
 
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 
 // 画像読み込み状態
 const isLoaded = ref(false);
+const imagesReady = ref(false);
 const loadedCount = ref(0);
 const totalImages = 3; // fv-room, fv-logo, dogs
 
@@ -192,13 +207,27 @@ const roomImageRef = ref<HTMLImageElement | null>(null);
 const logoImageRef = ref<HTMLImageElement | null>(null);
 const dogsImageRef = ref<HTMLImageElement | null>(null);
 
+// 画像読み込みとcanAnimateの両方が揃ったらアニメーション開始
+const tryStartAnimation = () => {
+  if (imagesReady.value && props.canAnimate) {
+    isLoaded.value = true;
+  }
+};
+
 // 画像読み込み完了時のハンドラ
 const onImageLoad = () => {
   loadedCount.value++;
   if (loadedCount.value >= totalImages) {
-    isLoaded.value = true;
+    imagesReady.value = true;
+    emit('images-ready');
+    tryStartAnimation();
   }
 };
+
+// canAnimateが後からtrueになった場合
+watch(() => props.canAnimate, (val) => {
+  if (val) tryStartAnimation();
+});
 
 // マウント時に既にキャッシュされている画像をチェック
 onMounted(() => {

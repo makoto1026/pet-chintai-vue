@@ -18,9 +18,12 @@
 import { defineProps } from 'vue';
 
 // PTエンジンのイベントトラッキング
-declare const _pt_sp_2: { push: (method: string, data: { eventName: string }) => void } | undefined;
+interface WindowWithPT extends Window {
+  _pt_sp_2?: { push: (method: string, data: { eventName: string }) => void };
+}
 const trackEvent = (eventName: string) => {
-  _pt_sp_2?.push('setCustomEvent', { eventName });
+  const w = window as WindowWithPT;
+  w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
 
 const props = defineProps({
@@ -56,8 +59,8 @@ const props = defineProps({
 
 // urlを開けるようにする
 const openUrl = () => {
-  trackEvent(props.eventName);
-  window.open(props.url, '_blank');
+  // trackEvent(props.eventName);
+  // window.open(props.url, '_blank');
 };
 </script>
 

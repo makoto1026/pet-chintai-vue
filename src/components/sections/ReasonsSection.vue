@@ -1,9 +1,16 @@
 <template>
   <section class="reasons-section">
+    <div class="reasons-section__header">
+      <p class="reasons-section__title">
+        ペット住まいラボが選ばれる<span class="highlight">4</span>つの理由
+      </p>
+    </div>
+    <div class="reasons-section__gradient"></div>
     <div class="reasons-section__list">
       <ReasonCard
-        v-for="reason in reasons"
+        v-for="(reason, index) in reasons"
         :key="reason.number"
+        :ref="(el) => setCardRef(el, index)"
         :number="reason.number"
         :point-image="reason.pointImage"
         :image="reason.image"
@@ -11,12 +18,15 @@
         :title-highlight="reason.titleHighlight"
         :title-normal="reason.titleNormal"
         :description="reason.description"
+        :direction="index % 2 === 0 ? 'left' : 'right'"
+        :visible="cardVisibility[index]"
       />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted, type ComponentPublicInstance } from 'vue';
 import ReasonCard from '@/components/common/ReasonCard.vue';
 import reason01Image from '@/assets/images/reason-01.png';
 import reason02Image from '@/assets/images/reason-02.png';
@@ -26,6 +36,42 @@ import point1Image from '@/assets/images/point-1.svg';
 import point2Image from '@/assets/images/point-2.svg';
 import point3Image from '@/assets/images/point-3.svg';
 import point4Image from '@/assets/images/point-4.svg';
+
+// カードの参照を保持
+const cardRefs = ref<(ComponentPublicInstance | null)[]>([]);
+const cardVisibility = ref<boolean[]>([false, false, false, false]);
+
+let observer: IntersectionObserver | null = null;
+
+const setCardRef = (el: ComponentPublicInstance | null, index: number) => {
+  cardRefs.value[index] = el;
+};
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const index = cardRefs.value.findIndex((ref) => ref?.$el === entry.target);
+        if (index !== -1) {
+          cardVisibility.value[index] = entry.isIntersecting;
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  cardRefs.value.forEach((cardRef) => {
+    if (cardRef?.$el) {
+      observer?.observe(cardRef.$el);
+    }
+  });
+});
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect();
+  }
+});
 
 const reasons = [
   {
@@ -76,8 +122,35 @@ const reasons = [
   width: 100%;
   max-width: $max-container-width;
   margin: 0 auto;
-  padding: 8px 0 30px;
+  padding: 0 0 30px;
   background: $background-pink;
+
+  &__header {
+    padding: 30px 20px 16px;
+    text-align: center;
+    background: #FDF6E5;
+  }
+
+  &__gradient {
+    height: 40px;
+    background: linear-gradient(180deg, #FDF6E5 0%, $background-pink 100%);
+  }
+
+  &__title {
+    font-family: $font-mincho;
+    font-weight: $font-weight-semibold;
+    font-size: $font-3xl;
+    line-height: 30px;
+    color: $text-brown;
+
+    .highlight {
+      font-size: 28px;
+      background: linear-gradient(180deg, $accent-pink 19.231%, $accent-pink-dark 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
 
   &__list {
     display: flex;
