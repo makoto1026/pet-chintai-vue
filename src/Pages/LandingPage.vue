@@ -22,6 +22,9 @@
     <!-- Phase 3: メディア掲載 -->
     <MediaSection ref="mediaSectionRef" />
 
+    <!-- SNS・メディア注目 -->
+    <SnsAttentionSection />
+
     <!-- 優待特典+プレゼント -->
     <BenefitsSection />
 
@@ -81,6 +84,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import lineButtonImage from '@/assets/images/line-button.svg';
 import FirstViewSection from '@/components/sections/FirstViewSection.vue';
 import MediaSection from '@/components/sections/MediaSection.vue';
+import SnsAttentionSection from '@/components/sections/SnsAttentionSection.vue';
 import BenefitsSection from '@/components/sections/BenefitsSection.vue';
 // import ConcernsSection from '@/components/sections/ConcernsSection.vue';
 import ReasonsSection from '@/components/sections/ReasonsSection.vue';
