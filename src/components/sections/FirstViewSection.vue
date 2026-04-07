@@ -174,7 +174,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch, defineProps, defineEmits, withDefaults } from 'vue';
+
+const props = withDefaults(defineProps<{
+  /** trueになるまでアニメーションを開始しない */
+  canAnimate?: boolean;
+}>(), {
+  canAnimate: true,
+});
+
+const emit = defineEmits<{
+  (e: 'images-ready'): void;
+}>();
 
 // PTエンジンのイベントトラッキング
 interface WindowWithPT extends Window {
@@ -187,6 +198,7 @@ const trackEvent = (eventName: string) => {
 
 // 画像読み込み状態
 const isLoaded = ref(false);
+const imagesReady = ref(false);
 const loadedCount = ref(0);
 const totalImages = 3; // fv-room, fv-logo, dogs
 
@@ -195,13 +207,27 @@ const roomImageRef = ref<HTMLImageElement | null>(null);
 const logoImageRef = ref<HTMLImageElement | null>(null);
 const dogsImageRef = ref<HTMLImageElement | null>(null);
 
+// 画像読み込みとcanAnimateの両方が揃ったらアニメーション開始
+const tryStartAnimation = () => {
+  if (imagesReady.value && props.canAnimate) {
+    isLoaded.value = true;
+  }
+};
+
 // 画像読み込み完了時のハンドラ
 const onImageLoad = () => {
   loadedCount.value++;
   if (loadedCount.value >= totalImages) {
-    isLoaded.value = true;
+    imagesReady.value = true;
+    emit('images-ready');
+    tryStartAnimation();
   }
 };
+
+// canAnimateが後からtrueになった場合
+watch(() => props.canAnimate, (val) => {
+  if (val) tryStartAnimation();
+});
 
 // マウント時に既にキャッシュされている画像をチェック
 onMounted(() => {

@@ -16,7 +16,7 @@
         <div class="footer-info">
           <p>〒150-0001</p>
           <p>東京都渋谷区神宮前２丁目３−１４ サンフェル神宮前 208</p>
-          <p>Tel : 03-5324-2316</p>
+          <p>Tel : 03-5962-5376</p>
           <p>E-Mail : info@glh613.com</p>
         </div>
 

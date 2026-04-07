@@ -27,7 +27,7 @@
         </div>
         <div class="info-row">
           <span class="info-label">電話番号</span>
-          <span class="info-value">03-5324-2316</span>
+          <span class="info-value">03-5962-5376</span>
         </div>
         <div class="info-row">
           <span class="info-label">E-mail</span>
