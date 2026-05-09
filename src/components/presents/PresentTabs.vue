@@ -34,7 +34,7 @@ const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding: 4px 16px 12px;
+  padding: 16px 16px 16px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 

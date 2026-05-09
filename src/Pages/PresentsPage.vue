@@ -1,8 +1,10 @@
 <template>
   <div class="presents-page">
-    <header class="presents-page__header">
+    <div class="presents-page__title-area">
+      <p class="presents-page__subtitle">PRESENTS</p>
       <h1 class="presents-page__title">プレゼント一覧</h1>
-    </header>
+      <span class="presents-page__title-divider"></span>
+    </div>
 
     <div v-if="loading" class="presents-page__loading">読み込み中...</div>
 
@@ -84,6 +86,7 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 @import '@/assets/styles/_variables.scss';
+@import '@/assets/styles/_mixins.scss';
 
 .presents-page {
   width: 100%;
@@ -92,13 +95,28 @@ onMounted(async () => {
   min-height: 100vh;
   background: $background;
   font-family: $font-gothic;
+  display: flex;
+  flex-direction: column;
   padding-bottom: 40px;
 }
 
-.presents-page__header {
-  padding: 24px 16px 16px;
+.presents-page__title-area {
+  padding: 40px 16px 36px;
   text-align: center;
-  background: $white;
+  background: $background;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.presents-page__subtitle {
+  margin: 0;
+  font-family: $font-gothic-a1;
+  font-weight: $font-weight-bold;
+  font-size: $font-sm;
+  letter-spacing: 0.2em;
+  color: $primary;
 }
 
 .presents-page__title {
@@ -106,12 +124,22 @@ onMounted(async () => {
   font-family: $font-mincho;
   font-size: $font-7xl;
   font-weight: $font-weight-semibold;
-  color: $text-brown;
   letter-spacing: 0.04em;
+  @include gradient-pink-text;
+}
+
+.presents-page__title-divider {
+  display: block;
+  margin-top: 8px;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, $accent-pink 0%, $accent-pink-dark 100%);
+  border-radius: 2px;
 }
 
 .presents-page__content {
   padding: 0 16px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;

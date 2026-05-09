@@ -30,10 +30,13 @@
               @delete="onDeleteTab(activeTab!.id)"
             />
 
-            <section class="admin-presents__items-placeholder">
-              <h2 class="admin-presents__section-title">プレゼント</h2>
-              <p>プレゼントの登録・編集・画像アップロードは Phase 5 で実装します。</p>
-            </section>
+            <AdminPresentList
+              :items="visibleItems"
+              @add="onAddPresent"
+              @edit="onEditPresent"
+              @delete="onDeletePresent"
+              @reorder="onReorderItems"
+            />
           </template>
 
           <div v-else class="admin-presents__no-tab">
@@ -42,6 +45,16 @@
         </div>
       </div>
     </main>
+
+    <AdminPresentEditor
+      v-if="editorOpen"
+      :item="editingItem"
+      :tabs="tabs"
+      :default-tab-id="activeTabId"
+      :saving="savingPresent"
+      @cancel="closeEditor"
+      @save="onSavePresent"
+    />
   </div>
 </template>
 
@@ -49,29 +62,55 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAdminAuth } from '@/composables/useAdminAuth';
-import { PresentTab, PresentTabInput } from '@/entity/present';
+import {
+  PresentTab,
+  PresentItem,
+  PresentTabInput,
+  PresentItemInput,
+} from '@/entity/present';
 import {
   fetchTabs,
+  fetchItems,
   createTab,
   updateTab,
   reorderTabs,
   deleteTabCascade,
+  createItem,
+  updateItem,
+  deleteItem,
+  reorderItems,
 } from '@/services/presentService';
+import { uploadPresentImage, deletePresentImageByUrl } from '@/services/storageService';
 import AdminTabList from '@/components/admin/AdminTabList.vue';
 import AdminTabEditor from '@/components/admin/AdminTabEditor.vue';
+import AdminPresentList from '@/components/admin/AdminPresentList.vue';
+import AdminPresentEditor from '@/components/admin/AdminPresentEditor.vue';
 
 const router = useRouter();
 const { currentUser, logout } = useAdminAuth();
 
 const tabs = ref<PresentTab[]>([]);
+const items = ref<PresentItem[]>([]);
 const activeTabId = ref('');
 const loading = ref(true);
 const savingTab = ref(false);
 
+const editorOpen = ref(false);
+const editingItem = ref<PresentItem | null>(null);
+const savingPresent = ref(false);
+
 const activeTab = computed(() => tabs.value.find((t) => t.id === activeTabId.value) || null);
 
+const visibleItems = computed(() =>
+  items.value
+    .filter((it) => it.tabId === activeTabId.value)
+    .sort((a, b) => a.order - b.order)
+);
+
 const reload = async () => {
-  tabs.value = await fetchTabs();
+  const [t, i] = await Promise.all([fetchTabs(), fetchItems()]);
+  tabs.value = t;
+  items.value = i;
   if (activeTabId.value && !tabs.value.some((tab) => tab.id === activeTabId.value)) {
     activeTabId.value = tabs.value[0]?.id || '';
   }
@@ -141,6 +180,105 @@ const onReorderTabs = async (orderedIds: string[]) => {
   } catch (e) {
     console.error(e);
     alert('タブの並び替えに失敗しました');
+  }
+};
+
+// ----- Presents -----
+const onAddPresent = () => {
+  editingItem.value = null;
+  editorOpen.value = true;
+};
+
+const onEditPresent = (item: PresentItem) => {
+  editingItem.value = item;
+  editorOpen.value = true;
+};
+
+const closeEditor = () => {
+  editorOpen.value = false;
+  editingItem.value = null;
+};
+
+const onSavePresent = async (payload: {
+  input: PresentItemInput;
+  newFiles: { id: string; file: File }[];
+  removedUrls: string[];
+}) => {
+  savingPresent.value = true;
+  try {
+    let itemId = editingItem.value?.id;
+    if (!itemId) {
+      // 新規: 一旦 images 空で作成して ID を取得
+      itemId = await createItem({
+        ...payload.input,
+        images: [],
+        order:
+          items.value
+            .filter((it) => it.tabId === payload.input.tabId)
+            .reduce((max, it) => Math.max(max, it.order), -1) + 1,
+      });
+    }
+
+    // 新規追加された画像をアップロード
+    const idToUrl = new Map<string, string>();
+    for (const { id, file } of payload.newFiles) {
+      const url = await uploadPresentImage(itemId, file);
+      idToUrl.set(id, url);
+    }
+
+    // プレースホルダーを実 URL に置換
+    const finalImages = payload.input.images.map((entry) => {
+      if (entry.startsWith('__pending__:')) {
+        const localId = entry.replace('__pending__:', '');
+        const url = idToUrl.get(localId);
+        if (!url) throw new Error(`Failed to resolve uploaded image for ${localId}`);
+        return url;
+      }
+      return entry;
+    });
+
+    await updateItem(itemId, {
+      tabId: payload.input.tabId,
+      title: payload.input.title,
+      detail: payload.input.detail,
+      images: finalImages,
+    });
+
+    // 削除済み画像を Storage からも削除
+    for (const url of payload.removedUrls) {
+      await deletePresentImageByUrl(url);
+    }
+
+    await reload();
+    closeEditor();
+  } catch (e) {
+    console.error(e);
+    alert('プレゼントの保存に失敗しました');
+  } finally {
+    savingPresent.value = false;
+  }
+};
+
+const onDeletePresent = async (item: PresentItem) => {
+  try {
+    await deleteItem(item.id);
+    for (const url of item.images) {
+      await deletePresentImageByUrl(url);
+    }
+    await reload();
+  } catch (e) {
+    console.error(e);
+    alert('プレゼントの削除に失敗しました');
+  }
+};
+
+const onReorderItems = async (orderedIds: string[]) => {
+  try {
+    await reorderItems(orderedIds);
+    await reload();
+  } catch (e) {
+    console.error(e);
+    alert('プレゼントの並び替えに失敗しました');
   }
 };
 
@@ -232,27 +370,6 @@ const onLogout = async () => {
     flex-direction: column;
     gap: 16px;
     min-width: 0;
-  }
-
-  &__section-title {
-    margin: 0;
-    font-family: $font-mincho;
-    font-size: $font-xl;
-    font-weight: $font-weight-semibold;
-    color: $text-brown;
-  }
-
-  &__items-placeholder {
-    padding: 20px;
-    background: $white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(92, 68, 42, 0.06);
-
-    p {
-      margin: 8px 0 0;
-      color: $text-brown-light;
-      font-size: $font-sm;
-    }
   }
 
   &__no-tab {
