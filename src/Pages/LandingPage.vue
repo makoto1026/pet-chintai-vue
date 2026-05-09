@@ -52,11 +52,11 @@
     <!-- Phase 10: お客様の声 -->
     <TestimonialsSection />
 
-    <!-- Phase 11: ご相談・来店（再利用） -->
-    <ConsultationSection :hide-top-overlay="true" position="中部" />
-
     <!-- Phase 12: ご入居までの流れ -->
     <FlowSection />
+
+    <!-- Phase 11: ご相談・来店（再利用） -->
+    <ConsultationSection :hide-top-overlay="true" position="中部" />
 
     <!-- Phase 13: スマートにお部屋探し -->
     <SmartSearchSection />
