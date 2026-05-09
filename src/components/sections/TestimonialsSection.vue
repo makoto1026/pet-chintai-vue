@@ -37,6 +37,34 @@
       <h2 class="testimonials-section__title">お客様のお声</h2>
     </div>
 
+    <!-- もっと見るボタン -->
+    <div class="testimonials-section__more">
+      <div class="testimonials-section__more-item">
+        <img :src="sparkleImage" alt="" class="testimonials-section__more-sparkle testimonials-section__more-sparkle--tl" />
+        <img :src="sparkleImage" alt="" class="testimonials-section__more-sparkle testimonials-section__more-sparkle--br" />
+        <a
+          href="https://petchintai.com/review/rental"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="testimonials-section__more-button"
+        >
+          <span class="testimonials-section__more-line">賃貸のお客様の声</span>
+        </a>
+      </div>
+      <div class="testimonials-section__more-item testimonials-section__more-item--delay">
+        <img :src="sparkleImage" alt="" class="testimonials-section__more-sparkle testimonials-section__more-sparkle--tl" />
+        <img :src="sparkleImage" alt="" class="testimonials-section__more-sparkle testimonials-section__more-sparkle--br" />
+        <a
+          href="https://petchintai.com/review/sales"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="testimonials-section__more-button testimonials-section__more-button--gold"
+        >
+          <span class="testimonials-section__more-line">売買のお客様の声</span>
+        </a>
+      </div>
+    </div>
+
     <!-- Voice 1 -->
     <div class="testimonials-section__voice">
       <div class="testimonials-section__voice-left">
@@ -144,6 +172,7 @@ import voice4Icon from '@/assets/images/voice4.svg';
 import redLineImage from '@/assets/images/red-line.svg';
 import slashLeftImage from '@/assets/images/testimonial-slash-left.svg';
 import slashRightImage from '@/assets/images/testimonial-slash-right.svg';
+import sparkleImage from '@/assets/images/media-sparkle.png';
 import voice1Image from '@/assets/images/voicease/voice1.jpg';
 import voice2Image from '@/assets/images/voicease/voice2.jpg';
 import voice3Image from '@/assets/images/voicease/voice3.jpg';
@@ -395,6 +424,148 @@ onUnmounted(() => {
     line-height: 20px;
     color: $text-brown;
     margin: 0;
+  }
+
+  &__more {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 10px;
+    margin: 30px 0;
+    padding: 12px 4px 16px;
+  }
+
+  &__more-item {
+    position: relative;
+    flex: 1;
+    animation: testimonialMoreBounce 1.8s ease-in-out infinite;
+
+    &--delay {
+      animation-delay: 0.3s;
+    }
+  }
+
+  @keyframes testimonialMoreBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  &__more-sparkle {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    animation: testimonialMoreTwinkle 1.6s ease-in-out infinite;
+
+    &--tl {
+      top: -10px;
+      left: -8px;
+      transform: rotate(-15deg);
+    }
+
+    &--br {
+      bottom: -6px;
+      right: -6px;
+      width: 16px;
+      height: 16px;
+      transform: rotate(160deg);
+      animation-delay: 0.8s;
+    }
+  }
+
+  @keyframes testimonialMoreTwinkle {
+    0%, 100% {
+      opacity: 0;
+      filter: brightness(0.9);
+    }
+    40%, 60% {
+      opacity: 1;
+      filter: brightness(1.2);
+    }
+  }
+
+  &__more-button {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 14px 8px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #5c442a 0%, #ee7f81 100%);
+    color: $white;
+    text-decoration: none;
+    font-family: $font-mincho;
+    font-weight: $font-weight-semibold;
+    font-size: $font-md;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(92, 68, 42, 0.25);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, filter 0.2s ease;
+
+    // シマー（光沢の流れ）
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -75%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.55) 50%,
+        transparent 60%,
+        transparent 100%
+      );
+      transform: skewX(-20deg);
+      animation: testimonialMoreShimmer 3.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    &:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 6px 14px rgba(92, 68, 42, 0.3);
+    }
+
+    &:active {
+      filter: brightness(0.97);
+      box-shadow: 0 2px 4px rgba(92, 68, 42, 0.25);
+    }
+
+    &--gold {
+      background: linear-gradient(90deg, #5c442a 0%, #d4a849 100%);
+
+      &::before {
+        animation-delay: 1.2s;
+      }
+    }
+  }
+
+  @keyframes testimonialMoreShimmer {
+    0% {
+      left: -75%;
+    }
+    60%, 100% {
+      left: 125%;
+    }
+  }
+
+  &__more-line {
+    display: block;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
   }
 
   &__divider {
