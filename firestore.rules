@@ -2,7 +2,24 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'yukimidaifuku0405@gmail.com';
+    }
+
+    // プレゼント機能 — 読み取り公開、書き込みは管理者のみ
+    match /presentTabs/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /presentItems/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 既存コレクション（後方互換のため open）
+    match /priorityDestinations/{doc=**} {
       allow read, write: if true;
     }
   }

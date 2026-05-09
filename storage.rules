@@ -1,10 +1,20 @@
 rules_version = '2';
 
-// Craft rules based on data in your Firestore database
-// allow write: if firestore.get(
-//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
 service firebase.storage {
   match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'yukimidaifuku0405@gmail.com';
+    }
+
+    // プレゼント画像 — 読み取り公開、書き込みは管理者のみ
+    match /presents/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // それ以外は拒否
     match /{allPaths=**} {
       allow read, write: if false;
     }
