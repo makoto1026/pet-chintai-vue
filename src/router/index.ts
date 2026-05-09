@@ -6,6 +6,10 @@ import PrivacyPolicyPage from '../Pages/PrivacyPolicyPage.vue'
 import CorporatePage from '../Pages/CorporatePage.vue'
 import ReviewRentalPage from '../Pages/ReviewRentalPage.vue'
 import ReviewSalesPage from '../Pages/ReviewSalesPage.vue'
+import PresentsPage from '../Pages/PresentsPage.vue'
+import AdminLoginPage from '../Pages/admin/AdminLoginPage.vue'
+import AdminPresentsPage from '../Pages/admin/AdminPresentsPage.vue'
+import { useAdminAuth } from '@/composables/useAdminAuth'
 
 const routes = [
   { path: '/', component: LandingPage, name: 'landing' },
@@ -13,7 +17,14 @@ const routes = [
   { path: '/privacy-policy', component: PrivacyPolicyPage },
   { path: '/corporate', component: CorporatePage },
   { path: '/review/rental', component: ReviewRentalPage },
-  { path: '/review/sales', component: ReviewSalesPage }
+  { path: '/review/sales', component: ReviewSalesPage },
+  { path: '/presents', component: PresentsPage },
+  { path: '/admin/login', component: AdminLoginPage },
+  {
+    path: '/admin/presents',
+    component: AdminPresentsPage,
+    meta: { requiresAdmin: true }
+  }
 ]
 
 const router = createRouter({
@@ -27,6 +38,16 @@ const router = createRouter({
       return { el: to.hash, behavior: 'smooth' }
     }
     return { top: 0 }
+  }
+})
+
+router.beforeEach(async (to) => {
+  if (to.meta.requiresAdmin) {
+    const { waitForAuthReady, isAdmin } = useAdminAuth()
+    await waitForAuthReady()
+    if (!isAdmin.value) {
+      return '/admin/login'
+    }
   }
 })
 
