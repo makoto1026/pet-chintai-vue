@@ -14,16 +14,17 @@
           {{ activeTab.cautionText }}
         </p>
 
-        <div v-if="visibleCategories.length > 0" class="presents-page__categories">
-          <PresentCategorySection
-            v-for="cat in visibleCategories"
-            :key="cat.id"
-            :category="cat"
-            :items="itemsByCategory[cat.id] || []"
-            @open-item="openGallery"
+        <div v-if="visibleItems.length > 0" class="presents-page__items">
+          <PresentCard
+            v-for="item in visibleItems"
+            :key="item.id"
+            :item="item"
+            @open="openGallery"
           />
         </div>
-        <p v-else class="presents-page__empty">このタブにはまだプレゼントが登録されていません</p>
+        <p v-else class="presents-page__empty">
+          このタブにはまだプレゼントが登録されていません
+        </p>
       </div>
     </template>
 
@@ -42,13 +43,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import PresentTabs from '@/components/presents/PresentTabs.vue';
-import PresentCategorySection from '@/components/presents/PresentCategorySection.vue';
+import PresentCard from '@/components/presents/PresentCard.vue';
 import PresentImageGallery from '@/components/presents/PresentImageGallery.vue';
-import { PresentTab, PresentCategory, PresentItem } from '@/entity/present';
-import { fetchTabs, fetchCategories, fetchItems } from '@/services/presentService';
+import { PresentTab, PresentItem } from '@/entity/present';
+import { fetchTabs, fetchItems } from '@/services/presentService';
 
 const tabs = ref<PresentTab[]>([]);
-const categories = ref<PresentCategory[]>([]);
 const items = ref<PresentItem[]>([]);
 const activeTabId = ref('');
 const galleryItem = ref<PresentItem | null>(null);
@@ -56,24 +56,11 @@ const loading = ref(true);
 
 const activeTab = computed(() => tabs.value.find((t) => t.id === activeTabId.value) || null);
 
-const visibleCategories = computed(() =>
-  categories.value
-    .filter((c) => c.tabId === activeTabId.value)
+const visibleItems = computed(() =>
+  items.value
+    .filter((it) => it.tabId === activeTabId.value)
     .sort((a, b) => a.order - b.order)
 );
-
-const itemsByCategory = computed(() => {
-  const map: Record<string, PresentItem[]> = {};
-  for (const it of items.value) {
-    if (it.tabId !== activeTabId.value) continue;
-    if (!map[it.categoryId]) map[it.categoryId] = [];
-    map[it.categoryId].push(it);
-  }
-  for (const key in map) {
-    map[key].sort((a, b) => a.order - b.order);
-  }
-  return map;
-});
 
 const openGallery = (item: PresentItem) => {
   galleryItem.value = item;
@@ -81,9 +68,8 @@ const openGallery = (item: PresentItem) => {
 
 onMounted(async () => {
   try {
-    const [t, c, i] = await Promise.all([fetchTabs(), fetchCategories(), fetchItems()]);
+    const [t, i] = await Promise.all([fetchTabs(), fetchItems()]);
     tabs.value = t;
-    categories.value = c;
     items.value = i;
     if (tabs.value.length > 0) {
       activeTabId.value = tabs.value[0].id;
@@ -142,10 +128,11 @@ onMounted(async () => {
   white-space: pre-line;
 }
 
-.presents-page__categories {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+// 縦 1 列 → grid-template-columns を変えるだけでグリッド化可能
+.presents-page__items {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
 .presents-page__loading,

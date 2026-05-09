@@ -13,10 +13,6 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAdmin();
     }
-    match /presentCategories/{doc} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
     match /presentItems/{doc} {
       allow read: if true;
       allow write: if isAdmin();

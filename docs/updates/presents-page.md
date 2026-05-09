@@ -2,7 +2,7 @@
 
 ## 概要
 ペット住まいラボでお客様にプレゼントしている特典を一覧表示する公開ページ（`/presents`）と、その内容を運営側で更新できる管理画面を新設する。
-プレゼントは複数のジャンル（タブ）に分かれ、各タブ内でさらに大項目で区切って表示する。
+プレゼントは複数のジャンル（タブ）に分かれ、各タブ直下にプレゼント（商品）が並ぶ構造。
 頻繁に入れ替わるため、Firestore + Firebase Storage で管理し、Firebase Auth で保護した管理画面から CRUD できるようにする。
 公開ページは URL 直遷移を前提とした単一ページとして提供する。
 
@@ -31,10 +31,7 @@ URL 直遷移される単一ページ前提のため、戻るリンクやヘッ�
 2. **タブ群**（横スクロール可能、選択中タブはアクセントカラー）
 3. 選択中タブの内容
    - **タブの注意点テキスト**（タブ全体の注意事項。空文字なら非表示）
-   - **大項目セクション** が縦に並ぶ
-     - 大項目見出し
-     - **大項目の注意点テキスト**（その大項目固有の注意事項。空文字なら非表示）
-     - プレゼントカード（写真＋タイトル＋詳細）の **縦 1 列リスト**
+   - プレゼントカード（写真＋タイトル＋詳細）の **縦 1 列リスト**
 4. フッター（簡易フッター。LP の `FooterSection` 流用も検討）
 
 ### プレゼントカード
@@ -74,20 +71,16 @@ PC とスマホ両対応のレイアウト。
     - タブ名
     - タブの注意点テキスト（複数行）
     - 「保存」ボタン
-  - **大項目リスト**
-    - 各大項目の名称編集／並び替え／削除／新規追加
-    - 大項目ごとの注意点テキスト編集（複数行）
-    - 「保存」ボタン
   - **プレゼントリスト**
-    - 大項目ごとにプレゼントを並べる
+    - タブ直下にプレゼントを並べる
     - 1 件ずつ「編集」「削除」「並び替え」ができる
     - 「新規追加」ボタンでモーダル or インラインフォーム
 
 #### プレゼント編集フォーム
 - タイトル（必須）
 - detail（詳細テキスト、任意・複数行）
-- 所属タブ・大項目（プルダウン）
-- 写真アップロード（複数選択可、最大 10 枚）
+- 所属タブ（プルダウン）
+- 写真アップロード（複数選択可、最大 20 枚）
   - サムネイルプレビュー
   - 1 枚ずつ削除可
   - 並び替え可（先頭がメイン画像）
@@ -114,23 +107,13 @@ presentTabs/{tabId}
   - createdAt: Timestamp
   - updatedAt: Timestamp
 
-presentCategories/{categoryId}
-  - id: string
-  - tabId: string                // 所属タブ
-  - name: string                 // 大項目名
-  - cautionText: string          // 大項目の注意点テキスト（複数行可、空文字許容）
-  - order: number
-  - createdAt: Timestamp
-  - updatedAt: Timestamp
-
 presentItems/{itemId}
   - id: string
-  - tabId: string
-  - categoryId: string
+  - tabId: string                // 所属タブ
   - title: string                // タイトル（必須）
   - detail: string               // 詳細テキスト（任意、複数行可、空文字許容）
-  - images: string[]             // Storage の公開 URL（最大 10）
-  - order: number                // 大項目内での並び順
+  - images: string[]             // Storage の公開 URL（最大 20）
+  - order: number                // タブ内での並び順
   - createdAt: Timestamp
   - updatedAt: Timestamp
 ```
@@ -169,15 +152,10 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // 公開ページ用に読み取りはオープン
     match /presentTabs/{doc=**}        { allow read: if true; }
-    match /presentCategories/{doc=**}  { allow read: if true; }
     match /presentItems/{doc=**}       { allow read: if true; }
 
     // 書き込みは管理者メールでログインしている場合のみ
     match /presentTabs/{doc} {
-      allow write: if request.auth != null
-                   && request.auth.token.email == 'yukimidaifuku0405@gmail.com';
-    }
-    match /presentCategories/{doc} {
       allow write: if request.auth != null
                    && request.auth.token.email == 'yukimidaifuku0405@gmail.com';
     }
@@ -222,12 +200,10 @@ service firebase.storage {
 - `src/Pages/admin/AdminLoginPage.vue`
 - `src/Pages/admin/AdminPresentsPage.vue`
 - `src/components/presents/PresentTabs.vue`
-- `src/components/presents/PresentCategorySection.vue`
 - `src/components/presents/PresentCard.vue`
 - `src/components/presents/PresentImageGallery.vue`
-- `src/components/admin/AdminHeader.vue`
-- `src/components/admin/AdminTabManager.vue`
-- `src/components/admin/AdminCategoryEditor.vue`
+- `src/components/admin/AdminTabList.vue`
+- `src/components/admin/AdminTabEditor.vue`
 - `src/components/admin/AdminPresentEditor.vue`
 - `src/components/admin/AdminImageUploader.vue`
 - `src/services/presentService.ts`（Firestore CRUD ラッパ）
@@ -263,14 +239,14 @@ service firebase.storage {
 - ルートガード（`onAuthStateChanged` + メアドチェック）
 - 動作確認: 正/誤パスワードの分岐、リロードで状態維持、ログアウト動作
 
-### Phase 4 — 管理画面 タブ・大項目管理
-- タブ・大項目の CRUD と並び替え
-- 注意点テキスト編集
+### Phase 4 — 管理画面 タブ管理
+- タブの CRUD と並び替え
+- タブの注意点テキスト編集
 - 動作確認: 操作後に公開ページが追従するか
 
 ### Phase 5 — 管理画面 プレゼント管理
-- プレゼント CRUD
-- 画像アップロード（複数枚 / 並び替え / 削除）
+- プレゼント CRUD（タイトル／詳細／所属タブ）
+- 画像アップロード（複数枚 / 並び替え / 削除、最大 20 枚）
 - 動作確認: 公開ページに反映、画像ギャラリーが正しく表示
 
 各フェーズ完了時にユーザーへ動作確認を依頼し、OK が出てからコミット。
@@ -290,5 +266,6 @@ service firebase.storage {
 - 認証: Firebase Auth (Email/Password)、新規登録 UI なし
 - ルール: 読み取り公開／書き込みは管理者メール一致時のみ
 - 保存タイミング: 明示的な「保存」ボタン
-- 注意点テキスト: タブ／大項目それぞれが保持
+- 注意点テキスト: タブごとに 1 つ
 - カードレイアウト: 縦 1 列（CSS Grid で実装、後でグリッド切替が容易）
+- 画像最大枚数: 1 商品あたり 20 枚

@@ -16,19 +16,15 @@ import {
 import { db } from '@/firebase';
 import {
   PresentTab,
-  PresentCategory,
   PresentItem,
   PresentTabInput,
-  PresentCategoryInput,
   PresentItemInput,
 } from '@/entity/present';
 
 const TABS = 'presentTabs';
-const CATEGORIES = 'presentCategories';
 const ITEMS = 'presentItems';
 
 const tabsCol = () => collection(db, TABS) as CollectionReference<DocumentData>;
-const categoriesCol = () => collection(db, CATEGORIES) as CollectionReference<DocumentData>;
 const itemsCol = () => collection(db, ITEMS) as CollectionReference<DocumentData>;
 
 const mapDoc = <T>(snapshotDoc: { id: string; data: () => DocumentData }): T => {
@@ -69,46 +65,6 @@ export async function reorderTabs(orderedIds: string[]): Promise<void> {
   await batch.commit();
 }
 
-// ------- Categories -------
-export async function fetchCategories(tabId?: string): Promise<PresentCategory[]> {
-  const q = tabId
-    ? query(categoriesCol(), where('tabId', '==', tabId), orderBy('order', 'asc'))
-    : query(categoriesCol(), orderBy('order', 'asc'));
-  const snap = await getDocs(q);
-  return snap.docs.map((d) => mapDoc<PresentCategory>(d));
-}
-
-export async function createCategory(input: PresentCategoryInput): Promise<string> {
-  const ref = await addDoc(categoriesCol(), {
-    ...input,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
-  return ref.id;
-}
-
-export async function updateCategory(
-  id: string,
-  input: Partial<PresentCategoryInput>
-): Promise<void> {
-  await updateDoc(doc(db, CATEGORIES, id), {
-    ...input,
-    updatedAt: serverTimestamp(),
-  });
-}
-
-export async function deleteCategory(id: string): Promise<void> {
-  await deleteDoc(doc(db, CATEGORIES, id));
-}
-
-export async function reorderCategories(orderedIds: string[]): Promise<void> {
-  const batch = writeBatch(db);
-  orderedIds.forEach((id, index) => {
-    batch.update(doc(db, CATEGORIES, id), { order: index, updatedAt: serverTimestamp() });
-  });
-  await batch.commit();
-}
-
 // ------- Items -------
 export async function fetchItems(tabId?: string): Promise<PresentItem[]> {
   const q = tabId
@@ -143,5 +99,16 @@ export async function reorderItems(orderedIds: string[]): Promise<void> {
   orderedIds.forEach((id, index) => {
     batch.update(doc(db, ITEMS, id), { order: index, updatedAt: serverTimestamp() });
   });
+  await batch.commit();
+}
+
+// ------- Cascade -------
+
+/** タブを削除し、配下のアイテムも削除する */
+export async function deleteTabCascade(tabId: string): Promise<void> {
+  const itemsSnap = await getDocs(query(itemsCol(), where('tabId', '==', tabId)));
+  const batch = writeBatch(db);
+  itemsSnap.docs.forEach((d) => batch.delete(d.ref));
+  batch.delete(doc(db, TABS, tabId));
   await batch.commit();
 }
