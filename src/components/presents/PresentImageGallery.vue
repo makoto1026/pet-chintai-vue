@@ -132,6 +132,8 @@ onUnmounted(() => {
   &__inner {
     width: 100%;
     max-width: 480px;
+    max-height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -144,6 +146,7 @@ onUnmounted(() => {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     overflow: hidden;
+    flex-shrink: 0;
   }
 
   &__image {
@@ -201,6 +204,7 @@ onUnmounted(() => {
     gap: 6px;
     overflow-x: auto;
     padding: 2px 0;
+    flex-shrink: 0;
   }
 
   &__thumb {
@@ -229,12 +233,17 @@ onUnmounted(() => {
   &__meta {
     color: $white;
     font-family: $font-gothic;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   &__title {
     margin: 0 0 6px;
     font-size: $font-lg;
     font-weight: $font-weight-bold;
+    flex-shrink: 0;
   }
 
   &__detail {
@@ -243,6 +252,11 @@ onUnmounted(() => {
     line-height: 1.6;
     white-space: pre-line;
     color: rgba(255, 255, 255, 0.85);
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 }
 </style>
