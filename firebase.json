@@ -5,6 +5,9 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "storage": {
+    "rules": "storage.rules"
+  },
   "hosting": {
     "public": "dist",
     "ignore": [
@@ -40,6 +43,18 @@
             "value": "public,max-age=3600"
           }
         ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/pdf/property-purchase.pdf",
+        "destination": "/property-purchase",
+        "type": 302
+      },
+      {
+        "source": "/pdf/**",
+        "destination": "/property-purchase",
+        "type": 302
       }
     ],
     "rewrites": [

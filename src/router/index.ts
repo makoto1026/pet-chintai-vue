@@ -7,6 +7,7 @@ import CorporatePage from '../Pages/CorporatePage.vue'
 import ReviewRentalPage from '../Pages/ReviewRentalPage.vue'
 import ReviewSalesPage from '../Pages/ReviewSalesPage.vue'
 import PresentsPage from '../Pages/PresentsPage.vue'
+import PropertyPurchasePage from '../Pages/PropertyPurchasePage.vue'
 import AdminLoginPage from '../Pages/admin/AdminLoginPage.vue'
 import AdminPresentsPage from '../Pages/admin/AdminPresentsPage.vue'
 import { useAdminAuth } from '@/composables/useAdminAuth'
@@ -19,6 +20,7 @@ const routes = [
   { path: '/review/rental', component: ReviewRentalPage },
   { path: '/review/sales', component: ReviewSalesPage },
   { path: '/presents', component: PresentsPage },
+  { path: '/property-purchase', component: PropertyPurchasePage },
   { path: '/admin/login', component: AdminLoginPage },
   {
     path: '/admin/presents',
