@@ -57,16 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import backgroundImageWebp from '@/assets/images/safety-bg.webp';
-import backgroundImagePng from '@/assets/images/safety-bg.png';
+import backgroundImage from '@/assets/images/safety-bg.webp';
 import checkIcon from '@/assets/images/check-yellow.svg';
-
-// WebP対応チェック
-const supportsWebP = () => {
-  const canvas = document.createElement('canvas');
-  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
-};
-const backgroundImage = supportsWebP() ? backgroundImageWebp : backgroundImagePng;
 </script>
 
 <style scoped lang="scss">

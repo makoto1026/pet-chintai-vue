@@ -25,7 +25,7 @@
         <source srcset="@/assets/images/fv-room.webp" type="image/webp" />
         <img
           ref="roomImageRef"
-          src="@/assets/images/fv-room.png"
+          src="@/assets/images/fv-room.webp"
           alt="ペット可賃貸の部屋"
           class="main-visual__image"
           loading="eager"
@@ -63,7 +63,7 @@
           <source srcset="@/assets/images/fv-logo.webp" type="image/webp" />
           <img
             ref="logoImageRef"
-            src="@/assets/images/fv-logo.png"
+            src="@/assets/images/fv-logo.webp"
             alt="ペット住まいラボ"
             class="main-visual__title-logo"
             loading="eager"
@@ -80,7 +80,7 @@
           <source srcset="@/assets/images/dogs.webp" type="image/webp" />
           <img
             ref="dogsImageRef"
-            src="@/assets/images/dogs.png"
+            src="@/assets/images/dogs.webp"
             alt="犬と猫"
             class="main-visual__dogs-img"
             loading="eager"
@@ -124,7 +124,7 @@
       <div class="badge badge--animate" style="--badge-index: 0">
         <picture>
           <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
-          <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
+          <img src="@/assets/images/badge-bg.webp" alt="" class="badge__bg" loading="lazy" />
         </picture>
         <div class="badge__content">
           <span class="badge__label">安価~高級<span class="badge__label-small">まで</span></span>
@@ -134,7 +134,7 @@
       <div class="badge badge--animate" style="--badge-index: 1">
         <picture>
           <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
-          <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
+          <img src="@/assets/images/badge-bg.webp" alt="" class="badge__bg" loading="lazy" />
         </picture>
         <div class="badge__content">
           <span class="badge__label">物件数</span>
@@ -144,7 +144,7 @@
       <div class="badge badge--animate" style="--badge-index: 2">
         <picture>
           <source srcset="@/assets/images/badge-bg.webp" type="image/webp" />
-          <img src="@/assets/images/badge-bg.png" alt="" class="badge__bg" loading="lazy" />
+          <img src="@/assets/images/badge-bg.webp" alt="" class="badge__bg" loading="lazy" />
         </picture>
         <div class="badge__content">
           <span class="badge__label badge__label--small">SNS総フォロワー</span>
@@ -163,7 +163,7 @@
       <picture>
         <source srcset="@/assets/images/fv-button.webp" type="image/webp" />
         <img
-          src="@/assets/images/fv-button.png"
+          src="@/assets/images/fv-button.webp"
           alt="繁忙期前にお得に物件CHECKする!"
           class="cta-button__img"
           loading="eager"

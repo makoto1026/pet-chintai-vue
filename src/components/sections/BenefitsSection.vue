@@ -119,9 +119,9 @@ import GoldPlus from '@/components/icons/gold-plus.vue';
 import DogStamp from '@/components/icons/DogStamp.vue';
 
 // 画像インポート
-import bgTexture from '@/assets/images/benefits/bg-texture.png';
-import bgOverlay from '@/assets/images/benefits/bg-overlay.png';
-import presentBg from '@/assets/images/benefits/present-bg.png';
+import bgTexture from '@/assets/images/benefits/bg-texture.webp';
+import bgOverlay from '@/assets/images/benefits/bg-overlay.webp';
+import presentBg from '@/assets/images/benefits/present-bg.webp';
 import pawLeft from '@/assets/images/benefits/paw-left.png';
 import pawRight from '@/assets/images/benefits/paw-right.png';
 import badgeBg from '@/assets/images/benefits/badge-bg.png';

@@ -156,23 +156,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import bgImageWebp from '@/assets/images/testimonial-bg.webp';
-import bgImagePng from '@/assets/images/testimonial-bg.png';
+import bgImage from '@/assets/images/testimonial-bg.webp';
 import voice1Icon from '@/assets/images/voice1.svg';
-
-// WebP対応チェック
-const supportsWebP = () => {
-  const canvas = document.createElement('canvas');
-  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
-};
-const bgImage = supportsWebP() ? bgImageWebp : bgImagePng;
 import voice2Icon from '@/assets/images/voice2.svg';
 import voice3Icon from '@/assets/images/voice3.svg';
 import voice4Icon from '@/assets/images/voice4.svg';
 import redLineImage from '@/assets/images/red-line.svg';
 import slashLeftImage from '@/assets/images/testimonial-slash-left.svg';
 import slashRightImage from '@/assets/images/testimonial-slash-right.svg';
-import sparkleImage from '@/assets/images/media-sparkle.png';
+import sparkleImage from '@/assets/images/media-sparkle.webp';
 import voice1Image from '@/assets/images/voicease/voice1.jpg';
 import voice2Image from '@/assets/images/voicease/voice2.jpg';
 import voice3Image from '@/assets/images/voicease/voice3.jpg';

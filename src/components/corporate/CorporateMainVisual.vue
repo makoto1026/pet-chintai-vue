@@ -2,7 +2,7 @@
   <section id="fv" class="fv-section">
     <!-- メイン画像エリア -->
     <div class="fv-image-area">
-      <img src="@/assets/images/corporate/fv-image.png" alt="メインビジュアル" class="fv-main-image" />
+      <img src="@/assets/images/corporate/fv-image.webp" alt="メインビジュアル" class="fv-main-image" />
 
       <!-- 縦書きキャッチコピー（画像上） -->
       <div class="fv-catch-top">
@@ -30,7 +30,7 @@
     <!-- サブ画像エリア -->
     <div class="fv-sub-area">
       <div class="sub-image-wrapper">
-        <img src="@/assets/images/corporate/section-image.png" alt="暮らしのイメージ" class="sub-image" />
+        <img src="@/assets/images/corporate/section-image.webp" alt="暮らしのイメージ" class="sub-image" />
         <div class="sub-image-overlay"></div>
       </div>
 

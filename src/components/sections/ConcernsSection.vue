@@ -8,7 +8,7 @@
         <picture>
           <source srcset="@/assets/images/concerns-worry-bg.webp" type="image/webp" />
           <img
-            src="@/assets/images/concerns-worry-bg.png"
+            src="@/assets/images/concerns-worry-bg.webp"
             alt=""
             class="concerns-section__worry-bg-image"
             loading="lazy"
@@ -64,7 +64,7 @@
         <picture>
           <source srcset="@/assets/images/concerns-solution-bg.webp" type="image/webp" />
           <img
-            src="@/assets/images/concerns-solution-bg.png"
+            src="@/assets/images/concerns-solution-bg.webp"
             alt=""
             class="concerns-section__solution-bg-image"
             loading="lazy"

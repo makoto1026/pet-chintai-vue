@@ -9,7 +9,7 @@
       </div>
 
       <div class="company-image">
-        <img src="@/assets/images/corporate/company-image.png" alt="会社イメージ" />
+        <img src="@/assets/images/corporate/company-image.webp" alt="会社イメージ" />
       </div>
 
       <div class="company-info">

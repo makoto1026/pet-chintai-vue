@@ -32,7 +32,7 @@
     <picture>
       <source srcset="@/assets/images/media-sparkle.webp" type="image/webp" />
       <img
-        src="@/assets/images/media-sparkle.png"
+        src="@/assets/images/media-sparkle.webp"
         alt=""
         class="media-section__sparkle media-section__sparkle--left"
         loading="lazy"
@@ -43,7 +43,7 @@
     <picture>
       <source srcset="@/assets/images/media-sparkle.webp" type="image/webp" />
       <img
-        src="@/assets/images/media-sparkle.png"
+        src="@/assets/images/media-sparkle.webp"
         alt=""
         class="media-section__sparkle media-section__sparkle--right"
         loading="lazy"
