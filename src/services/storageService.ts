@@ -2,12 +2,54 @@ import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'fi
 import { storage } from '@/firebase';
 
 const PRESENT_PATH = 'presents';
+const MAX_IMAGE_DIMENSION = 1600;
+const WEBP_QUALITY = 0.78;
 
 const generateId = (): string => {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 };
 
+const canvasToBlob = (canvas: HTMLCanvasElement, type: string, quality: number): Promise<Blob | null> => {
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => resolve(blob), type, quality);
+  });
+};
+
+const resizeImageForUpload = async (file: File): Promise<File> => {
+  if (!file.type.startsWith('image/') || file.type === 'image/svg+xml') {
+    return file;
+  }
+
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, MAX_IMAGE_DIMENSION / Math.max(bitmap.width, bitmap.height));
+    const width = Math.round(bitmap.width * scale);
+    const height = Math.round(bitmap.height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext('2d');
+    if (!context) return file;
+    context.drawImage(bitmap, 0, 0, width, height);
+
+    const blob = await canvasToBlob(canvas, 'image/webp', WEBP_QUALITY);
+    if (!blob || blob.size >= file.size) {
+      return file;
+    }
+
+    return new File([blob], `${file.name.replace(/\.[^.]+$/, '')}.webp`, {
+      type: 'image/webp',
+      lastModified: Date.now(),
+    });
+  } catch (e) {
+    console.warn('resizeImageForUpload failed:', e);
+    return file;
+  }
+};
+
 const getExtension = (file: File): string => {
+  if (file.type === 'image/webp') return 'webp';
   const fromName = file.name.split('.').pop();
   if (fromName) return fromName.toLowerCase();
   const fromType = file.type.split('/').pop();
@@ -15,10 +57,11 @@ const getExtension = (file: File): string => {
 };
 
 export async function uploadPresentImage(itemId: string, file: File): Promise<string> {
-  const ext = getExtension(file);
+  const uploadFile = await resizeImageForUpload(file);
+  const ext = getExtension(uploadFile);
   const path = `${PRESENT_PATH}/${itemId}/${generateId()}.${ext}`;
   const ref = storageRef(storage, path);
-  await uploadBytes(ref, file);
+  await uploadBytes(ref, uploadFile, { contentType: uploadFile.type });
   return await getDownloadURL(ref);
 }
 
