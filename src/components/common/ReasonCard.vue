@@ -163,7 +163,7 @@ defineProps({
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('@/assets/images/concerns-solution-bg.png');
+    background-image: url('@/assets/images/concerns-solution-bg.webp');
     background-size: cover;
     mix-blend-mode: soft-light;
     opacity: 0.3;

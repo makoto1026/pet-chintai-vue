@@ -3,7 +3,7 @@
   <!-- ヘッダー＆KV -->
   <div class="head">
     <AppHeader class="header" />
-    <img class="kv" src="@/assets/images/kv.png" />
+    <img class="kv" src="@/assets/images/kv.webp" />
   </div>
   <!-- 優待コンテンツ -->
   <div class="content">

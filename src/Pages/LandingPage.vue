@@ -105,16 +105,16 @@ import FooterSection from '@/components/sections/FooterSection.vue';
 import LeavePopup from '@/components/common/LeavePopup.vue';
 
 // 物件画像のインポート（FV直下用）
-import yoyogiImage from '@/assets/images/properties/yoyogi.jpg';
-import shibuyaImage from '@/assets/images/properties/shibuya.jpg';
-import kasaiImage from '@/assets/images/properties/kasai.jpg';
-import shinNakanoImage from '@/assets/images/properties/shin-nakano.jpg';
+import yoyogiImage from '@/assets/images/properties/yoyogi.webp';
+import shibuyaImage from '@/assets/images/properties/shibuya.webp';
+import kasaiImage from '@/assets/images/properties/kasai.webp';
+import shinNakanoImage from '@/assets/images/properties/shin-nakano.webp';
 
 // 物件画像のインポート（下部用）
-import ishikawatyoImage from '@/assets/images/properties/ishikawatyo.png';
-import sakuragaokaImage from '@/assets/images/properties/sakuragaoka.png';
-import senzokuImage from '@/assets/images/properties/senzoku.png';
-import shiroganedaiImage from '@/assets/images/properties/shiroganedai.png';
+import ishikawatyoImage from '@/assets/images/properties/ishikawatyo.webp';
+import sakuragaokaImage from '@/assets/images/properties/sakuragaoka.webp';
+import senzokuImage from '@/assets/images/properties/senzoku.webp';
+import shiroganedaiImage from '@/assets/images/properties/shiroganedai.webp';
 
 // FV直下の物件データ
 const propertiesTop = [

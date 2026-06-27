@@ -81,20 +81,12 @@ const trackEvent = (eventName: string) => {
   const w = window as WindowWithPT;
   w._pt_sp_2?.push('setCustomEvent', { eventName });
 };
-import phoneMockImageWebp from '@/assets/images/sns-phone-mock.webp';
-import phoneMockImagePng from '@/assets/images/sns-phone-mock.png';
-import instagramLogoImage from '@/assets/images/sns-instagram-logo.png';
+import phoneMockImage from '@/assets/images/sns-phone-mock.webp';
+import instagramLogoImage from '@/assets/images/sns-instagram-logo.webp';
 import followerDecorationImage from '@/assets/images/sns-follower-decoration.png';
 import instaIcon from '@/assets/images/insta.svg';
 import tiktokIcon from '@/assets/images/tiktok.svg';
 import youtubeIcon from '@/assets/images/youtube.svg';
-
-// WebP対応チェック
-const supportsWebP = () => {
-  const canvas = document.createElement('canvas');
-  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
-};
-const phoneMockImage = supportsWebP() ? phoneMockImageWebp : phoneMockImagePng;
 
 // スクロールアニメーション用
 const sectionRef = ref<HTMLElement | null>(null);

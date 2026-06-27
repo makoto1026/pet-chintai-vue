@@ -9,7 +9,7 @@
       </div>
 
       <div class="recruit-image">
-        <img src="@/assets/images/corporate/recruit-image.png" alt="採用イメージ" />
+        <img src="@/assets/images/corporate/recruit-image.webp" alt="採用イメージ" />
       </div>
 
       <h3 class="recruit-catch">暮らしに寄り添う仕事を一緒に</h3>

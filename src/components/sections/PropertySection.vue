@@ -69,8 +69,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, defineProps } from 'vue';
 import PropertyCard from '@/components/common/PropertyCard.vue';
-import backgroundImageWebp from '@/assets/images/property-bg.webp';
-import backgroundImagePng from '@/assets/images/property-bg.png';
+import backgroundImage from '@/assets/images/property-bg.webp';
 import decorationImage from '@/assets/images/properties-bg-decoration.png';
 
 // 物件データの型定義
@@ -89,13 +88,6 @@ export interface PropertyData {
 defineProps<{
   properties: PropertyData[];
 }>();
-
-// WebP対応チェック
-const supportsWebP = () => {
-  const canvas = document.createElement('canvas');
-  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
-};
-const backgroundImage = supportsWebP() ? backgroundImageWebp : backgroundImagePng;
 
 // スクロールアニメーション用
 const subtitleRef = ref<HTMLElement | null>(null);
