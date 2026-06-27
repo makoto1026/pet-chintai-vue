@@ -14,6 +14,12 @@ service firebase.storage {
       allow write: if isAdmin();
     }
 
+    // LINEリッチメニューなどで配布する資料PDF — 読み取り公開、書き込みは管理者のみ
+    match /documents/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // それ以外は拒否
     match /{allPaths=**} {
       allow read, write: if false;
